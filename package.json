@@ -23,7 +23,17 @@
     "url": "https://github.com/random82/vsts-monte-carlo/issues"
   },
   "homepage": "https://github.com/random82/vsts-monte-carlo#readme",
-  "dependencies": {
-    "vss-web-extension-sdk": "^1.106.0"
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "~0.8.2",
+    "grunt-exec": "~0.4.6",
+    "grunt-ts": "^6.0.0-beta.3",
+    "tfx-cli": "^0.3.13",
+    "tsd": "^0.6.5",
+    "typescript": "^1.8.10",
+    "typings": "^2.0.0",
+    "vss-web-extension-sdk": "^1.95.2"
   }
 }

@@ -1,0 +1,41 @@
+{
+  "manifestVersion": 1,
+  "id": "vsts-monte-carlo",
+  "version": "0.1.0",
+  "name": "Monte Carlo forecasting",
+  "description": "Monte Carlo forecasting for Visual Studio Team Services",
+  "publisher": "random",
+  "public": false,
+  "targets": [{
+    "id": "Microsoft.VisualStudio.Services"
+  }],
+  "icons": {
+    "default": "images/logo.png"
+  },
+  "contributions": [{
+    "id": "forecastHub",
+    "type": "ms.vss-web.hub",
+    "description": "Adds a 'Hello' hub to the Work hub group.",
+    "targets": [
+      "ms.vss-work-web.work-hub-group"
+    ],
+    "properties": {
+      "name": "Forecast",
+      "order": 99,
+      "uri": "index.html"
+    }
+  }],
+  "scopes": [
+    "vso.work"
+  ],
+  "files": [{
+    "path": "index.html",
+    "addressable": true
+  }, {
+    "path": "images",
+    "addressable": true
+  }, {
+    "path": "dist",
+    "addressable": true
+  }]
+}
