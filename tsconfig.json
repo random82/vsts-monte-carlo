@@ -1,6 +1,8 @@
 {    
     "compilerOptions": {
+        "target": "es5",
         "module": "amd",
+        "moduleResolution": "node",
         "sourceMap": false,
         "jsx": "react",
         "outDir": "dist"

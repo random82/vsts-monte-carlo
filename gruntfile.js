@@ -8,13 +8,6 @@ module.exports = function (grunt) {
                 fast: 'never'
             }
         },
-        exec: {
-            package: {
-                command: "tfx extension create --manifest-globs vss-extension.json",
-                stdout: true,
-                stderr: true
-            }
-        },
         copy: {
             scripts: {
                 files: [{
@@ -40,12 +33,9 @@ module.exports = function (grunt) {
     });
     
     grunt.loadNpmTasks("grunt-ts");
-    grunt.loadNpmTasks("grunt-exec");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.registerTask("build", ["ts:build", "copy:scripts", "copy:styles"]);
-    grunt.registerTask("package", ["build", "exec:package"]);
-    
-    grunt.registerTask("default", ["package"]);
+    grunt.registerTask("default", ["build"]);
 };

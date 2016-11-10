@@ -22,7 +22,8 @@
     "properties": {
       "name": "Forecast",
       "order": 99,
-      "uri": "index.html"
+      "uri": "index.html",
+      "registeredObjectId": "forecastPanelObject"
     }
   }],
   "scopes": [
