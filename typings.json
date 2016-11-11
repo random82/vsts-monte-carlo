@@ -1,6 +1,9 @@
 {
+  "globalDependencies": {
+    "core-js": "registry:dt/core-js#0.0.0+20160602141332",
+    "node": "registry:dt/node#6.0.0+20160709114037"
+  },
   "dependencies": {
-    "d3": "registry:npm/d3#3.0.0+20160723033700",
-    "react": "registry:npm/react#15.0.1+20160601175240"
+    "d3": "registry:npm/d3#3.0.0+20160723033700"
   }
 }

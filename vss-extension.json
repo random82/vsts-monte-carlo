@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "vsts-monte-carlo",
-  "version": "0.1.0",
+  "version": "0.1.9",
   "name": "Monte Carlo forecasting",
   "description": "Monte Carlo forecasting for Visual Studio Team Services",
   "publisher": "random",
@@ -22,7 +22,7 @@
     "properties": {
       "name": "Forecast",
       "order": 99,
-      "uri": "index.html",
+      "uri": "dist/index.html",
       "registeredObjectId": "forecastPanelObject"
     }
   }],
@@ -30,9 +30,6 @@
     "vso.work"
   ],
   "files": [{
-    "path": "index.html",
-    "addressable": true
-  }, {
     "path": "images",
     "addressable": true
   }, {

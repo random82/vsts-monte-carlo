@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <script src="dist/VSS.SDK.min.js"></script>
+    <script src="VSS.SDK.min.js"></script>
  
     <title>Monte Carlo for VSTS</title>
-    <link href="dist/main.css" rel="stylesheet"></link>
+    <link href="main.css" rel="stylesheet"></link>
 </head>
 <body>
     <script type="text/javascript">
@@ -15,16 +15,11 @@
             usePlatformScripts: true,
             moduleLoaderConfig: {
                 paths: {
-                    "scripts": "dist"
+                    "scripts": ""
                 }
             }
-        });
-        
-        // Load main entry point for extension
-        VSS.require(["dist/app"], function () {
-            // Loading succeeded
-            VSS.notifyLoadSucceeded();
-        });
+        });        
+       
     </script>
     
     <div class="hub-title">Details</div>

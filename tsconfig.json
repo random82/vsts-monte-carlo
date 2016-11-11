@@ -5,7 +5,8 @@
         "moduleResolution": "node",
         "sourceMap": false,
         "jsx": "react",
-        "outDir": "dist"
+        "outDir": "dist",           
+        "experimentalDecorators": true
     },
     "exclude": [
         "node_modules"

@@ -1,21 +1,12 @@
+/// <reference path='../typings/tsd.d.ts' />
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule }   from '@angular/router';
 
 import { LandingComponent }  from './components/app.landing.component';
 import { WelcomeComponent } from './components/app.welcome.component';
 
 @NgModule({
-  imports: [BrowserModule, 
-            RouterModule.forRoot([{
-                path: 'index.html',
-                component: WelcomeComponent
-            },
-            {
-                path: '',
-                component: WelcomeComponent
-            }
-            ])],
+  imports: [BrowserModule],
   declarations: [
                 WelcomeComponent,
                 LandingComponent
@@ -23,9 +14,11 @@ import { WelcomeComponent } from './components/app.welcome.component';
   bootstrap: [
                 LandingComponent
              ],
-  providers: [
-
-             ]
+  providers: [ ]
 })
 
-export class AppModule { }
+export class AppModule {
+     
+}
+
+VSS.notifyLoadSucceeded();

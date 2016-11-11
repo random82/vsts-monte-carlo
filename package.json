@@ -28,6 +28,7 @@
   "devDependencies": {
     "angular2-template-loader": "^0.6.0",
     "autoprefixer": "^6.5.2",
+    "copy-webpack-plugin": "^4.0.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "grunt": "~0.4.5",
     "grunt-cli": "^0.1.13",
@@ -48,8 +49,8 @@
     "tfx-cli": "^0.3.13",
     "ts-loader": "^1.1.0",
     "tsd": "^0.6.5",
-    "typescript": "^1.8.10",
-    "typings": "^2.0.0",
+    "typescript": "^2.0.8",
+    "typings": "^1.4.0",
     "vss-web-extension-sdk": "^1.95.2",
     "webpack": "^1.13.3",
     "webpack-merge": "^0.15.0"

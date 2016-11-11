@@ -4,6 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var NpmInstallPlugin = require('npm-install-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 var helpers = require('./helpers');
+var CopyPlugin = require('copy-webpack-plugin');
 
 var ENV = process.env.npm_lifecycle_event;
 var isTest = ENV === 'test' || ENV === 'test-watch';
@@ -74,7 +75,12 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
-        })
+        }),
+
+        new CopyPlugin([{
+            from: "node_modules/vss-web-extension-sdk/lib/VSS.SDK.min.js",
+            to:""
+        }])
     ],
 
     /**
