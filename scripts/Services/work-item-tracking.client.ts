@@ -42,7 +42,8 @@ export class WorkItemTrackingClient implements IWorkItemTrackingClient{
                 "System.Links.LinkType",
                 "System.WorkItemType",
                 "System.Title",
-                "System.State"])
+                "System.State",
+                "Microsoft.VSTS.Common.BacklogPriority"])
             .then((items)=> {
                 result = items
             });
