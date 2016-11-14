@@ -17,13 +17,11 @@ import { WorkItemTrackingClient } from './services/work-item-tracking.client';
                 LandingComponent
              ],
   providers: [
-                WorkItemsService,
-                WorkItemTrackingClient
+                // WorkItemsService,
+                // WorkItemTrackingClient
              ]
 })
 
 export class AppModule {
      
 }
-
-VSS.notifyLoadSucceeded();
