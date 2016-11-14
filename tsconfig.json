@@ -4,12 +4,11 @@
         "module": "amd",
         "moduleResolution": "node",
         "sourceMap": false,
-        "jsx": "react",
         "outDir": "dist",           
+        "emitDecoratorMetadata": true,
         "experimentalDecorators": true
     },
     "exclude": [
-        "node_modules",
-        "bower_components"
+        "node_modules"
     ]
 }

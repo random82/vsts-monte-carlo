@@ -5,12 +5,14 @@ var NpmInstallPlugin = require('npm-install-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 var helpers = require('./helpers');
 var CopyPlugin = require('copy-webpack-plugin');
+var path = require('path');
 
 var ENV = process.env.npm_lifecycle_event;
 var isTest = ENV === 'test' || ENV === 'test-watch';
 var isProd = ENV === 'build';
 
 module.exports = {
+    target: "web",
     entry: {
         'polyfills': './scripts/polyfills.ts',
         'vendor': './scripts/vendor.ts',
@@ -18,7 +20,8 @@ module.exports = {
     },
 
     externals: [
-        /^VSS\/.*/, /^TFS\/.*/, /^q$/
+         /^VSS\/.*/, /^TFS\/.*/, /^q$/
+        //{"TFS/WorkItemTracking/RestClient": "require('TFS/WorkItemTracking/RestClient')"}
     ],
 
     resolve: {
@@ -46,7 +49,7 @@ module.exports = {
             {
                 test: /\.scss$/,
                 loader: isTest ? 'null' : ExtractTextPlugin.extract('style', 'css?sourceMap!postcss!sass')
-            }
+            }        
         ],
         preloaders: [{
             test: /\.js/,
@@ -60,12 +63,9 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
-            template: 'index.html'
+            template: 'index.html',
+            inject: false
         }),
-
-        new webpack.ResolverPlugin(
-            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", ["main"])
-        ),
 
         new webpack.ProvidePlugin({
             $: "jquery",
@@ -73,7 +73,7 @@ module.exports = {
         }),
 
         new CopyPlugin([{
-            from: "bower_components/vss-web-extension-sdk/lib/VSS.SDK.min.js",
+            from: "node_modules/vss-web-extension-sdk/lib/VSS.SDK.min.js",
             to:""
         }])
     ],

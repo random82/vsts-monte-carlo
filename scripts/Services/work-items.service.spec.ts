@@ -2,7 +2,7 @@ import {
   WorkItemsService
 } from './work-items.service';
 import {
-  IWorkItemTrackingClient
+  WorkItemTrackingClient
 } from './work-item-tracking.client';
 
 import {
@@ -153,7 +153,7 @@ let getCompletedWorkItemsJson = {
 };
 
 describe("WorkItemsService", () => {
-  let workItemTrackingClient = < IWorkItemTrackingClient > {
+  let workItemTrackingClient = < WorkItemTrackingClient > {
     getCompletedWorkItemRefs: (): Array < WorkItemReference > => {
       return null;
     },
@@ -162,7 +162,10 @@ describe("WorkItemsService", () => {
     },
     getWorkItems: (): Array < WorkItem > => {
       return null;
-    }
+    },
+    getWorkItemRefsByWIQL: () : Array < WorkItemReference > => {
+      return null;
+    },
   };
 
   let getWisRefsClientStub: Sinon.SinonSpy;

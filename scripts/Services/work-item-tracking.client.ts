@@ -12,14 +12,13 @@ From WorkItems \
 Where ([System.TeamProject] = @project AND  [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory'  AND  [System.State] <> 'Done') \
 order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc";
 
-export interface IWorkItemTrackingClient {
-    getCompletedWorkItemRefs() : Array<TFSContracts.WorkItemReference>;
-    getInProgressWorkItemRefs() : Array<TFSContracts.WorkItemReference>;
-    getWorkItems(ids : Array<number>) : Array<TFSContracts.WorkItem>;
-}
 
 Injectable()
-export class WorkItemTrackingClient implements IWorkItemTrackingClient{
+export class WorkItemTrackingClient {
+
+    constructor(){
+        console.log('Booooooom 2!');
+    }
 
     public getCompletedWorkItemRefs() : Array<TFSContracts.WorkItemReference>{
         console.log('Boom 2!');
