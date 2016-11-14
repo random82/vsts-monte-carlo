@@ -78,7 +78,7 @@ module.exports = {
         }),
 
         new CopyPlugin([{
-            from: "node_modules/vss-web-extension-sdk/lib/VSS.SDK.min.js",
+            from: "bower_components/vss-web-extension-sdk/lib/VSS.SDK.min.js",
             to:""
         }])
     ],

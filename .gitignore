@@ -1,6 +1,8 @@
 .vscode
 /node_modules
+/bower_components
 /dist
 /typings
 **/*.vsix
 **/*.trx
+npm-debug.log
