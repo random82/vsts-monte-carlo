@@ -11,15 +11,11 @@ module.exports = webpackMerge(commonConfig, {
   output: {
     path: helpers.dist,
     filename: '[name].js',
-    chunkFilename: '[id].chunk.js'
+    chunkFilename: '[id].chunk.js',
+    libraryTarget: 'amd'
   },
 
   plugins: [
     new ExtractTextPlugin('[name].css')
-  ],
-
-  devServer: {
-    historyApiFallback: true,
-    stats: 'minimal'
-  }
+  ]
 });
