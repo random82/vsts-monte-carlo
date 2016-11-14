@@ -1,9 +1,11 @@
-/// <reference path='../typings/tsd.d.ts' />
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { LandingComponent }  from './components/app.landing.component';
 import { WelcomeComponent } from './components/app.welcome.component';
+
+import { WorkItemsService } from './services/work-items.service';
+import { WorkItemTrackingClient } from './services/work-item-tracking.client';
 
 @NgModule({
   imports: [BrowserModule],
@@ -14,7 +16,10 @@ import { WelcomeComponent } from './components/app.welcome.component';
   bootstrap: [
                 LandingComponent
              ],
-  providers: [ ]
+  providers: [
+                WorkItemsService,
+                WorkItemTrackingClient
+             ]
 })
 
 export class AppModule {
