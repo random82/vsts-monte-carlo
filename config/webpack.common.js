@@ -17,6 +17,9 @@ module.exports = {
         'app': './scripts/main.ts'
     },
 
+    externals: [
+        /^VSS\/.*/, /^TFS\/.*/, /^q$/
+    ],
 
     resolve: {
         extensions: ['', '.ts', '.js', '.json', '.css', '.scss', '.html']
@@ -35,26 +38,14 @@ module.exports = {
             }, 
             {
                 test: /\.css$/,
-                exclude: helpers.root('src'),
                 loader: isTest ? 'null' : ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
-            }, {
-                test: /\.css$/,
-                include: helpers.root('src'),
-                loader: 'raw!postcss'
             },
             // support for .scss files
             // use 'null' loader in test mode (https://github.com/webpack/null-loader)
             // all css in src/style will be bundled in an external css file
             {
                 test: /\.scss$/,
-                exclude: helpers.root('src'),
                 loader: isTest ? 'null' : ExtractTextPlugin.extract('style', 'css?sourceMap!postcss!sass')
-            },
-            //all css required in src/app files will be merged in js files
-            {
-                test: /\.scss$/,
-                exclude: helpers.root('styles'),
-                loader: 'raw!postcss!sass'
             }
         ],
         preloaders: [{
@@ -71,6 +62,10 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: 'index.html'
         }),
+
+        new webpack.ResolverPlugin(
+            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", ["main"])
+        ),
 
         new webpack.ProvidePlugin({
             $: "jquery",
