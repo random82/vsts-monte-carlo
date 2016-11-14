@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { WorkItem, WorkItemReference, Wiql } from "TFS/WorkItemTracking/Contracts";
-import * as RestClient from "TFS/WorkItemTracking/RestClient";
+import * as TFSContracts from 'TFS/WorkItemTracking/Contracts';
+import * as RestClient from 'TFS/WorkItemTracking/RestClient';
 
 const GET_COMPLETED_WIQL = "Select [System.Id], [System.Title], [System.State] \
 From WorkItems \
@@ -13,33 +13,34 @@ Where ([System.TeamProject] = @project AND  [System.WorkItemType] IN GROUP 'Micr
 order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc";
 
 export interface IWorkItemTrackingClient {
-    getCompletedWorkItemRefs() : Array<WorkItemReference>;
-    getInProgressWorkItemRefs() : Array<WorkItemReference>;
-    getWorkItems(ids : Array<number>) : Array<WorkItem>;
+    getCompletedWorkItemRefs() : Array<TFSContracts.WorkItemReference>;
+    getInProgressWorkItemRefs() : Array<TFSContracts.WorkItemReference>;
+    getWorkItems(ids : Array<number>) : Array<TFSContracts.WorkItem>;
 }
 
 Injectable()
 export class WorkItemTrackingClient implements IWorkItemTrackingClient{
 
-    public getCompletedWorkItemRefs() : Array<WorkItemReference>{
-        let wiql = <Wiql>{
+    public getCompletedWorkItemRefs() : Array<TFSContracts.WorkItemReference>{
+        console.log('Boom 2!');
+        let wiql = <TFSContracts.Wiql>{
             query: GET_COMPLETED_WIQL
         };
         
         return this.getWorkItemRefsByWIQL(wiql);
     }
 
-    public getInProgressWorkItemRefs() : Array<WorkItemReference>{
-        let wiql = <Wiql>{
+    public getInProgressWorkItemRefs() : Array<TFSContracts.WorkItemReference>{
+        let wiql = <TFSContracts.Wiql>{
             query: GET_INPROGRESS_WIQL
         };
 
         return this.getWorkItemRefsByWIQL(wiql);
     }
 
-    public getWorkItems(ids : Array<number>) : Array<WorkItem>{
+    public getWorkItems(ids : Array<number>) : Array<TFSContracts.WorkItem>{
         let client = RestClient.getClient();
-        let result : Array<WorkItem>;
+        let result : Array<TFSContracts.WorkItem>;
         client.getWorkItems(ids, 
                 ["System.Id",
                 "System.Links.LinkType",
@@ -53,9 +54,9 @@ export class WorkItemTrackingClient implements IWorkItemTrackingClient{
         return result;
     }
 
-    public getWorkItemRefsByWIQL(query : Wiql) : Array<WorkItemReference> {
+    public getWorkItemRefsByWIQL(query : TFSContracts.Wiql) : Array<TFSContracts.WorkItemReference> {
         let client = RestClient.getClient();
-        let witRefs : Array<WorkItemReference>;
+        let witRefs : Array<TFSContracts.WorkItemReference>;
         client.queryByWiql(query).then(
             (r) => {
                 witRefs = r.workItems;
