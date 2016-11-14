@@ -12,13 +12,13 @@
         // Initialize framework 
         VSS.init({
             explicitNotifyLoaded: true,
-            usePlatformScripts: true,
-            moduleLoaderConfig: {
-                paths: {
-                    "scripts": ""
-                }
-            }
-        });        
+            usePlatformScripts: true
+        });
+
+        VSS.require(["app"], function () {
+            // Loading succeeded
+            VSS.notifyLoadSucceeded();
+        });       
        
     </script>
     
