@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import * as TFSContracts from "TFS/WorkItemTracking/Contracts";
 
-import {IWorkItemTrackingClient} from "./work-item-tracking.client";
+import {WorkItemTrackingClient} from "./work-item-tracking.client";
 
 const BACKLOG_PRIORITY_FIELD = "Microsoft.VSTS.Common.BacklogPriority";
 
 Injectable()
 export class WorkItemsService {
 
-    constructor(private witClient : IWorkItemTrackingClient){
+    constructor(private witClient : WorkItemTrackingClient){
 
     }
 
