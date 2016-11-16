@@ -4,9 +4,9 @@
         "module": "amd",
         "moduleResolution": "node",
         "sourceMap": false,
-        "outDir": "dist",           
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true
+        "outDir": "dist",
+        "experimentalDecorators": true,       
+        "emitDecoratorMetadata": true        
     },
     "exclude": [
         "node_modules"
