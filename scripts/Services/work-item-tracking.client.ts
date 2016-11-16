@@ -16,8 +16,10 @@ order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc";
 Injectable()
 export class WorkItemTrackingClient {
 
+    public projectId: string;
+
     constructor(){
-        console.log('Booooooom 2!');
+        this.projectId = VSS.getWebContext().project.id;
     }
 
     public getCompletedWorkItemRefs() : Array<TFSContracts.WorkItemReference>{
@@ -56,7 +58,7 @@ export class WorkItemTrackingClient {
     public getWorkItemRefsByWIQL(query : TFSContracts.Wiql) : Array<TFSContracts.WorkItemReference> {
         let client = RestClient.getClient();
         let witRefs : Array<TFSContracts.WorkItemReference>;
-        client.queryByWiql(query).then(
+        client.queryByWiql(query, this.projectId).then(
             (r) => {
                 witRefs = r.workItems;
             },

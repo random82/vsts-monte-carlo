@@ -154,6 +154,7 @@ let getCompletedWorkItemsJson = {
 
 describe("WorkItemsService", () => {
   let workItemTrackingClient = < WorkItemTrackingClient > {
+    projectId: "",
     getCompletedWorkItemRefs: (): Array < WorkItemReference > => {
       return null;
     },
