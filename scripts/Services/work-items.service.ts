@@ -14,20 +14,43 @@ export class WorkItemsService {
         this.witClient = _witClient;
     }
 
-    public getCompletedWorkItems() : Array<TFSContracts.WorkItem> {
-        let witRefs = this.witClient.getCompletedWorkItemRefs();
+    public getCompletedWorkItems() : IPromise<TFSContracts.WorkItem[]> {
+        let deferred = Q.defer<Array<TFSContracts.WorkItem>>();
+
+        let ids : number[];
         
-        let ids = witRefs.map(w => w.id);
-        return this.witClient.getWorkItems(ids).sort((a, b) => {
-            return a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD]
-        });        
+        this.witClient.getCompletedWorkItemRefs()
+             .then((result) => {
+                 ids = result.map(w => w.id);
+             });        
+        
+        this.witClient.getWorkItems(ids).then((r) => {
+            let result = r.sort((a, b) => {
+                return a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD]
+                 });
+            deferred.resolve(result);
+        });
+
+        return deferred.promise;       
     }
 
-    public getInProgressWorkItems() : Array<TFSContracts.WorkItem> {
-        let witRefs = this.witClient.getInProgressWorkItemRefs();
-        let ids = witRefs.map(w => w.id);
-        return this.witClient.getWorkItems(ids).sort((a, b) => {
-            return a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD];
-        });        
+    public getInProgressWorkItems() : IPromise<TFSContracts.WorkItem[]> {
+        let deferred = Q.defer<Array<TFSContracts.WorkItem>>();
+
+        let ids : number[];
+        
+        this.witClient.getInProgressWorkItemRefs()
+             .then((result) => {
+                 ids = result.map(w => w.id);
+             });        
+        
+        this.witClient.getWorkItems(ids).then((r) => {
+            let result = r.sort((a, b) => {
+                return a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD]
+                 });
+            deferred.resolve(result);
+        });
+
+        return deferred.promise;            
     }
 }
