@@ -19,7 +19,12 @@ export class LandingComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.CompletedWorkItemsCount = this.workItemsService.getCompletedWorkItems().length;
-        this.InProgressWorkItemsCount = this.workItemsService.getInProgressWorkItems().length;
+        this.workItemsService.getCompletedWorkItems().then((r)=>{
+            this.CompletedWorkItemsCount = r.length;
+        });
+
+        this.workItemsService.getInProgressWorkItems().then((r)=>{
+            this.InProgressWorkItemsCount = r.length;
+        });
     }
 }

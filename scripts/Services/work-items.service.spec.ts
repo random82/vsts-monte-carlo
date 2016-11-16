@@ -155,16 +155,16 @@ let getCompletedWorkItemsJson = {
 describe("WorkItemsService", () => {
   let workItemTrackingClient = < WorkItemTrackingClient > {
     projectId: "",
-    getCompletedWorkItemRefs: (): Array < WorkItemReference > => {
+    getCompletedWorkItemRefs: (): IPromise <WorkItemReference[] > => {
       return null;
     },
-    getInProgressWorkItemRefs: (): Array < WorkItemReference > => {
+    getInProgressWorkItemRefs: (): IPromise <WorkItemReference[] > => {
       return null;
     },
-    getWorkItems: (): Array < WorkItem > => {
+    getWorkItems: (): IPromise <WorkItem[]> => {
       return null;
     },
-    getWorkItemRefsByWIQL: () : Array < WorkItemReference > => {
+    getWorkItemRefsByWIQL: () : IPromise <WorkItemReference[] > => {
       return null;
     },
   };

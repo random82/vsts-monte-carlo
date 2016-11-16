@@ -22,7 +22,7 @@ export class WorkItemTrackingClient {
         this.projectId = VSS.getWebContext().project.id;
     }
 
-    public getCompletedWorkItemRefs() : Array<TFSContracts.WorkItemReference>{
+    public getCompletedWorkItemRefs() : IPromise<TFSContracts.WorkItemReference[]>{
         console.log('Boom 2!');
         let wiql = <TFSContracts.Wiql>{
             query: GET_COMPLETED_WIQL
@@ -31,7 +31,7 @@ export class WorkItemTrackingClient {
         return this.getWorkItemRefsByWIQL(wiql);
     }
 
-    public getInProgressWorkItemRefs() : Array<TFSContracts.WorkItemReference>{
+    public getInProgressWorkItemRefs() : IPromise<TFSContracts.WorkItemReference[]>{
         let wiql = <TFSContracts.Wiql>{
             query: GET_INPROGRESS_WIQL
         };
@@ -39,9 +39,11 @@ export class WorkItemTrackingClient {
         return this.getWorkItemRefsByWIQL(wiql);
     }
 
-    public getWorkItems(ids : Array<number>) : Array<TFSContracts.WorkItem>{
+    public getWorkItems(ids : Array<number>) : IPromise<TFSContracts.WorkItem[]>{
         let client = RestClient.getClient();
-        let result : Array<TFSContracts.WorkItem>;
+
+        let deferred = Q.defer<Array<TFSContracts.WorkItemReference>>();
+
         client.getWorkItems(ids, 
                 ["System.Id",
                 "System.Links.LinkType",
@@ -50,23 +52,27 @@ export class WorkItemTrackingClient {
                 "System.State",
                 "Microsoft.VSTS.Common.BacklogPriority"])
             .then((items)=> {
-                result = items;
+                deferred.resolve(items);
+            },
+            (reason) => {
+                deferred.reject(reason);
             });
-        return result;
+        return deferred.promise;
     }
 
-    public getWorkItemRefsByWIQL(query : TFSContracts.Wiql) : Array<TFSContracts.WorkItemReference> {
+    public getWorkItemRefsByWIQL(query : TFSContracts.Wiql) : IPromise<TFSContracts.WorkItemReference[]> {
         let client = RestClient.getClient();
-        let witRefs : Array<TFSContracts.WorkItemReference>;
+        let deferred = Q.defer<Array<TFSContracts.WorkItemReference>>();
+
         client.queryByWiql(query, this.projectId).then(
             (r) => {
-                witRefs = r.workItems;
+                deferred.resolve(r.workItems)
             },
-            () => {
-
+            (reason) => {
+                deferred.reject(reason)
             }
         );
 
-        return witRefs;
+        return deferred.promise;
     }
 }
