@@ -15,8 +15,11 @@ import { WorkItemTrackingClient } from './services/work-item-tracking.client';
   bootstrap: [
                 LandingComponent
              ],
-  providers: [WorkItemTrackingClient, WorkItemsService]
+  providers: [
+    WorkItemTrackingClient, 
+    WorkItemsService]
 })
+
 
 export class AppModule {
      
