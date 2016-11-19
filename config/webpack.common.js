@@ -58,6 +58,8 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.optimize.DedupePlugin(),
+
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app', 'vendor', 'polyfills']
         }),

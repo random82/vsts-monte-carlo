@@ -17,7 +17,7 @@ order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc";
 Injectable()
 export class WorkItemTrackingClient {
 
-    public projectId: string;
+    projectId: string;
 
     constructor(){
         this.projectId = VSS.getWebContext().project.id;

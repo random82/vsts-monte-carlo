@@ -22,7 +22,7 @@ module.exports = webpackMerge(commonConfig, {
   },
 
   plugins: [
-    new webpack.optimize.DedupePlugin(),
+
     new webpack.optimize.UglifyJsPlugin(),
     new ExtractTextPlugin('[name].css'),
     new webpack.DefinePlugin({
