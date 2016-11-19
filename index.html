@@ -3,17 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <script src="VSS.SDK.min.js"></script>
- 
+    <link href="styles.css" rel="stylesheet"></link>
     <title>Monte Carlo for VSTS</title>
-    <link href="main.css" rel="stylesheet"></link>
 </head>
 <body>
     <script type="text/javascript">
         // Initialize framework 
         VSS.init({
             explicitNotifyLoaded: true,
-            usePlatformScripts: true,
-            
+            usePlatformScripts: true            
         });
 
         VSS.require(["dist/polyfills"], function () {
@@ -23,10 +21,7 @@
                     VSS.notifyLoadSucceeded();
                 });
             });
-        });       
-       
+        }); 
     </script>
-    
-    <div class="hub-title">Details</div>
     <landing>Loading...</landing>
 </html>

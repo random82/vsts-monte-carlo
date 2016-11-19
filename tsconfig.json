@@ -6,9 +6,10 @@
         "sourceMap": false,
         "outDir": "dist",
         "experimentalDecorators": true,       
-        "emitDecoratorMetadata": true        
-    },
-    "exclude": [
-        "node_modules"
-    ]
+        "emitDecoratorMetadata": true,
+        "typeRoots": ["node_modules"],
+        "types": [
+            "types.d3"
+        ]    
+    }
 }

@@ -13,3 +13,5 @@ import 'rxjs';
 
 import 'q';
 import 'lodash';
+import 'd3-scale';
+import 'd3-selection';
