@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as TFSContracts from 'TFS/WorkItemTracking/Contracts';
 import * as RestClient from 'TFS/WorkItemTracking/RestClient';
+import * as Q from 'q';
 
 const GET_COMPLETED_WIQL = "Select [System.Id], [System.Title], [System.State] \
 From WorkItems \

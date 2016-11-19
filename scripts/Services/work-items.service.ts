@@ -4,6 +4,8 @@ import {WorkItemTrackingClient} from "./work-item-tracking.client";
 
 const BACKLOG_PRIORITY_FIELD = "Microsoft.VSTS.Common.BacklogPriority";
 
+import * as Q from 'q';
+
 Injectable();
 export class WorkItemsService {
 
