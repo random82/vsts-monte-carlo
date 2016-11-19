@@ -16,7 +16,8 @@ module.exports = {
     entry: {
         'polyfills': './scripts/polyfills.ts',
         'vendor': './scripts/vendor.ts',
-        'app': './scripts/main.ts'
+        'app': './scripts/main.ts',
+        'styles': './scripts/styles.ts'
     },
 
     externals: [
