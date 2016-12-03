@@ -13,7 +13,7 @@ export class Simulation{
     };
 
     runTT(sampleSet : Array<number>, noSprints : number, noItems : number) : Array<number> {
-        let results: Array<number>;
+        let results: Array<number> = [];
         for(let i = 0; i < this.params.iterations; i++) {
             let total = 0;
             for(let s = 0; s < noItems; s++) {

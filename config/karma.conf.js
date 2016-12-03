@@ -8,9 +8,12 @@ module.exports = function(config) {
         frameworks: ['requirejs', 'jasmine', 'chai', 'sinon'],
 
         files: [{
-            pattern: './config/karma-test-shim.js',
-            watched: false
-        }],
+                    pattern: './config/karma-test-shim.js',
+                    watched: true,
+                    included: false
+                },
+                './config/require-test-shim.js'
+        ],
 
         preprocessors: {
             './config/karma-test-shim.js': ['webpack', 'sourcemap']
@@ -19,7 +22,11 @@ module.exports = function(config) {
         webpack: webpackConfig,
 
         webpackMiddleware: {
-            stats: 'errors-only'
+        stats: 'errors-only'
+        },
+
+        webpackServer: {
+        noInfo: true
         },
 
         reporters: ['progress', 'trx'],
@@ -27,8 +34,8 @@ module.exports = function(config) {
         colors: true,
         logLevel: config.LOG_DEBUG,
         autoWatch: false,
-        browsers: ['Chrome'],
-        singleRun: false,
+        browsers: ['PhantomJS'],
+        singleRun: true,
         trxReporter: {
             outputFile: 'test-results.trx',
             shortTestName: false
