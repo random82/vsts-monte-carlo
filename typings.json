@@ -2,17 +2,19 @@
   "globalDependencies": {
     "chai": "registry:dt/chai#3.4.0+20160601211834",
     "core-js": "registry:dt/core-js#0.0.0+20160602141332",
-    "jasmine": "registry:dt/jasmine#2.5.0+20161025102649",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "knockout": "registry:dt/knockout#0.0.0+20160512130947",
-    "node": "registry:dt/node#6.0.0+20161110151007",
+    "mocha": "registry:dt/mocha#2.2.5+20161028141524",
+    "node": "registry:dt/node#6.0.0+20161121110008",
     "q": "registry:dt/q#0.0.0+20160613154756",
-    "require": "registry:dt/require#2.1.20+20160316155526",
+    "react": "registry:dt/react#0.14.0+20161124131900",
+    "require": "registry:dt/require#2.1.20+20160919185614",
     "sinon": "registry:dt/sinon#1.16.0+20160924120326",
     "tfs": "npm:vss-web-extension-sdk/typings/tfs.d.ts",
     "vss": "npm:vss-web-extension-sdk/typings/vss.d.ts"
   },
   "dependencies": {
-    "lodash": "registry:npm/lodash#4.0.0+20161015015725"
+    "lodash": "registry:npm/lodash#4.0.0+20161015015725",
+    "requirejs": "registry:npm/requirejs#2.2.0+20160319062357"
   }
 }

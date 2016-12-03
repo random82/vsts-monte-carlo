@@ -1,9 +1,6 @@
 import {
   WorkItemsService
 } from './work-items.service';
-import {
-  WorkItemTrackingClient
-} from './work-item-tracking.client';
 
 import {
   WorkItemReference,
@@ -152,8 +149,8 @@ let getCompletedWorkItemsJson = {
   }]
 };
 
-describe("WorkItemsService", () => {
-  let workItemTrackingClient = < WorkItemTrackingClient > {
+describe("WorkItemsService", function() {
+  let workItemTrackingClient = {
     projectId: "",
     getCompletedWorkItemRefs: (): IPromise <WorkItemReference[] > => {
       return null;
@@ -173,7 +170,7 @@ describe("WorkItemsService", () => {
   let getWIs: Sinon.SinonSpy;
   let witService: WorkItemsService;
 
-  describe("In progress items", () => {
+  describe("In progress items", function () {
     let responseRefs = sampleInProgressResponseJson.workItems.map((it) => < WorkItemReference > {
       id: it.id,
       url: it.url
@@ -188,24 +185,24 @@ describe("WorkItemsService", () => {
       _links: null
     });
 
-    beforeEach(() => {
+    beforeEach(function() {
       getWisRefsClientStub = sinon.stub(workItemTrackingClient, 'getInProgressWorkItemRefs').returns(responseRefs);
       getWIs = sinon.stub(workItemTrackingClient, 'getWorkItems').returns(responseWIs);
       witService = new WorkItemsService(workItemTrackingClient);
     });
 
-    afterEach(() => {
+    afterEach(function () {
       sinon.restore(workItemTrackingClient.getInProgressWorkItemRefs);
       sinon.restore(workItemTrackingClient.getWorkItems);
     });
 
-    it("Should call wit client", () => {
+    it("Should call wit client", function () {
       witService.getInProgressWorkItems();
       expect(getWisRefsClientStub.calledOnce);
       expect(getWIs.calledOnce);
     });
 
-    it("Should return 3 items", () => {
+    it("Should return 3 items", function () {
       let result = witService.getInProgressWorkItems();
       expect(result).to.have.lengthOf(3);
       expect(result[0].id).to.eq(20);
@@ -214,7 +211,7 @@ describe("WorkItemsService", () => {
     });
   });
 
-  describe("Completed", () => {
+  describe("Completed", function () {
     let responseRefs = sampleCompletedJson.workItems.map((it) => < WorkItemReference > {
       id: it.id,
       url: it.url
@@ -229,24 +226,24 @@ describe("WorkItemsService", () => {
       _links: null
     });
 
-    beforeEach(() => {
+    beforeEach(function () {
       getWisRefsClientStub = sinon.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(responseRefs);
       getWIs = sinon.stub(workItemTrackingClient, 'getWorkItems').returns(responseWIs);
       witService = new WorkItemsService(workItemTrackingClient);
     });
 
-    afterEach(() => {
+    afterEach(function () {
       sinon.restore(workItemTrackingClient.getCompletedWorkItemRefs);
       sinon.restore(workItemTrackingClient.getWorkItems);
     });
 
-    it("Should call wit client", () => {
+    it("Should call wit client", function () {
       witService.getCompletedWorkItems();
       expect(getWisRefsClientStub.calledOnce);
       expect(getWIs.calledOnce);
     });
 
-    it("Should return one item", () => {
+    it("Should return one item", function () {
       let result = witService.getCompletedWorkItems();
       expect(result).to.have.lengthOf(1);
       expect(result[0].id).to.eq(17);
