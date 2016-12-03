@@ -10,8 +10,7 @@ module.exports = {
 
     externals: [
         /^VSS\/.*/,
-        /^TFS\/.*/,
-        /^q$/
+        /^TFS\/.*/
     ],
 
     resolve: {

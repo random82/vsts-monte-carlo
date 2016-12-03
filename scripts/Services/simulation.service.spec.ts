@@ -8,7 +8,7 @@ describe("Simulation tests", () => {
 
     let sim = new Simulation();
 
-    before(()=>{
+    beforeAll(()=>{
         let simParams = <SimulationParams> {
             iterations: 1000,
             sprintLength: 10
