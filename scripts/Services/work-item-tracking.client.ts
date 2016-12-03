@@ -24,7 +24,6 @@ export class WorkItemTrackingClient {
     }
 
     public getCompletedWorkItemRefs() : IPromise<TFSContracts.WorkItemReference[]>{
-        console.log('Boom 2!');
         let wiql = <TFSContracts.Wiql>{
             query: GET_COMPLETED_WIQL
         };
