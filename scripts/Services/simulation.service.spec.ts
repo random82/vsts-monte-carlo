@@ -27,12 +27,21 @@ describe("Simulation tests", () => {
         expect(result.length === 1000);
     });
 
-    it("Average should be 50", () => {
+    it("Average should be 100", () => {
         let result = sim.runTT(
             [5,5,5,5,5,5],
             7,
             20);
         let avg = result.reduce((x,y) => x + y) / result.length; 
-        expect(avg).to.eq(50);
+        expect(avg).to.eq(100);
+    });
+
+    it("Average should be 80", () => {
+        let result = sim.runTT(
+            [4,4,4,4,4,4,4,4,4],
+            7,
+            20);
+        let avg = result.reduce((x,y) => x + y) / result.length; 
+        expect(avg).to.eq(80);
     });
 });
