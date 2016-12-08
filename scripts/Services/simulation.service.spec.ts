@@ -4,6 +4,8 @@ import {
   expect
 } from 'chai';
 
+import * as _ from 'lodash';
+
 describe("Simulation tests", () => {
 
     let sim = new Simulation();
@@ -17,11 +19,20 @@ describe("Simulation tests", () => {
         sim.setup(simParams);
     });
 
-    it("", () => {
+    it("Should run 1000 simulations", () => {
         let result = sim.runTT(
             [1,0,2,5,0,0,1],
             7,
             20);
         expect(result.length === 1000);
+    });
+
+    it("Average should be 50", () => {
+        let result = sim.runTT(
+            [5,5,5,5,5,5],
+            7,
+            20);
+        let avg = result.reduce((x,y) => x + y) / result.length; 
+        expect(avg).to.eq(50);
     });
 });
