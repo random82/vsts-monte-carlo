@@ -23,8 +23,7 @@ export class WorkItemTrackingClient {
         this.projectId = VSS.getWebContext().project.id;
     }
 
-    public getCompletedWorkItemRefs() : IPromise<TFSContracts.WorkItemReference[]>{
-        console.log('Boom 2!');
+    public getCompletedWorkItemRefs() : Q.Promise<TFSContracts.WorkItemReference[]>{
         let wiql = <TFSContracts.Wiql>{
             query: GET_COMPLETED_WIQL
         };
@@ -32,7 +31,7 @@ export class WorkItemTrackingClient {
         return this.getWorkItemRefsByWIQL(wiql);
     }
 
-    public getInProgressWorkItemRefs() : IPromise<TFSContracts.WorkItemReference[]>{
+    public getInProgressWorkItemRefs() : Q.Promise<TFSContracts.WorkItemReference[]>{
         let wiql = <TFSContracts.Wiql>{
             query: GET_INPROGRESS_WIQL
         };
@@ -40,10 +39,10 @@ export class WorkItemTrackingClient {
         return this.getWorkItemRefsByWIQL(wiql);
     }
 
-    public getWorkItems(ids : Array<number>) : IPromise<TFSContracts.WorkItem[]>{
+    public getWorkItems(ids : Array<number>) : Q.Promise<TFSContracts.WorkItem[]>{
         let client = RestClient.getClient();
 
-        let deferred = Q.defer<Array<TFSContracts.WorkItemReference>>();
+        let deferred = Q.defer<Array<TFSContracts.WorkItem>>();
 
         client.getWorkItems(ids, 
                 ["System.Id",
@@ -61,7 +60,7 @@ export class WorkItemTrackingClient {
         return deferred.promise;
     }
 
-    public getWorkItemRefsByWIQL(query : TFSContracts.Wiql) : IPromise<TFSContracts.WorkItemReference[]> {
+    public getWorkItemRefsByWIQL(query : TFSContracts.Wiql) : Q.Promise<TFSContracts.WorkItemReference[]> {
         let client = RestClient.getClient();
         let deferred = Q.defer<Array<TFSContracts.WorkItemReference>>();
 

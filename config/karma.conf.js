@@ -1,39 +1,46 @@
-module.exports = function (config) {
+module.exports = function(config) {
 
-  var webpackConfig = require('./webpack.test');
+    var webpackConfig = require('./webpack.test');
 
-  var _config = {
-    basePath: '',
+    var _config = {
+        basePath: '',
 
-    frameworks: ['jasmine', 'chai' , 'sinon'],
+        frameworks: ['requirejs', 'jasmine', 'chai', 'sinon'],
 
-    files: [
-      {pattern: './config/karma-test-shim.js', watched: false}
-    ],
+        files: [{
+                    pattern: './config/karma-test-shim.js',
+                    watched: true,
+                    included: false
+                },
+                './config/require-test-shim.js'
+        ],
 
-    preprocessors: {
-      './config/karma-test-shim.js': ['webpack', 'sourcemap']
-    },
+        preprocessors: {
+            './config/karma-test-shim.js': ['webpack', 'sourcemap']
+        },
 
-    webpack: webpackConfig,
+        webpack: webpackConfig,
 
-    webpackMiddleware: {
-      stats: 'errors-only'
-    },
+        webpackMiddleware: {
+        stats: 'errors-only'
+        },
 
-    webpackServer: {
-      noInfo: true
-    },
+        webpackServer: {
+        noInfo: true
+        },
 
-    reporters: ['progress', 'trx'],
-    port: 9876,
-    colors: true,
-    logLevel: config.LOG_INFO,
-    autoWatch: false,
-    browsers: ['PhantomJS'],
-    singleRun: true,
-    trxReporter: { outputFile: 'test-results.trx', shortTestName: false }
-  };
+        reporters: ['mocha', 'trx'],
+        port: 9876,
+        colors: true,
+        logLevel: config.LOG_INFO,
+        autoWatch: false,
+        browsers: ['PhantomJS'],
+        singleRun: true,
+        trxReporter: {
+            outputFile: 'test-results.trx',
+            shortTestName: false
+        }
+    };
 
-  config.set(_config);
+    config.set(_config);
 };
