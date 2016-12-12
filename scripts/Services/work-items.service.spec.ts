@@ -24,40 +24,40 @@ let sampleInProgressResponseJson = {
     "columns": [{
         "referenceName": "System.Id",
         "name": "ID",
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/fields/System.Id"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Id"
     }, {
         "referenceName": "System.Title",
         "name": "Title",
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/fields/System.Title"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Title"
     }, {
         "referenceName": "System.State",
         "name": "State",
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/fields/System.State"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.State"
     }],
     "sortColumns": [{
         "field": {
             "referenceName": "Microsoft.VSTS.Common.Priority",
             "name": "Priority",
-            "url": "https://***REMOVED***/DefaultCollection/_apis/wit/fields/Microsoft.VSTS.Common.Priority"
+            "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/Microsoft.VSTS.Common.Priority"
         },
         "descending": false
     }, {
         "field": {
             "referenceName": "System.CreatedDate",
             "name": "Created Date",
-            "url": "https://***REMOVED***/DefaultCollection/_apis/wit/fields/System.CreatedDate"
+            "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.CreatedDate"
         },
         "descending": true
     }],
     "workItems": [{
         "id": 21,
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/workItems/21"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/21"
     }, {
         "id": 20,
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/workItems/20"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/20"
     }, {
         "id": 19,
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/workItems/19"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/19"
     }]
 };
 
@@ -73,7 +73,7 @@ let getInProgressWorkItemsJson = {
             "System.Title": "Optimise bundling",
             "Microsoft.VSTS.Common.BacklogPriority": 1999985093
         },
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/workItems/19"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/19"
     }, {
         "id": 20,
         "rev": 4,
@@ -84,7 +84,7 @@ let getInProgressWorkItemsJson = {
             "System.Title": "Integrate TFS queries",
             "Microsoft.VSTS.Common.BacklogPriority": 1999955279
         },
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/workItems/20"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/20"
     }, {
         "id": 21,
         "rev": 3,
@@ -95,7 +95,7 @@ let getInProgressWorkItemsJson = {
             "System.Title": "Visualise MC results",
             "Microsoft.VSTS.Common.BacklogPriority": 1999977640
         },
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/workItems/21"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/21"
     }]
 };
 
@@ -106,34 +106,34 @@ let sampleCompletedJson = {
     "columns": [{
         "referenceName": "System.Id",
         "name": "ID",
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/fields/System.Id"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Id"
     }, {
         "referenceName": "System.Title",
         "name": "Title",
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/fields/System.Title"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Title"
     }, {
         "referenceName": "System.State",
         "name": "State",
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/fields/System.State"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.State"
     }],
     "sortColumns": [{
         "field": {
             "referenceName": "Microsoft.VSTS.Common.BacklogPriority",
             "name": "Backlog Priority",
-            "url": "https://***REMOVED***/DefaultCollection/_apis/wit/fields/Microsoft.VSTS.Common.BacklogPriority"
+            "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/Microsoft.VSTS.Common.BacklogPriority"
         },
         "descending": false
     }, {
         "field": {
             "referenceName": "System.CreatedDate",
             "name": "Created Date",
-            "url": "https://***REMOVED***/DefaultCollection/_apis/wit/fields/System.CreatedDate"
+            "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.CreatedDate"
         },
         "descending": true
     }],
     "workItems": [{
         "id": 17,
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/workItems/17"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/17"
     }]
 };
 
@@ -151,7 +151,7 @@ let getCompletedWorkItemsJson = {
             "Microsoft.VSTS.Common.ClosedDate": "2016-11-13T11:17:17.933Z",
             "Microsoft.VSTS.Common.BacklogPriority": 1999966460
         },
-        "url": "https://***REMOVED***/DefaultCollection/_apis/wit/workItems/17"
+        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/17"
     }]
 };
 
