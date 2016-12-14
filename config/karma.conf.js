@@ -1,3 +1,7 @@
+var ENV = process.env.npm_lifecycle_event;
+
+var isTestDebug = ENV === 'test:debug'; 
+
 module.exports = function(config) {
 
     var webpackConfig = require('./webpack.test');
@@ -22,11 +26,11 @@ module.exports = function(config) {
         webpack: webpackConfig,
 
         webpackMiddleware: {
-        stats: 'errors-only'
+            stats: 'errors-only'
         },
 
         webpackServer: {
-        noInfo: true
+            noInfo: true
         },
 
         reporters: ['mocha', 'trx'],
@@ -34,8 +38,8 @@ module.exports = function(config) {
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: false,
-        browsers: ['PhantomJS'],
-        singleRun: true,
+        browsers: isTestDebug ? ['Chrome'] : ['PhantomJS'],
+        singleRun: isTestDebug ? false : true,
         trxReporter: {
             outputFile: 'test-results.trx',
             shortTestName: false
