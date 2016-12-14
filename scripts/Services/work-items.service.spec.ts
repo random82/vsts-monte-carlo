@@ -12,6 +12,10 @@ import {
 } from "TFS/WorkItemTracking/Contracts";
 
 import {
+    MonteCarloWorkItem
+} from "../Model/WorkItem";
+
+import {
     expect
 } from 'chai';
 
@@ -427,13 +431,26 @@ describe("WorkItemsService", function() {
             sinon.restore(workItemTrackingClient.getWorkItems);
         });
 
-        it("Should return completed items by date", function(done) {
+        it("Should return completed items by completion date", function(done) {
             witService.getCompletedWorkItems().then(function(result) {
                 expect(result).to.have.lengthOf(4);
                 expect(result[0].id).to.eq(19);
                 expect(result[1].id).to.eq(18);
                 expect(result[2].id).to.eq(20);
                 expect(result[3].id).to.eq(17);
+                done();
+            });
+            getWorkItemRefsByWIQLDeffered.resolve(responseRefs);
+            getWorkItemsDeffered.resolve(responseWIs);
+        });
+
+        it("Should return takt times as differences between subsequent completion days", function(done) {
+            witService.getCompletedWorkItems().then(function(result) {
+                expect(result).to.have.lengthOf(4);
+                expect(result[0].taktTime).to.eq(0); //"2016-11-10"
+                expect(result[1].taktTime).to.eq(3); //"2016-11-13"
+                expect(result[2].taktTime).to.eq(0); //"2016-11-13"
+                expect(result[3].taktTime).to.eq(2); //"2016-11-15"
                 done();
             });
             getWorkItemRefsByWIQLDeffered.resolve(responseRefs);
