@@ -28,8 +28,10 @@ export class WorkItemsService {
             let ids = result.map(w => w.id);
             this.witClient.getWorkItems(ids).then((r) => {
                 let result = r.sort((a, b) => {
-                    return new Date(a.fields[COMPLETED_DATE_FIELD]) - new Date(b.fields[COMPLETED_DATE_FIELD]);
-                });
+                    var aDate = new Date(a.fields[COMPLETED_DATE_FIELD]);
+                    var bDate = new Date(b.fields[COMPLETED_DATE_FIELD]);
+                    return aDate.valueOf() - bDate.valueOf();
+                 });
                 deferred.resolve(result);
             });
         });
