@@ -8,6 +8,7 @@ import {
 } from "./work-item-tracking.client";
 
 const BACKLOG_PRIORITY_FIELD = "Microsoft.VSTS.Common.BacklogPriority";
+const COMPLETED_DATE_FIELD = "Microsoft.VSTS.Common.ClosedDate";
 
 import * as Q from 'q';
 
@@ -27,7 +28,7 @@ export class WorkItemsService {
             let ids = result.map(w => w.id);
             this.witClient.getWorkItems(ids).then((r) => {
                 let result = r.sort((a, b) => {
-                    return a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD]
+                    return new Date(a.fields[COMPLETED_DATE_FIELD]) - new Date(b.fields[COMPLETED_DATE_FIELD]);
                 });
                 deferred.resolve(result);
             });
