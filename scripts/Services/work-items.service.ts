@@ -31,6 +31,8 @@ export class WorkItemsService {
 
         this.witClient.getCompletedWorkItemRefs()
         .then((result) => {
+            console.log("Pong");
+            console.log(result);
             let ids = result.map(w => w.id);
             this.witClient.getWorkItems(ids).then((r) => {
                 let result = r.sort((a, b) => {
