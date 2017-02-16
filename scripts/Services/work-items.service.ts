@@ -31,10 +31,12 @@ export class WorkItemsService {
 
         this.witClient.getCompletedWorkItemRefs()
         .then((result) => {
-            console.log("Pong");
-            console.log(result);
             let ids = result.map(w => w.id);
             this.witClient.getWorkItems(ids).then((r) => {
+
+                console.log("Pong");
+                console.log(r);
+
                 let result = r.sort((a, b) => {
                     var aDate = new Date(a.fields[COMPLETED_DATE_FIELD]);
                     var bDate = new Date(b.fields[COMPLETED_DATE_FIELD]);
@@ -47,11 +49,22 @@ export class WorkItemsService {
         return deferred.promise;
     }
 
-    private updateTaktTimes(wis : TFSContracts.WorkItem[]): MonteCarloWorkItem[] {
-        return wis.slice(1).map(function(n, i) { 
+    private updateTaktTimes(workItems : TFSContracts.WorkItem[]): MonteCarloWorkItem[] {
+        if(workItems.length === 1) {
+            return [<MonteCarloWorkItem>{
+                _links : workItems[0]._links,
+                fields : workItems[0].fields,
+                id : workItems[0].id,
+                relations : workItems[0].relations,
+                rev: workItems[0].rev,
+                taktTime: 0
+            }];
+        }
+        
+        return workItems.slice(1).map(function(n, i) { 
 
             var currItemDate = moment(n.fields[COMPLETED_DATE_FIELD]);
-            var nextItemDate = moment(wis[i].fields[COMPLETED_DATE_FIELD]);
+            var nextItemDate = moment(workItems[i].fields[COMPLETED_DATE_FIELD]);
 
             return <MonteCarloWorkItem>{
                 _links : n._links,

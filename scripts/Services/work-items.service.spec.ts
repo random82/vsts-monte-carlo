@@ -291,171 +291,175 @@ describe("WorkItemsService", function() {
         });
     });
 
-    // describe("Takt time calculation", function() {
-    //     let sampleCompletedJson = {
-    //         "queryType": "flat",
-    //         "queryResultType": "workItem",
-    //         "asOf": "2016-11-13T10:54:43.877Z",
-    //         "columns": [{
-    //             "referenceName": "System.Id",
-    //             "name": "ID",
-    //             "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Id"
-    //         }, {
-    //             "referenceName": "System.Title",
-    //             "name": "Title",
-    //             "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Title"
-    //         }, {
-    //             "referenceName": "System.State",
-    //             "name": "State",
-    //             "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.State"
-    //         }],
-    //         "sortColumns": [{
-    //             "field": {
-    //                 "referenceName": "Microsoft.VSTS.Common.BacklogPriority",
-    //                 "name": "Backlog Priority",
-    //                 "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/Microsoft.VSTS.Common.BacklogPriority"
-    //             },
-    //             "descending": false
-    //         }, {
-    //             "field": {
-    //                 "referenceName": "System.CreatedDate",
-    //                 "name": "Created Date",
-    //                 "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.CreatedDate"
-    //             },
-    //             "descending": true
-    //         }],
-    //         "workItems": [{
-    //             "id": 47,
-    //             "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/47"
-    //         },{
-    //             "id": 88,
-    //             "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/48"
-    //         },{
-    //             "id": 49,
-    //             "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/49"
-    //         },{
-    //             "id": 50,
-    //             "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/50"
-    //         }]
-    //     };
+    describe("", function() {
 
-    //     let getCompletedWorkItemsJson = {
-    //         "count": 4,
-    //         "value": [{
-    //             "id": 47,
-    //             "rev": 9,
-    //             "fields": {
-    //                 "System.Id": 47,
-    //                 "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
-    //                 "System.WorkItemType": "Product Backlog Item",
-    //                 "System.State": "Done",
-    //                 "System.Title": "Dummy 1",
-    //                 "Microsoft.VSTS.Common.ClosedDate": "2016-11-15T11:17:17.933Z",
-    //                 "Microsoft.VSTS.Common.BacklogPriority": 1999966460
-    //             },
-    //             "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/47"
-    //         },
-    //         {
-    //             "id": 48,
-    //             "rev": 9,
-    //             "fields": {
-    //                 "System.Id": 48,
-    //                 "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
-    //                 "System.WorkItemType": "Product Backlog Item",
-    //                 "System.State": "Done",
-    //                 "System.Title": "Dummy 2",
-    //                 "Microsoft.VSTS.Common.ClosedDate": "2016-11-13T11:17:17.933Z",
-    //                 "Microsoft.VSTS.Common.BacklogPriority": 1999966423
-    //             },
-    //             "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/48"
-    //         },
-    //         {
-    //             "id": 49,
-    //             "rev": 9,
-    //             "fields": {
-    //                 "System.Id": 49,
-    //                 "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
-    //                 "System.WorkItemType": "Product Backlog Item",
-    //                 "System.State": "Done",
-    //                 "System.Title": "Dummy 3",
-    //                 "Microsoft.VSTS.Common.ClosedDate": "2016-11-10T16:12:17.933Z",
-    //                 "Microsoft.VSTS.Common.BacklogPriority": 1999966498
-    //             },
-    //             "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/49"
-    //         },            
-    //         {
-    //             "id": 50,
-    //             "rev": 9,
-    //             "fields": {
-    //                 "System.Id": 50,
-    //                 "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
-    //                 "System.WorkItemType": "Product Backlog Item",
-    //                 "System.State": "Done",
-    //                 "System.Title": "Dummy 4",
-    //                 "Microsoft.VSTS.Common.ClosedDate": "2016-11-13T16:12:17.933Z",
-    //                 "Microsoft.VSTS.Common.BacklogPriority": 1999966498
-    //             },
-    //             "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/50"
-    //         }]
-    //     };
+    });
 
-    //     let getCompletedWIRefs: Sinon.SinonSpy;
+    describe("Takt time calculation", function() {
+        let sampleCompletedJson = {
+            "queryType": "flat",
+            "queryResultType": "workItem",
+            "asOf": "2016-11-13T10:54:43.877Z",
+            "columns": [{
+                "referenceName": "System.Id",
+                "name": "ID",
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Id"
+            }, {
+                "referenceName": "System.Title",
+                "name": "Title",
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Title"
+            }, {
+                "referenceName": "System.State",
+                "name": "State",
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.State"
+            }],
+            "sortColumns": [{
+                "field": {
+                    "referenceName": "Microsoft.VSTS.Common.BacklogPriority",
+                    "name": "Backlog Priority",
+                    "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/Microsoft.VSTS.Common.BacklogPriority"
+                },
+                "descending": false
+            }, {
+                "field": {
+                    "referenceName": "System.CreatedDate",
+                    "name": "Created Date",
+                    "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.CreatedDate"
+                },
+                "descending": true
+            }],
+            "workItems": [{
+                "id": 47,
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/47"
+            },{
+                "id": 88,
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/48"
+            },{
+                "id": 49,
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/49"
+            },{
+                "id": 50,
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/50"
+            }]
+        };
 
-    //     let responseRefs = sampleCompletedJson.workItems.map((it) => < WorkItemReference > {
-    //         id: it.id,
-    //         url: it.url
-    //     });
+        let getCompletedWorkItemsJson = {
+            "count": 4,
+            "value": [{
+                "id": 47,
+                "rev": 9,
+                "fields": {
+                    "System.Id": 47,
+                    "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
+                    "System.WorkItemType": "Product Backlog Item",
+                    "System.State": "Done",
+                    "System.Title": "Dummy 1",
+                    "Microsoft.VSTS.Common.ClosedDate": "2016-11-15T11:17:17.933Z",
+                    "Microsoft.VSTS.Common.BacklogPriority": 1999966460
+                },
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/47"
+            },
+            {
+                "id": 48,
+                "rev": 9,
+                "fields": {
+                    "System.Id": 48,
+                    "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
+                    "System.WorkItemType": "Product Backlog Item",
+                    "System.State": "Done",
+                    "System.Title": "Dummy 2",
+                    "Microsoft.VSTS.Common.ClosedDate": "2016-11-13T11:17:17.933Z",
+                    "Microsoft.VSTS.Common.BacklogPriority": 1999966423
+                },
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/48"
+            },
+            {
+                "id": 49,
+                "rev": 9,
+                "fields": {
+                    "System.Id": 49,
+                    "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
+                    "System.WorkItemType": "Product Backlog Item",
+                    "System.State": "Done",
+                    "System.Title": "Dummy 3",
+                    "Microsoft.VSTS.Common.ClosedDate": "2016-11-10T16:12:17.933Z",
+                    "Microsoft.VSTS.Common.BacklogPriority": 1999966498
+                },
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/49"
+            },            
+            {
+                "id": 50,
+                "rev": 9,
+                "fields": {
+                    "System.Id": 50,
+                    "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
+                    "System.WorkItemType": "Product Backlog Item",
+                    "System.State": "Done",
+                    "System.Title": "Dummy 4",
+                    "Microsoft.VSTS.Common.ClosedDate": "2016-11-13T16:12:17.933Z",
+                    "Microsoft.VSTS.Common.BacklogPriority": 1999966498
+                },
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/50"
+            }]
+        };
 
-    //     let responseWIs = getCompletedWorkItemsJson.value.map((it) => < WorkItem > {
-    //         id: it.id,
-    //         url: it.url,
-    //         rev: it.rev,
-    //         fields: it.fields,
-    //         relations: null,
-    //         _links: null
-    //     });
+        let getCompletedWIRefs: Sinon.SinonSpy;
 
-    //     beforeEach(function() {
-    //         getCompletedWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
-    //         getWorkItemsDeffered = Q.defer < WorkItem[] > ();
-    //         getWorkItemRefsByWIQLDeffered = Q.defer < WorkItemReference[] > ();
+        let responseRefs = sampleCompletedJson.workItems.map((it) => < WorkItemReference > {
+            id: it.id,
+            url: it.url
+        });
 
-    //         getWIs = sinon.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
-    //         getCompletedWIRefs = sinon.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(getCompletedWorkItemRefsDeffered.promise);
-    //         witService = new WorkItemsService(workItemTrackingClient);
-    //     });
+        let responseWIs = getCompletedWorkItemsJson.value.map((it) => < WorkItem > {
+            id: it.id,
+            url: it.url,
+            rev: it.rev,
+            fields: it.fields,
+            relations: null,
+            _links: null
+        });
 
-    //     afterEach(function() {
-    //         sinon.restore(workItemTrackingClient.getCompletedWorkItemRefs);
-    //         sinon.restore(workItemTrackingClient.getWorkItems);
-    //     });
+        beforeEach(function() {
+            getCompletedWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
+            getWorkItemsDeffered = Q.defer < WorkItem[] > ();
+            getWorkItemRefsByWIQLDeffered = Q.defer < WorkItemReference[] > ();
 
-    //     it("Should return completed items by completion date", function(done) {
-    //         witService.getCompletedWorkItems().then(function(result) {
-    //             expect(result).to.have.lengthOf(4);
-    //             // expect(result[0].id).to.eq(19);
-    //             // expect(result[1].id).to.eq(18);
-    //             // expect(result[2].id).to.eq(20);
-    //             // expect(result[3].id).to.eq(17);
-    //             done();
-    //         });
-    //         console.log("Ping");
-    //         console.log(responseRefs);
-    //         getWorkItemRefsByWIQLDeffered.resolve(responseRefs);
-    //         getWorkItemsDeffered.resolve(responseWIs);
-    //     });
+            getWIs = sinon.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
+            getCompletedWIRefs = sinon.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(getCompletedWorkItemRefsDeffered.promise);
+            witService = new WorkItemsService(workItemTrackingClient);
+        });
 
-    //     it("Should return takt times as differences between subsequent completion days", function(done) {
-    //         witService.getCompletedWorkItems().then(function(result) {
-    //             expect(result).to.have.lengthOf(4);
-    //             expect(result[0].taktTime).to.eq(0); //"2016-11-10"
-    //             expect(result[1].taktTime).to.eq(3); //"2016-11-13"
-    //             expect(result[2].taktTime).to.eq(0); //"2016-11-13"
-    //             expect(result[3].taktTime).to.eq(2); //"2016-11-15"
-    //             done();
-    //         });
-    //         getWorkItemRefsByWIQLDeffered.resolve(responseRefs);
-    //         getWorkItemsDeffered.resolve(responseWIs);
-    //     });
-    // });
+        afterEach(function() {
+            sinon.restore(workItemTrackingClient.getCompletedWorkItemRefs);
+            sinon.restore(workItemTrackingClient.getWorkItems);
+        });
+
+        it("Should return completed items by completion date", function(done) {
+            witService.getCompletedWorkItems().then(function(result) {
+                expect(result).to.have.lengthOf(4);
+                // expect(result[0].id).to.eq(19);
+                // expect(result[1].id).to.eq(18);
+                // expect(result[2].id).to.eq(20);
+                // expect(result[3].id).to.eq(17);
+                done();
+            });
+            console.log("Ping");
+            console.log(responseRefs);
+            getWorkItemRefsByWIQLDeffered.resolve(responseRefs);
+            getWorkItemsDeffered.resolve(responseWIs);
+        });
+
+        it("Should return takt times as differences between subsequent completion days", function(done) {
+            witService.getCompletedWorkItems().then(function(result) {
+                expect(result).to.have.lengthOf(4);
+                expect(result[0].taktTime).to.eq(0); //"2016-11-10"
+                expect(result[1].taktTime).to.eq(3); //"2016-11-13"
+                expect(result[2].taktTime).to.eq(0); //"2016-11-13"
+                expect(result[3].taktTime).to.eq(2); //"2016-11-15"
+                done();
+            });
+            getWorkItemRefsByWIQLDeffered.resolve(responseRefs);
+            getWorkItemsDeffered.resolve(responseWIs);
+        });
+    });
 });
