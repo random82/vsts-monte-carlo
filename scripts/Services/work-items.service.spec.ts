@@ -280,22 +280,21 @@ describe("WorkItemsService", function() {
 
         it("Should return one item", function(done) {
             witService.getCompletedWorkItems().then(function(result) {
-                console.log("Another pong");
-                console.log(result);
                 expect(result).to.have.lengthOf(1);
                 expect(result[0].id).to.eq(17);
-                done();
-            });
+            }).then(done, fail);;
             getCompletedWorkItemRefsDeffered.resolve(responseRefs);
             getWorkItemsDeffered.resolve(responseWIs);
         });
+
+      
     });
 
     describe("", function() {
 
     });
 
-    describe("Takt time calculation", function() {
+    describe("Takt time calculation for work items list", function() {
         let sampleCompletedJson = {
             "queryType": "flat",
             "queryResultType": "workItem",
@@ -421,8 +420,7 @@ describe("WorkItemsService", function() {
 
         beforeEach(function() {
             getCompletedWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
-            getWorkItemsDeffered = Q.defer < WorkItem[] > ();
-            getWorkItemRefsByWIQLDeffered = Q.defer < WorkItemReference[] > ();
+            getWorkItemsDeffered = Q.defer < WorkItem[] > ();  
 
             getWIs = sinon.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
             getCompletedWIRefs = sinon.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(getCompletedWorkItemRefsDeffered.promise);
@@ -434,18 +432,23 @@ describe("WorkItemsService", function() {
             sinon.restore(workItemTrackingClient.getWorkItems);
         });
 
+        it("Should return four items", function(done) {
+            witService.getCompletedWorkItems().then(function(result) {
+                expect(result).to.have.lengthOf(4);
+            }).then(done, fail);
+            getCompletedWorkItemRefsDeffered.resolve(responseRefs);
+            getWorkItemsDeffered.resolve(responseWIs);
+        });
+
         it("Should return completed items by completion date", function(done) {
             witService.getCompletedWorkItems().then(function(result) {
                 expect(result).to.have.lengthOf(4);
-                // expect(result[0].id).to.eq(19);
-                // expect(result[1].id).to.eq(18);
-                // expect(result[2].id).to.eq(20);
-                // expect(result[3].id).to.eq(17);
-                done();
-            });
-            console.log("Ping");
-            console.log(responseRefs);
-            getWorkItemRefsByWIQLDeffered.resolve(responseRefs);
+                expect(result[0].id).to.eq(49);
+                expect(result[1].id).to.eq(48);
+                expect(result[2].id).to.eq(50);
+                expect(result[3].id).to.eq(47);
+            }).then(done, fail);
+            getCompletedWorkItemRefsDeffered.resolve(responseRefs);
             getWorkItemsDeffered.resolve(responseWIs);
         });
 
@@ -453,12 +456,11 @@ describe("WorkItemsService", function() {
             witService.getCompletedWorkItems().then(function(result) {
                 expect(result).to.have.lengthOf(4);
                 expect(result[0].taktTime).to.eq(0); //"2016-11-10"
-                expect(result[1].taktTime).to.eq(3); //"2016-11-13"
-                expect(result[2].taktTime).to.eq(0); //"2016-11-13"
-                expect(result[3].taktTime).to.eq(2); //"2016-11-15"
-                done();
-            });
-            getWorkItemRefsByWIQLDeffered.resolve(responseRefs);
+                expect(result[1].taktTime).to.eq(3, "Second item should have TT 3"); //"2016-11-13"
+                expect(result[2].taktTime).to.eq(0, "Third item should have TT 0"); //"2016-11-13"
+                expect(result[3].taktTime).to.eq(2, "Fourth item should have TT 2"); //"2016-11-15"
+            }).then(done, fail);
+            getCompletedWorkItemRefsDeffered.resolve(responseRefs);
             getWorkItemsDeffered.resolve(responseWIs);
         });
     });

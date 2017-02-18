@@ -34,9 +34,6 @@ export class WorkItemsService {
             let ids = result.map(w => w.id);
             this.witClient.getWorkItems(ids).then((r) => {
 
-                console.log("Pong");
-                console.log(r);
-
                 let result = r.sort((a, b) => {
                     var aDate = new Date(a.fields[COMPLETED_DATE_FIELD]);
                     var bDate = new Date(b.fields[COMPLETED_DATE_FIELD]);
@@ -50,31 +47,29 @@ export class WorkItemsService {
     }
 
     private updateTaktTimes(workItems : TFSContracts.WorkItem[]): MonteCarloWorkItem[] {
-        if(workItems.length === 1) {
-            return [<MonteCarloWorkItem>{
+        let result =  [<MonteCarloWorkItem>{
                 _links : workItems[0]._links,
                 fields : workItems[0].fields,
                 id : workItems[0].id,
                 relations : workItems[0].relations,
                 rev: workItems[0].rev,
                 taktTime: 0
-            }];
-        }
+                }]; 
         
-        return workItems.slice(1).map(function(n, i) { 
 
-            var currItemDate = moment(n.fields[COMPLETED_DATE_FIELD]);
-            var nextItemDate = moment(workItems[i].fields[COMPLETED_DATE_FIELD]);
-
+        return result.concat(workItems.slice(1).map(function(n, i) { 
+            let currItemDate = moment(n.fields[COMPLETED_DATE_FIELD]);
+            let nextItemDate = moment(workItems[i].fields[COMPLETED_DATE_FIELD]);
+            let TT = Math.ceil(moment.duration(nextItemDate.diff(currItemDate)).asDays());
             return <MonteCarloWorkItem>{
                 _links : n._links,
                 fields : n.fields,
                 id : n.id,
                 relations : n.relations,
                 rev: n.rev,
-                taktTime: 0
-                }; 
-        });
+                taktTime: TT
+            }; 
+        }));
     }
 
     public getInProgressWorkItems(): IPromise <TFSContracts.WorkItem[]> {
