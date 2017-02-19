@@ -21,88 +21,6 @@ import {
 
 import * as Q from 'q';
 
-let sampleInProgressResponseJson = {
-    "queryType": "flat",
-    "queryResultType": "workItem",
-    "asOf": "2016-11-11T03:42:22.53Z",
-    "columns": [{
-        "referenceName": "System.Id",
-        "name": "ID",
-        "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Id"
-    }, {
-        "referenceName": "System.Title",
-        "name": "Title",
-        "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Title"
-    }, {
-        "referenceName": "System.State",
-        "name": "State",
-        "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.State"
-    }],
-    "sortColumns": [{
-        "field": {
-            "referenceName": "Microsoft.VSTS.Common.Priority",
-            "name": "Priority",
-            "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/Microsoft.VSTS.Common.Priority"
-        },
-        "descending": false
-    }, {
-        "field": {
-            "referenceName": "System.CreatedDate",
-            "name": "Created Date",
-            "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.CreatedDate"
-        },
-        "descending": true
-    }],
-    "workItems": [{
-        "id": 21,
-        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/21"
-    }, {
-        "id": 20,
-        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/20"
-    }, {
-        "id": 19,
-        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/19"
-    }]
-};
-
-let getInProgressWorkItemsJson = {
-    "count": 3,
-    "value": [{
-        "id": 19,
-        "rev": 2,
-        "fields": {
-            "System.Id": 19,
-            "System.WorkItemType": "Product Backlog Item",
-            "System.State": "New",
-            "System.Title": "Optimise bundling",
-            "Microsoft.VSTS.Common.BacklogPriority": 1999985093
-        },
-        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/19"
-    }, {
-        "id": 20,
-        "rev": 4,
-        "fields": {
-            "System.Id": 20,
-            "System.WorkItemType": "Product Backlog Item",
-            "System.State": "Committed",
-            "System.Title": "Integrate TFS queries",
-            "Microsoft.VSTS.Common.BacklogPriority": 1999955279
-        },
-        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/20"
-    }, {
-        "id": 21,
-        "rev": 3,
-        "fields": {
-            "System.Id": 21,
-            "System.WorkItemType": "Product Backlog Item",
-            "System.State": "Approved",
-            "System.Title": "Visualise MC results",
-            "Microsoft.VSTS.Common.BacklogPriority": 1999977640
-        },
-        "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/21"
-    }]
-};
-
 describe("WorkItemsService", function() {
 
     let getCompletedWorkItemRefsDeffered: Q.Deferred < WorkItemReference[] > ;
@@ -126,61 +44,142 @@ describe("WorkItemsService", function() {
         }
     };
 
-
     let getWIs: Sinon.SinonSpy;
     let witService: WorkItemsService;
 
-    // describe("In progress items", function() {
-    //     let getWisRefsClientStub: Sinon.SinonSpy;
+    describe("In progress items", function() {
 
-    //     let responseRefs = sampleInProgressResponseJson.workItems.map((it) => < WorkItemReference > {
-    //         id: it.id,
-    //         url: it.url
-    //     });
+        let sampleInProgressResponseJson = {
+            "queryType": "flat",
+            "queryResultType": "workItem",
+            "asOf": "2016-11-11T03:42:22.53Z",
+            "columns": [{
+                "referenceName": "System.Id",
+                "name": "ID",
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Id"
+            }, {
+                "referenceName": "System.Title",
+                "name": "Title",
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Title"
+            }, {
+                "referenceName": "System.State",
+                "name": "State",
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.State"
+            }],
+            "sortColumns": [{
+                "field": {
+                    "referenceName": "Microsoft.VSTS.Common.Priority",
+                    "name": "Priority",
+                    "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/Microsoft.VSTS.Common.Priority"
+                },
+                "descending": false
+            }, {
+                "field": {
+                    "referenceName": "System.CreatedDate",
+                    "name": "Created Date",
+                    "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.CreatedDate"
+                },
+                "descending": true
+            }],
+            "workItems": [{
+                "id": 21,
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/21"
+            }, {
+                "id": 20,
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/20"
+            }, {
+                "id": 19,
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/19"
+            }]
+        };
 
-    //     let responseWIs = getInProgressWorkItemsJson.value.map((it) => < WorkItem > {
-    //         id: it.id,
-    //         url: it.url,
-    //         rev: it.rev,
-    //         fields: it.fields,
-    //         relations: null,
-    //         _links: null
-    //     });
+        let getInProgressWorkItemsJson = {
+            "count": 3,
+            "value": [{
+                "id": 19,
+                "rev": 2,
+                "fields": {
+                    "System.Id": 19,
+                    "System.WorkItemType": "Product Backlog Item",
+                    "System.State": "New",
+                    "System.Title": "Optimise bundling",
+                    "Microsoft.VSTS.Common.BacklogPriority": 1999985093
+                },
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/19"
+            }, {
+                "id": 20,
+                "rev": 4,
+                "fields": {
+                    "System.Id": 20,
+                    "System.WorkItemType": "Product Backlog Item",
+                    "System.State": "Committed",
+                    "System.Title": "Integrate TFS queries",
+                    "Microsoft.VSTS.Common.BacklogPriority": 1999955279
+                },
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/20"
+            }, {
+                "id": 21,
+                "rev": 3,
+                "fields": {
+                    "System.Id": 21,
+                    "System.WorkItemType": "Product Backlog Item",
+                    "System.State": "Approved",
+                    "System.Title": "Visualise MC results",
+                    "Microsoft.VSTS.Common.BacklogPriority": 1999977640
+                },
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/21"
+            }]
+        };
 
-    //     beforeEach(function() {
-    //         getInProgressWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
-    //         getWorkItemsDeffered = Q.defer < WorkItem[] > ();
-    //         getWorkItemRefsByWIQLDeffered = Q.defer < WorkItemReference[] > ();
+        let getWisRefsClientStub: Sinon.SinonSpy;
 
-    //         getWIs = sinon.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
-    //         getWisRefsClientStub = sinon.stub(workItemTrackingClient, 'getInProgressWorkItemRefs').returns(getInProgressWorkItemRefsDeffered.promise);
-    //         witService = new WorkItemsService(workItemTrackingClient);
-    //     });
+        let responseRefs = sampleInProgressResponseJson.workItems.map((it) => < WorkItemReference > {
+            id: it.id,
+            url: it.url
+        });
 
-    //     afterEach(function() {
-    //         sinon.restore(workItemTrackingClient.getInProgressWorkItemRefs);
-    //         sinon.restore(workItemTrackingClient.getWorkItems);
-    //     });
+        let responseWIs = getInProgressWorkItemsJson.value.map((it) => < WorkItem > {
+            id: it.id,
+            url: it.url,
+            rev: it.rev,
+            fields: it.fields,
+            relations: null,
+            _links: null
+        });
 
-    //     it("Should call wit client", function() {
-    //         witService.getInProgressWorkItems();
-    //         getInProgressWorkItemRefsDeffered.resolve(responseRefs);
-    //         expect(getWisRefsClientStub.calledOnce);
-    //         expect(getWIs.calledOnce);
-    //     });
+        beforeEach(function() {
+            getInProgressWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
+            getWorkItemsDeffered = Q.defer < WorkItem[] > ();
+            getWorkItemRefsByWIQLDeffered = Q.defer < WorkItemReference[] > ();
 
-    //     it("Should return 3 items", function(done) {
-    //         witService.getInProgressWorkItems().then(function(result) {
-    //             expect(result).to.have.lengthOf(3);
-    //             expect(result[0].id).to.eq(20);
-    //             expect(result[1].id).to.eq(21);
-    //             expect(result[2].id).to.eq(19);
-    //             done();
-    //         });
-    //         getInProgressWorkItemRefsDeffered.resolve(responseRefs);
-    //         getWorkItemsDeffered.resolve(responseWIs);
-    //     });
-    // });
+            getWIs = sinon.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
+            getWisRefsClientStub = sinon.stub(workItemTrackingClient, 'getInProgressWorkItemRefs').returns(getInProgressWorkItemRefsDeffered.promise);
+            witService = new WorkItemsService(workItemTrackingClient);
+        });
+
+        afterEach(function() {
+            sinon.restore(workItemTrackingClient.getInProgressWorkItemRefs);
+            sinon.restore(workItemTrackingClient.getWorkItems);
+        });
+
+        it("Should call wit client", function() {
+            witService.getInProgressWorkItems();
+            getInProgressWorkItemRefsDeffered.resolve(responseRefs);
+            expect(getWisRefsClientStub.calledOnce);
+            expect(getWIs.calledOnce);
+        });
+
+        it("Should return 3 items", function(done) {
+            witService.getInProgressWorkItems().then(function(result) {
+                expect(result).to.have.lengthOf(3);
+                expect(result[0].id).to.eq(20);
+                expect(result[1].id).to.eq(21);
+                expect(result[2].id).to.eq(19);
+            }).then(done, fail);;
+            getInProgressWorkItemRefsDeffered.resolve(responseRefs);
+            getWorkItemsDeffered.resolve(responseWIs);
+        });
+    });
 
     describe("Completed work items", function() {
 
@@ -282,12 +281,12 @@ describe("WorkItemsService", function() {
             witService.getCompletedWorkItems().then(function(result) {
                 expect(result).to.have.lengthOf(1);
                 expect(result[0].id).to.eq(17);
-            }).then(done, fail);;
+            }).then(done, fail);
             getCompletedWorkItemRefsDeffered.resolve(responseRefs);
             getWorkItemsDeffered.resolve(responseWIs);
         });
 
-      
+
     });
 
     describe("", function() {
@@ -330,13 +329,13 @@ describe("WorkItemsService", function() {
             "workItems": [{
                 "id": 47,
                 "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/47"
-            },{
+            }, {
                 "id": 88,
                 "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/48"
-            },{
+            }, {
                 "id": 49,
                 "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/49"
-            },{
+            }, {
                 "id": 50,
                 "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/50"
             }]
@@ -345,61 +344,62 @@ describe("WorkItemsService", function() {
         let getCompletedWorkItemsJson = {
             "count": 4,
             "value": [{
-                "id": 47,
-                "rev": 9,
-                "fields": {
-                    "System.Id": 47,
-                    "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
-                    "System.WorkItemType": "Product Backlog Item",
-                    "System.State": "Done",
-                    "System.Title": "Dummy 1",
-                    "Microsoft.VSTS.Common.ClosedDate": "2016-11-15T11:17:17.933Z",
-                    "Microsoft.VSTS.Common.BacklogPriority": 1999966460
+                    "id": 47,
+                    "rev": 9,
+                    "fields": {
+                        "System.Id": 47,
+                        "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
+                        "System.WorkItemType": "Product Backlog Item",
+                        "System.State": "Done",
+                        "System.Title": "Dummy 1",
+                        "Microsoft.VSTS.Common.ClosedDate": "2016-11-15T11:17:17.933Z",
+                        "Microsoft.VSTS.Common.BacklogPriority": 1999966460
+                    },
+                    "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/47"
                 },
-                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/47"
-            },
-            {
-                "id": 48,
-                "rev": 9,
-                "fields": {
-                    "System.Id": 48,
-                    "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
-                    "System.WorkItemType": "Product Backlog Item",
-                    "System.State": "Done",
-                    "System.Title": "Dummy 2",
-                    "Microsoft.VSTS.Common.ClosedDate": "2016-11-13T11:17:17.933Z",
-                    "Microsoft.VSTS.Common.BacklogPriority": 1999966423
+                {
+                    "id": 48,
+                    "rev": 9,
+                    "fields": {
+                        "System.Id": 48,
+                        "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
+                        "System.WorkItemType": "Product Backlog Item",
+                        "System.State": "Done",
+                        "System.Title": "Dummy 2",
+                        "Microsoft.VSTS.Common.ClosedDate": "2016-11-13T11:17:17.933Z",
+                        "Microsoft.VSTS.Common.BacklogPriority": 1999966423
+                    },
+                    "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/48"
                 },
-                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/48"
-            },
-            {
-                "id": 49,
-                "rev": 9,
-                "fields": {
-                    "System.Id": 49,
-                    "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
-                    "System.WorkItemType": "Product Backlog Item",
-                    "System.State": "Done",
-                    "System.Title": "Dummy 3",
-                    "Microsoft.VSTS.Common.ClosedDate": "2016-11-10T16:12:17.933Z",
-                    "Microsoft.VSTS.Common.BacklogPriority": 1999966498
+                {
+                    "id": 49,
+                    "rev": 9,
+                    "fields": {
+                        "System.Id": 49,
+                        "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
+                        "System.WorkItemType": "Product Backlog Item",
+                        "System.State": "Done",
+                        "System.Title": "Dummy 3",
+                        "Microsoft.VSTS.Common.ClosedDate": "2016-11-10T16:12:17.933Z",
+                        "Microsoft.VSTS.Common.BacklogPriority": 1999966498
+                    },
+                    "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/49"
                 },
-                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/49"
-            },            
-            {
-                "id": 50,
-                "rev": 9,
-                "fields": {
-                    "System.Id": 50,
-                    "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
-                    "System.WorkItemType": "Product Backlog Item",
-                    "System.State": "Done",
-                    "System.Title": "Dummy 4",
-                    "Microsoft.VSTS.Common.ClosedDate": "2016-11-13T16:12:17.933Z",
-                    "Microsoft.VSTS.Common.BacklogPriority": 1999966498
-                },
-                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/50"
-            }]
+                {
+                    "id": 50,
+                    "rev": 9,
+                    "fields": {
+                        "System.Id": 50,
+                        "System.IterationPath": "VSTS Monte Carlo\\Sprint 1",
+                        "System.WorkItemType": "Product Backlog Item",
+                        "System.State": "Done",
+                        "System.Title": "Dummy 4",
+                        "Microsoft.VSTS.Common.ClosedDate": "2016-11-13T16:12:17.933Z",
+                        "Microsoft.VSTS.Common.BacklogPriority": 1999966498
+                    },
+                    "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/50"
+                }
+            ]
         };
 
         let getCompletedWIRefs: Sinon.SinonSpy;
@@ -420,7 +420,7 @@ describe("WorkItemsService", function() {
 
         beforeEach(function() {
             getCompletedWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
-            getWorkItemsDeffered = Q.defer < WorkItem[] > ();  
+            getWorkItemsDeffered = Q.defer < WorkItem[] > ();
 
             getWIs = sinon.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
             getCompletedWIRefs = sinon.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(getCompletedWorkItemRefsDeffered.promise);

@@ -60,7 +60,7 @@ export class WorkItemsService {
         return result.concat(workItems.slice(1).map(function(n, i) { 
             let currItemDate = moment(n.fields[COMPLETED_DATE_FIELD]);
             let nextItemDate = moment(workItems[i].fields[COMPLETED_DATE_FIELD]);
-            let TT = Math.ceil(moment.duration(nextItemDate.diff(currItemDate)).asDays());
+            let TT = Math.ceil(moment.duration(currItemDate.diff(nextItemDate, 'days')).asDays());
             return <MonteCarloWorkItem>{
                 _links : n._links,
                 fields : n.fields,
