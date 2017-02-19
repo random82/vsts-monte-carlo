@@ -15,10 +15,12 @@
         });
 
         VSS.require(["dist/polyfills"], function () {
-            VSS.require(["dist/vendor"], function () {
-                VSS.require(["dist/app"], function () {
-                    // Loading succeeded
-                    VSS.notifyLoadSucceeded();
+            VSS.require(["dist/framework"], function () {
+                 VSS.require(["dist/vendor"], function () {
+                    VSS.require(["dist/app"], function () {
+                        // Loading succeeded
+                        VSS.notifyLoadSucceeded();
+                    });
                 });
             });
         }); 
