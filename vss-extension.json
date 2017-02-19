@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "vsts-monte-carlo",
-  "version": "0.1.65",
+  "version": "0.1.70",
   "name": "Monte Carlo forecasting",
   "description": "Monte Carlo forecasting for Visual Studio Team Services",
   "publisher": "random",
