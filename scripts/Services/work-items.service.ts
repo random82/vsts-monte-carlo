@@ -59,7 +59,7 @@ export class WorkItemsService {
                 }];        
 
         return result.concat(workItems.slice(1).map(function(n, i) { 
-            let TT =  self.dateDiff(n, workItems[i], COMPLETED_DATE_FIELD);
+            let TT =  self.dateDiff(workItems[i], n, COMPLETED_DATE_FIELD);
 
             return <MonteCarloWorkItem>{
                 _links : n._links,
@@ -73,10 +73,19 @@ export class WorkItemsService {
     }
 
     private dateDiff(a:TFSContracts.WorkItem, b:TFSContracts.WorkItem, fieldName : string) : number {
-        let currItemDate = moment(a.fields[fieldName]).startOf('day');
-        let nextItemDate = moment(b.fields[fieldName]).startOf('day');
+        let first = new Date(a.fields[fieldName]);
+        let second = new Date(b.fields[fieldName]);
                  
-        return moment.duration(currItemDate.diff(nextItemDate)).asDays();
+        var one = new Date(first.getFullYear(), first.getMonth(), first.getDate());
+        var two = new Date(second.getFullYear(), second.getMonth(), second.getDate());
+
+         // Do the math.
+        var millisecondsPerDay = 1000 * 60 * 60 * 24;
+        var millisBetween = two.getTime() - one.getTime();
+        var days = millisBetween / millisecondsPerDay;
+
+        // Round down.
+        return Math.floor(days);
     }
 
     public getInProgressWorkItems(): IPromise <TFSContracts.WorkItem[]> {

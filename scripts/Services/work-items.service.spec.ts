@@ -355,7 +355,7 @@ describe("WorkItemsService", function() {
                         "System.WorkItemType": "Product Backlog Item",
                         "System.State": "Done",
                         "System.Title": "Dummy 1",
-                        "Microsoft.VSTS.Common.ClosedDate": "2016-11-15T11:17:17.933Z",
+                        "Microsoft.VSTS.Common.ClosedDate": "2016-11-15T14:17:17.933Z",
                         "Microsoft.VSTS.Common.BacklogPriority": 1999966460
                     },
                     "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/47"
@@ -369,7 +369,7 @@ describe("WorkItemsService", function() {
                         "System.WorkItemType": "Product Backlog Item",
                         "System.State": "Done",
                         "System.Title": "Dummy 2",
-                        "Microsoft.VSTS.Common.ClosedDate": "2016-11-13T11:17:17.933Z",
+                        "Microsoft.VSTS.Common.ClosedDate": "2016-11-13T15:17:17.933Z",
                         "Microsoft.VSTS.Common.BacklogPriority": 1999966423
                     },
                     "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/48"
