@@ -175,7 +175,10 @@ describe("WorkItemsService", function() {
                 expect(result[0].id).to.eq(20);
                 expect(result[1].id).to.eq(21);
                 expect(result[2].id).to.eq(19);
-            }).then(done, fail);;
+            }).then(done, error => {
+                fail(error);
+                done();
+            });
             getInProgressWorkItemRefsDeffered.resolve(responseRefs);
             getWorkItemsDeffered.resolve(responseWIs);
         });
@@ -435,7 +438,10 @@ describe("WorkItemsService", function() {
         it("Should return four items", function(done) {
             witService.getCompletedWorkItems().then(function(result) {
                 expect(result).to.have.lengthOf(4);
-            }).then(done, fail);
+            }).then(done, error => {
+                fail(error);
+                done();
+            });
             getCompletedWorkItemRefsDeffered.resolve(responseRefs);
             getWorkItemsDeffered.resolve(responseWIs);
         });
@@ -447,7 +453,10 @@ describe("WorkItemsService", function() {
                 expect(result[1].id).to.eq(48);
                 expect(result[2].id).to.eq(50);
                 expect(result[3].id).to.eq(47);
-            }).then(done, fail);
+            }).then(done, error => {
+                fail(error);
+                done();
+            });
             getCompletedWorkItemRefsDeffered.resolve(responseRefs);
             getWorkItemsDeffered.resolve(responseWIs);
         });
@@ -459,7 +468,10 @@ describe("WorkItemsService", function() {
                 expect(result[1].taktTime).to.eq(3, "Second item should have TT 3"); //"2016-11-13"
                 expect(result[2].taktTime).to.eq(0, "Third item should have TT 0"); //"2016-11-13"
                 expect(result[3].taktTime).to.eq(2, "Fourth item should have TT 2"); //"2016-11-15"
-            }).then(done, fail);
+            }).then(done, error => {
+                fail(error);
+                done();
+            });
             getCompletedWorkItemRefsDeffered.resolve(responseRefs);
             getWorkItemsDeffered.resolve(responseWIs);
         });
