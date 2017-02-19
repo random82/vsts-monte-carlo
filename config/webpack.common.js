@@ -15,6 +15,7 @@ module.exports = {
     target: "web",
     entry: {
         'polyfills': './scripts/polyfills.ts',
+        'framework': './scripts/framework.ts',
         'vendor': './scripts/vendor.ts',
         'app': './scripts/main.ts',
         'styles': './scripts/styles.ts'
@@ -62,7 +63,7 @@ module.exports = {
         new webpack.optimize.DedupePlugin(),
 
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendor', 'polyfills']
+            name: ['app', 'vendor', 'framework', 'polyfills']
         }),
 
         new HtmlWebpackPlugin({
