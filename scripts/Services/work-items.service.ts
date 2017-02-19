@@ -11,8 +11,6 @@ import {
     MonteCarloWorkItem
 } from "../Model/WorkItem";
 
-import * as moment from 'moment';
-
 const BACKLOG_PRIORITY_FIELD = "Microsoft.VSTS.Common.BacklogPriority";
 const COMPLETED_DATE_FIELD = "Microsoft.VSTS.Common.ClosedDate";
 

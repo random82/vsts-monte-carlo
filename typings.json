@@ -5,7 +5,6 @@
     "jasmine": "registry:dt/jasmine#2.5.0+20161025102649",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "knockout": "registry:dt/knockout#0.0.0+20160512130947",
-    "moment": "registry:dt/moment#2.11.1+20161010105546",
     "node": "registry:dt/node#6.0.0+20161121110008",
     "q": "registry:dt/q#0.0.0+20160613154756",
     "react": "registry:dt/react#0.14.0+20161124131900",
