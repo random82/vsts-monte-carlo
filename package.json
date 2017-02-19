@@ -8,7 +8,8 @@
     "build:dev": "rimraf dist *.vsix && webpack --config config/webpack.dev.js --progress --profile",
     "build:prod": "rimraf dist *.vsix && webpack --config config/webpack.prod.js --progress --profile",
     "postinstall": "typings install",
-    "package": "tfx extension create --manifest-globs vss-extension.json --rev-version"
+    "package": "tfx extension create --manifest-globs vss-extension.json --rev-version",
+    "publish": "tfx extension publish"
   },
   "repository": {
     "type": "git",
