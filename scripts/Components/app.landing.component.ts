@@ -45,12 +45,15 @@ export class LandingComponent implements OnInit {
                 this.InProgressWorkItems = r;
                 this.InProgressWorkItemsCount = r.length;
             }); 
-        });
-
-        this.drawForecastMtx();
+            this.drawForecastMtx();
+        });        
     }
 
     drawForecastMtx() {
+        if(this.InProgressWorkItems === null){
+            return;
+        }
+
         let heatmapColour = scaleLinear()
           .domain([0, 0.2, 0.5, 0.8, 1])
           .range(["red", "orange", "yellow" , "#05ff00", "#00c000"]);
