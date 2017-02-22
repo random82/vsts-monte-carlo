@@ -1,6 +1,8 @@
 import { Component, OnInit, NgZone, ElementRef } from '@angular/core';
 import { WorkItemsService } from '../services/work-items.service';
 
+import { MonteCarloWorkItem } from '../Model/WorkItem';
+
 import { select } from 'd3-selection';
 import { scaleLinear } from 'd3-scale';
 
@@ -12,7 +14,11 @@ export class LandingComponent implements OnInit {
 
     el: HTMLElement;
 
+    public CompletedWorkItems : MonteCarloWorkItem[];
+
     public CompletedWorkItemsCount : number;
+
+    public InProgressWorkItems: MonteCarloWorkItem[];
     
     public InProgressWorkItemsCount : number;
 
@@ -27,12 +33,14 @@ export class LandingComponent implements OnInit {
     ngOnInit() {
         this.workItemsService.getCompletedWorkItems().then((r)=>{
             this.zone.run(() => {
+                this.CompletedWorkItems = r;
                 this.CompletedWorkItemsCount = r.length;
             });            
         });
 
         this.workItemsService.getInProgressWorkItems().then((r)=>{
             this.zone.run(() => {
+                this.InProgressWorkItems = r;
                 this.InProgressWorkItemsCount = r.length;
             }); 
         });

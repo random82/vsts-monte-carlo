@@ -24,6 +24,35 @@ export class WorkItemsService {
         this.witClient = _witClient;
     }
 
+    public getInProgressWorkItems(): IPromise <MonteCarloWorkItem[]> {
+        let deferred = Q.defer <Array<TFSContracts.WorkItem>> ();
+
+        this.witClient.getInProgressWorkItemRefs()
+        .then((result) => {
+            let ids = result.map(w => w.id);
+            this.witClient.getWorkItems(ids).then((r) => {
+                let result = r.sort((a, b) => {
+                    return a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD]
+                });
+
+                result = result.map(it => {
+                    return  <MonteCarloWorkItem>{
+                        _links : it._links,
+                        fields : it.fields,
+                        id : it.id,
+                        relations : it.relations,
+                        rev: it.rev,
+                        url: it.url,
+                        taktTime: 0
+                    }; 
+                })
+
+                deferred.resolve(result);
+            });
+        });
+        return deferred.promise;
+    }
+
     public getCompletedWorkItems(): IPromise<MonteCarloWorkItem[]> {
         let deferred = Q.defer<Array<TFSContracts.WorkItem>> ();
 
@@ -65,6 +94,7 @@ export class WorkItemsService {
                 id : n.id,
                 relations : n.relations,
                 rev: n.rev,
+                url: n.url,
                 taktTime: TT
             }; 
         }));
@@ -86,19 +116,5 @@ export class WorkItemsService {
         return Math.floor(days);
     }
 
-    public getInProgressWorkItems(): IPromise <TFSContracts.WorkItem[]> {
-        let deferred = Q.defer <Array<TFSContracts.WorkItem>> ();
-
-        this.witClient.getInProgressWorkItemRefs()
-        .then((result) => {
-            let ids = result.map(w => w.id);
-            this.witClient.getWorkItems(ids).then((r) => {
-                let result = r.sort((a, b) => {
-                    return a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD]
-                });
-                deferred.resolve(result);
-            });
-        });
-        return deferred.promise;
-    }
+   
 }
