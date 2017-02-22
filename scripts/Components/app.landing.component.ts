@@ -1,6 +1,8 @@
 import { Component, OnInit, NgZone, ElementRef } from '@angular/core';
 import { WorkItemsService } from '../services/work-items.service';
 
+import { MonteCarloWorkItem } from '../Model/WorkItem';
+
 import { select } from 'd3-selection';
 import { scaleLinear } from 'd3-scale';
 
@@ -12,9 +14,15 @@ export class LandingComponent implements OnInit {
 
     el: HTMLElement;
 
+    public CompletedWorkItems : MonteCarloWorkItem[];
+
     public CompletedWorkItemsCount : number;
+
+    public InProgressWorkItems: MonteCarloWorkItem[];
     
     public InProgressWorkItemsCount : number;
+
+    public NumberOfIterations: number;
 
     constructor(private workItemsService : WorkItemsService, 
                 private zone : NgZone,
@@ -27,34 +35,33 @@ export class LandingComponent implements OnInit {
     ngOnInit() {
         this.workItemsService.getCompletedWorkItems().then((r)=>{
             this.zone.run(() => {
+                this.CompletedWorkItems = r;
                 this.CompletedWorkItemsCount = r.length;
             });            
         });
 
         this.workItemsService.getInProgressWorkItems().then((r)=>{
             this.zone.run(() => {
+                this.InProgressWorkItems = r;
                 this.InProgressWorkItemsCount = r.length;
             }); 
-        });
-
-        this.drawForecastMtx();
+            this.drawForecastMtx();
+        });        
     }
 
     drawForecastMtx() {
+        if(this.InProgressWorkItems === null){
+            return;
+        }
+
         let heatmapColour = scaleLinear()
           .domain([0, 0.2, 0.5, 0.8, 1])
           .range(["red", "orange", "yellow" , "#05ff00", "#00c000"]);
           
+        let forecast = this.InProgressWorkItems.map((it) => {
+            return [it.id, it.fields["System.Title"], 0.7, 0.9, 1.0, 1.0, 1.0]
+        });        
        
-        let forecast = [
-            [1.0, 1.0, 1.0, 1.0, 1.0],
-            [0.9, 1.0, 1.0, 1.0, 1.0],
-            [0.7, 0.9, 1.0, 1.0, 1.0],
-            [0.5, 0.8, 0.9, 1.0, 1.0],
-            [0.2, 0.6, 0.7, 0.8, 0.9],
-            [0.13, 0.4, 0.48, 0.56, 0.7],
-            [0.1, 0.2, 0.25, 0.3, 0.4]
-        ];
                
         let tr = select(this.el)
             .select('#forecast_matrix')
@@ -66,13 +73,21 @@ export class LandingComponent implements OnInit {
             .append('tr');          
           
         let td = tr.selectAll('td')
-            .data((d:any, i:any) => { return d; })
+            .data((d:any, i:number) => { return d; })
             .enter()
             .append('td');
         
-        td.text((d: any) => { return Math.floor(d * 100) + '%'; });
+        td.text((d: any, i:number) => { 
+            if(i < 2){
+                return d;
+            }
+            return Math.floor(d * 100) + '%'; }
+        );
         td.style("background-color", 
-            (d) => {
+            (d, i) => {
+                if(i < 2) {
+                    return "white";
+                }
                 return <any>heatmapColour(d);
             }
         );
