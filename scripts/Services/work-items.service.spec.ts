@@ -19,6 +19,10 @@ import {
     expect
 } from 'chai';
 
+import 'jasmine';
+
+import * as sinon from 'sinon';
+
 import * as Q from 'q';
 
 describe("WorkItemsService", function() {
@@ -44,7 +48,7 @@ describe("WorkItemsService", function() {
         }
     };
 
-    let getWIs: Sinon.SinonSpy;
+    let getWIs: sinon.SinonSpy;
     let witService: WorkItemsService;
 
     describe("In progress items", function() {
@@ -131,7 +135,7 @@ describe("WorkItemsService", function() {
             }]
         };
 
-        let getWisRefsClientStub: Sinon.SinonSpy;
+        let getWisRefsClientStub: sinon.SinonSpy;
 
         let responseRefs = sampleInProgressResponseJson.workItems.map((it) => < WorkItemReference > {
             id: it.id,
@@ -242,7 +246,7 @@ describe("WorkItemsService", function() {
             }]
         };
 
-        let getCompletedWIRefs: Sinon.SinonSpy;
+        let getCompletedWIRefs: sinon.SinonSpy;
 
         let responseRefs = sampleCompletedJson.workItems.map((it) => < WorkItemReference > {
             id: it.id,
@@ -405,7 +409,7 @@ describe("WorkItemsService", function() {
             ]
         };
 
-        let getCompletedWIRefs: Sinon.SinonSpy;
+        let getCompletedWIRefs: sinon.SinonSpy;
 
         let responseRefs = sampleCompletedJson.workItems.map((it) => < WorkItemReference > {
             id: it.id,

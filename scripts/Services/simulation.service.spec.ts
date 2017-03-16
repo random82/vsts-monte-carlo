@@ -4,6 +4,8 @@ import {
   expect
 } from 'chai';
 
+import 'jasmine';
+
 import * as _ from 'lodash';
 
 describe("Simulation tests", () => {
