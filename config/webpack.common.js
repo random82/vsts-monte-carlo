@@ -68,7 +68,7 @@ module.exports = {
 
         new HtmlWebpackPlugin({
             template: isDemo ? './demo/index.html':'index.html',
-            inject: false
+            inject: isDemo ? true : false
         }),
 
         new webpack.ProvidePlugin({

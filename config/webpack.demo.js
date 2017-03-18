@@ -12,8 +12,7 @@ module.exports = webpackMerge(commonConfig, {
   output: {
     path: helpers.dist,
     filename: '[name].js',
-    chunkFilename: '[id].chunk.js',
-    libraryTarget: 'amd'
+    chunkFilename: '[id].chunk.js'
   },
 
   plugins: [
