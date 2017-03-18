@@ -12,10 +12,6 @@ import {
 } from "TFS/WorkItemTracking/Contracts";
 
 import {
-    MonteCarloWorkItem
-} from "../Model/WorkItem";
-
-import {
     expect
 } from 'chai';
 
