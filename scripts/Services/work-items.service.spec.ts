@@ -48,6 +48,8 @@ describe("WorkItemsService", function() {
         }
     };
 
+    var sandbox = sinon.sandbox.create();
+
     let getWIs: sinon.SinonSpy;
     let witService: WorkItemsService;
 
@@ -156,14 +158,13 @@ describe("WorkItemsService", function() {
             getWorkItemsDeffered = Q.defer < WorkItem[] > ();
             getWorkItemRefsByWIQLDeffered = Q.defer < WorkItemReference[] > ();
 
-            getWIs = sinon.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
-            getWisRefsClientStub = sinon.stub(workItemTrackingClient, 'getInProgressWorkItemRefs').returns(getInProgressWorkItemRefsDeffered.promise);
+            getWIs = sandbox.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
+            getWisRefsClientStub = sandbox.stub(workItemTrackingClient, 'getInProgressWorkItemRefs').returns(getInProgressWorkItemRefsDeffered.promise);
             witService = new WorkItemsService(workItemTrackingClient);
         });
 
         afterEach(function() {
-            sinon.restore(workItemTrackingClient.getInProgressWorkItemRefs);
-            sinon.restore(workItemTrackingClient.getWorkItems);
+            sandbox.restore();
         });
 
         it("Should call wit client", function() {
@@ -266,14 +267,13 @@ describe("WorkItemsService", function() {
             getCompletedWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
             getWorkItemsDeffered = Q.defer < WorkItem[] > ();
 
-            getWIs = sinon.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
-            getCompletedWIRefs = sinon.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(getCompletedWorkItemRefsDeffered.promise);
+            getWIs = sandbox.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
+            getCompletedWIRefs = sandbox.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(getCompletedWorkItemRefsDeffered.promise);
             witService = new WorkItemsService(workItemTrackingClient);
         });
 
         afterEach(function() {
-            sinon.restore(workItemTrackingClient.getCompletedWorkItemRefs);
-            sinon.restore(workItemTrackingClient.getWorkItems);
+            sandbox.restore();
         });
 
         it("Should call wit client", function() {
@@ -429,14 +429,13 @@ describe("WorkItemsService", function() {
             getCompletedWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
             getWorkItemsDeffered = Q.defer < WorkItem[] > ();
 
-            getWIs = sinon.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
-            getCompletedWIRefs = sinon.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(getCompletedWorkItemRefsDeffered.promise);
+            getWIs = sandbox.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
+            getCompletedWIRefs = sandbox.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(getCompletedWorkItemRefsDeffered.promise);
             witService = new WorkItemsService(workItemTrackingClient);
         });
 
         afterEach(function() {
-            sinon.restore(workItemTrackingClient.getCompletedWorkItemRefs);
-            sinon.restore(workItemTrackingClient.getWorkItems);
+            sandbox.restore();
         });
 
         it("Should return four items", function(done) {
