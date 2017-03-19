@@ -4,7 +4,7 @@ export interface SimulationParams {
     sprintLength:number;
 }
 
-export class Simulation{
+export class SimulationService {
 
     private params: SimulationParams;
     

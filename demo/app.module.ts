@@ -2,8 +2,10 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
-import { LandingComponent }  from './app.landing.component';
+import { LandingComponent }  from '../scripts/components/app.landing.component';
 
+import { WorkItemsService } from '../scripts/services/work-items.service';
+import { WorkItemTrackingClient } from './mocks/work-item-tracking.client';
 
 @NgModule({
   imports: [HttpModule, BrowserModule],
@@ -12,7 +14,10 @@ import { LandingComponent }  from './app.landing.component';
                 ],
   bootstrap: [
                 LandingComponent
-             ]
+             ],
+  providers: [
+    WorkItemTrackingClient, 
+    WorkItemsService]
 })
 
 

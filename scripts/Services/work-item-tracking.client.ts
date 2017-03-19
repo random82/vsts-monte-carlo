@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import * as TFSContracts from 'TFS/WorkItemTracking/Contracts';
 import * as RestClient from 'TFS/WorkItemTracking/RestClient';
 import * as Q from 'q';
+import {
+    GetCompletedItemsRef, 
+    GetInProgressItemsRef,
+    GetWorkItems
+} from './work-item-tracking.interfaces';
 
 const GET_COMPLETED_WIQL = "Select [System.Id], [System.Title], [System.State] \
 From WorkItems \
@@ -13,9 +18,8 @@ From WorkItems \
 Where ([System.TeamProject] = @project AND  [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory'  AND  [System.State] <> 'Done') \
 order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc";
 
-
 Injectable()
-export class WorkItemTrackingClient {
+export class WorkItemTrackingClient implements GetCompletedItemsRef, GetInProgressItemsRef, GetWorkItems {
 
     projectId: string;
 

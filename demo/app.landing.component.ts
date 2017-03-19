@@ -5,6 +5,9 @@ import {
     ElementRef
 } from '@angular/core';
 
+import { SimulationService } from '../scripts/Services/simulation.service';
+
+import { WorkItemsService } from '../scripts/Services/work-items.service';
 
 import { MonteCarloWorkItem } from '../scripts/Model/WorkItem';
 
@@ -15,8 +18,6 @@ import {
     scaleLinear
 } from 'd3-scale';
 
-var wipItems = require('json!../sample_data/InProgressItems.json');
-var completedItems = require('json!../sample_data/CompletedItems.json');
 
 @Component({
     selector: 'landing',
@@ -36,17 +37,27 @@ export class LandingComponent implements OnInit {
 
     public NumberOfIterations: number;
 
-    constructor(private elementRef: ElementRef) {
+    public SimulationService: SimulationService;
+
+    constructor(private elementRef: ElementRef,
+                private simService: SimulationService,
+                private workItemsService : WorkItemsService) {
         this.el = elementRef.nativeElement;
+        this.SimulationService = simService;
+        
     }
 
     ngOnInit() {
-        this.CompletedWorkItems = completedItems.value;
-        this.InProgressWorkItems = wipItems.value;
         this.drawForecastMtx();
+
+        this.SimulationService.setup({
+            iterations: 6,
+            sprintLength: 10
+        });
     }
 
     drawForecastMtx() {
+      
         if (this.InProgressWorkItems === null) {
             return;
         }

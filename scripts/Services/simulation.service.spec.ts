@@ -1,4 +1,4 @@
-import { Simulation, SimulationParams } from './simulation.service';
+import { SimulationService, SimulationParams } from './simulation.service';
 
 import {
   expect
@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 
 describe("Simulation tests", () => {
 
-    let sim = new Simulation();
+    let sim = new SimulationService();
 
     beforeAll(()=>{
         let simParams = <SimulationParams> {
