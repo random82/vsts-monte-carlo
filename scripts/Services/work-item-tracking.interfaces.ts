@@ -1,14 +1,18 @@
-import * as TFSContracts from 'TFS/WorkItemTracking/Contracts';
+import {
+    WorkItemReference,
+    WorkItem
+} from '../Model/WorkItem'
+
 
 export declare abstract class GetCompletedItemsRef {
-    abstract getCompletedWorkItemRefs(): Q.Promise<TFSContracts.WorkItemReference[]>;
+    abstract getCompletedWorkItemRefs(): Q.Promise<WorkItemReference[]>;
 }
 
 export declare abstract class GetInProgressItemsRef {
-    abstract getInProgressWorkItemRefs(): Q.Promise<TFSContracts.WorkItemReference[]>;
+    abstract getInProgressWorkItemRefs(): Q.Promise<WorkItemReference[]>;
 }
 
 export declare abstract class GetWorkItems {
-    abstract getWorkItems(ids : Array<number>) : Q.Promise<TFSContracts.WorkItem[]>;
+    abstract getWorkItems(ids : Array<number>) : Q.Promise<WorkItem[]>;
 }
 

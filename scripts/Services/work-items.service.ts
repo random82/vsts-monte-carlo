@@ -2,13 +2,13 @@ import {
     Injectable,
     Inject
 } from '@angular/core';
-import * as TFSContracts from "TFS/WorkItemTracking/Contracts";
+
 import {
     WorkItemTrackingClient
 } from "./work-item-tracking.client";
 
 import {
-    MonteCarloWorkItem
+    WorkItem
 } from "../Model/WorkItem";
 
 const BACKLOG_PRIORITY_FIELD = "Microsoft.VSTS.Common.BacklogPriority";
@@ -24,8 +24,8 @@ export class WorkItemsService {
         this.witClient = _witClient;
     }
 
-    public getInProgressWorkItems(): IPromise <MonteCarloWorkItem[]> {
-        let deferred = Q.defer <Array<TFSContracts.WorkItem>> ();
+    public getInProgressWorkItems(): IPromise <WorkItem[]> {
+        let deferred = Q.defer <Array<WorkItem>> ();
 
         this.witClient.getInProgressWorkItemRefs()
         .then((result) => {
@@ -36,7 +36,7 @@ export class WorkItemsService {
                 });
 
                 result = result.map(it => {
-                    return  <MonteCarloWorkItem>{
+                    return  <WorkItem>{
                         _links : it._links,
                         fields : it.fields,
                         id : it.id,
@@ -45,7 +45,7 @@ export class WorkItemsService {
                         url: it.url,
                         taktTime: 0
                     }; 
-                })
+                });
 
                 deferred.resolve(result);
             });
@@ -53,8 +53,8 @@ export class WorkItemsService {
         return deferred.promise;
     }
 
-    public getCompletedWorkItems(): IPromise<MonteCarloWorkItem[]> {
-        let deferred = Q.defer<Array<TFSContracts.WorkItem>> ();
+    public getCompletedWorkItems(): IPromise<WorkItem[]> {
+        let deferred = Q.defer<Array<WorkItem>> ();
 
         this.witClient.getCompletedWorkItemRefs()
         .then((result) => {
@@ -73,10 +73,10 @@ export class WorkItemsService {
         return deferred.promise;
     }    
 
-    private updateTaktTimes(workItems : TFSContracts.WorkItem[]): MonteCarloWorkItem[] {
+    private updateTaktTimes(workItems : WorkItem[]): WorkItem[] {
         let self = this;
 
-        let result =  [<MonteCarloWorkItem>{
+        let result =  [<WorkItem>{
                 _links : workItems[0]._links,
                 fields : workItems[0].fields,
                 id : workItems[0].id,
@@ -88,7 +88,7 @@ export class WorkItemsService {
         return result.concat(workItems.slice(1).map(function(n, i) { 
             let TT =  self.dateDiff(workItems[i], n, COMPLETED_DATE_FIELD);
 
-            return <MonteCarloWorkItem>{
+            return <WorkItem>{
                 _links : n._links,
                 fields : n.fields,
                 id : n.id,
@@ -100,7 +100,7 @@ export class WorkItemsService {
         }));
     }
 
-    private dateDiff(a:TFSContracts.WorkItem, b:TFSContracts.WorkItem, fieldName : string) : number {
+    private dateDiff(a:WorkItem, b:WorkItem, fieldName : string) : number {
         let first = new Date(a.fields[fieldName]);
         let second = new Date(b.fields[fieldName]);
                  

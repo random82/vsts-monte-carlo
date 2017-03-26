@@ -1,5 +1,9 @@
 import * as TFSContracts from 'TFS/WorkItemTracking/Contracts';
 
-export interface MonteCarloWorkItem extends TFSContracts.WorkItem {
+export interface WorkItem extends TFSContracts.WorkItem {
     taktTime : number;
+}
+
+export interface WorkItemReference extends TFSContracts.WorkItemReference {
+
 }

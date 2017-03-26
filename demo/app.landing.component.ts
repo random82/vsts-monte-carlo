@@ -9,7 +9,7 @@ import { SimulationService } from '../scripts/Services/simulation.service';
 
 import { WorkItemsService } from '../scripts/Services/work-items.service';
 
-import { MonteCarloWorkItem } from '../scripts/Model/WorkItem';
+import { WorkItem } from '../scripts/Model/WorkItem';
 
 import {
     select
@@ -27,11 +27,11 @@ export class LandingComponent implements OnInit {
 
     el: HTMLElement;
 
-    public CompletedWorkItems : MonteCarloWorkItem[];
+    public CompletedWorkItems : WorkItem[];
 
     public CompletedWorkItemsCount : number;
 
-    public InProgressWorkItems: MonteCarloWorkItem[];
+    public InProgressWorkItems: WorkItem[];
     
     public InProgressWorkItemsCount : number;
 

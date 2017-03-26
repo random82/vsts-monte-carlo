@@ -9,7 +9,7 @@ import {
 import {
     WorkItemReference,
     WorkItem
-} from "TFS/WorkItemTracking/Contracts";
+} from "../Model/WorkItem";
 
 import {
     expect

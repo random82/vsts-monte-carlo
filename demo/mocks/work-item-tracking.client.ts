@@ -4,7 +4,10 @@ import {
     GetWorkItems
 } from '../../scripts/Services/work-item-tracking.interfaces';
 
-import * as TFSContracts from 'TFS/WorkItemTracking/Contracts';
+import {
+    WorkItem,
+    WorkItemReference
+} from '../../scripts/Model/WorkItem'
 
 export class WorkItemTrackingClient implements GetCompletedItemsRef, GetInProgressItemsRef, GetWorkItems {
     
@@ -17,15 +20,15 @@ export class WorkItemTrackingClient implements GetCompletedItemsRef, GetInProgre
         this.wipItems = require('json!../../sample_data/InProgressItems.json').value;
     }
 
-    getInProgressWorkItemRefs(): Q.Promise<TFSContracts.WorkItemReference[]> {
+    getInProgressWorkItemRefs(): Q.Promise<WorkItemReference[]> {
         throw new Error('Method not implemented.');
     }
 
-    getCompletedWorkItemRefs(): Q.Promise<TFSContracts.WorkItemReference[]> {
+    getCompletedWorkItemRefs(): Q.Promise<WorkItemReference[]> {
         throw new Error('Method not implemented.');
     }
 
-    getWorkItems(ids: number[]): Q.Promise<TFSContracts.WorkItem[]> {
+    getWorkItems(ids: number[]): Q.Promise<WorkItem[]> {
         throw new Error('Method not implemented.');
     }
 }

@@ -8,6 +8,11 @@ import {
     GetWorkItems
 } from './work-item-tracking.interfaces';
 
+import {
+    WorkItem,
+    WorkItemReference
+} from '../Model/WorkItem';
+
 const GET_COMPLETED_WIQL = "Select [System.Id], [System.Title], [System.State] \
 From WorkItems \
 Where ([System.TeamProject] = @project AND  [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory'  AND  [System.State] = 'Done') \
@@ -27,7 +32,7 @@ export class WorkItemTrackingClient implements GetCompletedItemsRef, GetInProgre
         this.projectId = VSS.getWebContext().project.id;
     }
 
-    public getCompletedWorkItemRefs() : Q.Promise<TFSContracts.WorkItemReference[]>{
+    public getCompletedWorkItemRefs() : Q.Promise<WorkItemReference[]>{
         let wiql = <TFSContracts.Wiql>{
             query: GET_COMPLETED_WIQL
         };
@@ -35,7 +40,7 @@ export class WorkItemTrackingClient implements GetCompletedItemsRef, GetInProgre
         return this.getWorkItemRefsByWIQL(wiql);
     }
 
-    public getInProgressWorkItemRefs() : Q.Promise<TFSContracts.WorkItemReference[]>{
+    public getInProgressWorkItemRefs() : Q.Promise<WorkItemReference[]>{
         let wiql = <TFSContracts.Wiql>{
             query: GET_INPROGRESS_WIQL
         };
@@ -43,10 +48,10 @@ export class WorkItemTrackingClient implements GetCompletedItemsRef, GetInProgre
         return this.getWorkItemRefsByWIQL(wiql);
     }
 
-    public getWorkItems(ids : Array<number>) : Q.Promise<TFSContracts.WorkItem[]>{
+    public getWorkItems(ids : Array<number>) : Q.Promise<WorkItem[]>{
         let client = RestClient.getClient();
 
-        let deferred = Q.defer<Array<TFSContracts.WorkItem>>();
+        let deferred = Q.defer<Array<WorkItem>>();
 
         client.getWorkItems(ids, 
                 ["System.Id",
@@ -56,7 +61,16 @@ export class WorkItemTrackingClient implements GetCompletedItemsRef, GetInProgre
                 "System.State",
                 "Microsoft.VSTS.Common.BacklogPriority"])
             .then((items)=> {
-                deferred.resolve(items);
+                let result = items.map(it => <WorkItem>{
+                    _links: it._links,
+                    fields: it.fields,
+                    id: it.id,
+                    relations: it.relations,
+                    rev: it.rev,
+                    url: it.url               
+                });
+
+                deferred.resolve(result);
             },
             (reason) => {
                 deferred.reject(reason);
@@ -64,16 +78,16 @@ export class WorkItemTrackingClient implements GetCompletedItemsRef, GetInProgre
         return deferred.promise;
     }
 
-    public getWorkItemRefsByWIQL(query : TFSContracts.Wiql) : Q.Promise<TFSContracts.WorkItemReference[]> {
+    public getWorkItemRefsByWIQL(query : TFSContracts.Wiql) : Q.Promise<WorkItemReference[]> {
         let client = RestClient.getClient();
-        let deferred = Q.defer<Array<TFSContracts.WorkItemReference>>();
+        let deferred = Q.defer<Array<WorkItemReference>>();
 
         client.queryByWiql(query, this.projectId).then(
             (r) => {
-                deferred.resolve(r.workItems)
+                deferred.resolve(r.workItems);
             },
             (reason) => {
-                deferred.reject(reason)
+                deferred.reject(reason);
             }
         );
 
