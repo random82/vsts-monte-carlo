@@ -146,7 +146,8 @@ describe("WorkItemsService", function() {
             rev: it.rev,
             fields: it.fields,
             relations: null,
-            _links: null
+            _links: null,
+            taktTime: null
         });
 
         beforeEach(function() {
@@ -256,7 +257,8 @@ describe("WorkItemsService", function() {
             rev: it.rev,
             fields: it.fields,
             relations: null,
-            _links: null
+            _links: null,
+            taktTime: null
         });
 
         beforeEach(function() {
@@ -418,7 +420,8 @@ describe("WorkItemsService", function() {
             rev: it.rev,
             fields: it.fields,
             relations: null,
-            _links: null
+            _links: null,
+            taktTime: null
         });
 
         beforeEach(function() {
