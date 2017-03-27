@@ -1,14 +1,16 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { LandingComponent }  from '../scripts/Components/app.landing.component';
 
-import { LandingComponent }  from '../scripts/components/app.landing.component';
-
+import { SimulationService } from '../scripts/services/simulation.service';
 import { WorkItemsService } from '../scripts/services/work-items.service';
-import { WorkItemTrackingClient } from './mocks/work-item-tracking.client';
+import {
+    WorkItemTrackingClient
+} from '../scripts/services/work-item-tracking.base';
+import { MockWorkItemTrackingClient } from './mocks/work-item-tracking.client';
 
 @NgModule({
-  imports: [HttpModule, BrowserModule],
+  imports: [BrowserModule],
   declarations: [
                 LandingComponent
                 ],
@@ -16,8 +18,12 @@ import { WorkItemTrackingClient } from './mocks/work-item-tracking.client';
                 LandingComponent
              ],
   providers: [
-    WorkItemTrackingClient, 
-    WorkItemsService]
+        WorkItemsService,
+        {
+            provide: WorkItemTrackingClient,
+            useClass: MockWorkItemTrackingClient
+        }
+    ]
 })
 
 

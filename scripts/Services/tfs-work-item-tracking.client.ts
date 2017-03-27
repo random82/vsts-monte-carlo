@@ -3,10 +3,8 @@ import * as TFSContracts from 'TFS/WorkItemTracking/Contracts';
 import * as RestClient from 'TFS/WorkItemTracking/RestClient';
 import * as Q from 'q';
 import {
-    GetCompletedItemsRef, 
-    GetInProgressItemsRef,
-    GetWorkItems
-} from './work-item-tracking.interfaces';
+    WorkItemTrackingClient
+} from './work-item-tracking.base';
 
 import {
     WorkItem,
@@ -23,12 +21,13 @@ From WorkItems \
 Where ([System.TeamProject] = @project AND  [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory'  AND  [System.State] <> 'Done') \
 order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc";
 
-Injectable()
-export class WorkItemTrackingClient implements GetCompletedItemsRef, GetInProgressItemsRef, GetWorkItems {
+Injectable();
+export class TFSWorkItemTrackingClient extends WorkItemTrackingClient {
 
     projectId: string;
 
     constructor(){
+        super();
         this.projectId = VSS.getWebContext().project.id;
     }
 

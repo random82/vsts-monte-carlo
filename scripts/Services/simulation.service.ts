@@ -4,6 +4,11 @@ export interface SimulationParams {
     sprintLength:number;
 }
 
+import {
+    Injectable
+} from '@angular/core';
+
+Injectable();
 export class SimulationService {
 
     private params: SimulationParams;

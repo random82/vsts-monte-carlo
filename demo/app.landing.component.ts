@@ -40,11 +40,8 @@ export class LandingComponent implements OnInit {
     public SimulationService: SimulationService;
 
     constructor(private elementRef: ElementRef,
-                private simService: SimulationService,
                 private workItemsService : WorkItemsService) {
         this.el = elementRef.nativeElement;
-        this.SimulationService = simService;
-        
     }
 
     ngOnInit() {

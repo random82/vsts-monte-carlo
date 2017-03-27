@@ -5,7 +5,7 @@ import {
 
 import {
     WorkItemTrackingClient
-} from "./work-item-tracking.client";
+} from "./work-item-tracking.base";
 
 import {
     WorkItem
@@ -32,7 +32,7 @@ export class WorkItemsService {
             let ids = result.map(w => w.id);
             this.witClient.getWorkItems(ids).then((r) => {
                 let result = r.sort((a, b) => {
-                    return a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD]
+                    return a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD];
                 });
 
                 result = result.map(it => {

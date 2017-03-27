@@ -1,21 +1,22 @@
 import { 
-    GetCompletedItemsRef, 
-    GetInProgressItemsRef,
-    GetWorkItems
-} from '../../scripts/Services/work-item-tracking.interfaces';
+    WorkItemTrackingClient
+} from '../../scripts/Services/work-item-tracking.base';
 
 import {
     WorkItem,
     WorkItemReference
-} from '../../scripts/Model/WorkItem'
+} from '../../scripts/Model/WorkItem';
 
-export class WorkItemTrackingClient implements GetCompletedItemsRef, GetInProgressItemsRef, GetWorkItems {
+import * as Q from 'q';
+
+export class MockWorkItemTrackingClient extends WorkItemTrackingClient {
     
     private completedItems: any;
 
     private wipItems: any;
 
     constructor() {
+        super();
         this.completedItems = require('json!../../sample_data/CompletedItems.json').value;
         this.wipItems = require('json!../../sample_data/InProgressItems.json').value;
     }

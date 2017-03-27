@@ -4,7 +4,7 @@ import {
 
 import {
     WorkItemTrackingClient
-} from './work-item-tracking.client';
+} from './work-item-tracking.base';
 
 import {
     WorkItemReference,
@@ -29,7 +29,6 @@ describe("WorkItemsService", function() {
     let getWorkItemRefsByWIQLDeffered: Q.Deferred < WorkItemReference[] > ;
 
     let workItemTrackingClient: WorkItemTrackingClient = {
-        projectId: "",
         getCompletedWorkItemRefs: (): Q.Promise < WorkItemReference[] > => {
             return null;
         },
@@ -37,9 +36,6 @@ describe("WorkItemsService", function() {
             return null;
         },
         getWorkItems: (): Q.Promise < WorkItem[] > => {
-            return null;
-        },
-        getWorkItemRefsByWIQL: (): Q.Promise < WorkItemReference[] > => {
             return null;
         }
     };
