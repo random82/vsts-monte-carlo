@@ -53,8 +53,7 @@ export class LandingComponent implements OnInit {
     }
 
     drawForecastMtx() {
-      
-        if (this.InProgressWorkItems === null) {
+        if (!this.InProgressWorkItems) {
             return;
         }
 
