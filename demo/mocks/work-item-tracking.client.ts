@@ -1,11 +1,11 @@
 import { 
     WorkItemTrackingClient
-} from '../../scripts/Services/work-item-tracking.base';
+} from '../../scripts/services/work-item-tracking.base';
 
 import {
     WorkItem,
     WorkItemReference
-} from '../../scripts/Model/WorkItem';
+} from '../../scripts/model/workitem';
 
 import * as Q from 'q';
 

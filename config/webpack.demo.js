@@ -17,6 +17,10 @@ module.exports = webpackMerge(commonConfig, {
 
   externals: [],
 
+  htmlLoader: {
+    minimize: false // workaround for ng2
+  },
+
   plugins: [
     new ExtractTextPlugin('[name].css'),
      new webpack.DefinePlugin({

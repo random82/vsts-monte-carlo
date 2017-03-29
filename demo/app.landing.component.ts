@@ -5,11 +5,11 @@ import {
     ElementRef
 } from '@angular/core';
 
-import { SimulationService } from '../scripts/Services/simulation.service';
+import { SimulationService } from '../scripts/services/simulation.service';
 
-import { WorkItemsService } from '../scripts/Services/work-items.service';
+import { WorkItemsService } from '../scripts/services/work-items.service';
 
-import { WorkItem } from '../scripts/Model/WorkItem';
+import { WorkItem } from '../scripts/model/workItem';
 
 import {
     select
@@ -37,9 +37,8 @@ export class LandingComponent implements OnInit {
 
     public NumberOfIterations: number;
 
-    public SimulationService: SimulationService;
-
     constructor(private elementRef: ElementRef,
+                private simulationService: SimulationService,
                 private workItemsService : WorkItemsService) {
         this.el = elementRef.nativeElement;
     }
@@ -47,7 +46,7 @@ export class LandingComponent implements OnInit {
     ngOnInit() {
         this.drawForecastMtx();
 
-        this.SimulationService.setup({
+        this.simulationService.setup({
             iterations: 6,
             sprintLength: 10
         });
