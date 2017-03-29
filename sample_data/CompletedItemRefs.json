@@ -1,0 +1,43 @@
+{
+            "queryType": "flat",
+            "queryResultType": "workItem",
+            "asOf": "2016-11-11T03:42:22.53Z",
+            "columns": [{
+                "referenceName": "System.Id",
+                "name": "ID",
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Id"
+            }, {
+                "referenceName": "System.Title",
+                "name": "Title",
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.Title"
+            }, {
+                "referenceName": "System.State",
+                "name": "State",
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.State"
+            }],
+            "sortColumns": [{
+                "field": {
+                    "referenceName": "Microsoft.VSTS.Common.Priority",
+                    "name": "Priority",
+                    "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/Microsoft.VSTS.Common.Priority"
+                },
+                "descending": false
+            }, {
+                "field": {
+                    "referenceName": "System.CreatedDate",
+                    "name": "Created Date",
+                    "url": "https://dummy.com/DefaultCollection/_apis/wit/fields/System.CreatedDate"
+                },
+                "descending": true
+            }],
+            "workItems": [{
+                "id": 121,
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/121"
+            }, {
+                "id": 122,
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/122"
+            }, {
+                "id": 123,
+                "url": "https://dummy.com/DefaultCollection/_apis/wit/workItems/123"
+            }]
+        }

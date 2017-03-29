@@ -59,7 +59,7 @@ export class LandingComponent implements OnInit {
           .range(["red", "orange", "yellow" , "#05ff00", "#00c000"]);
           
         let forecast = this.InProgressWorkItems.map((it) => {
-            return [it.id, it.fields["System.Title"], 0.7, 0.9, 1.0, 1.0, 1.0]
+            return [it.id, it.fields["System.Title"], 0.7, 0.9, 1.0, 1.0, 1.0];
         });        
        
                
