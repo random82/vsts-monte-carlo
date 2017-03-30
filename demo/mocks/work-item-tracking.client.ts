@@ -22,8 +22,8 @@ export class MockWorkItemTrackingClient extends WorkItemTrackingClient {
         super();
         this.completedItems = require('json!../../sample_data/CompletedItems.json').value;
         this.wipItems = require('json!../../sample_data/InProgressItems.json').value;
-        this.completedItemRefs = require('json!../../sample_data/CompletedItemRefs.json').value;
-        this.wipItemRefs = require('json!../../sample_data/InProgressItemRefs.json').value;
+        this.completedItemRefs = require('json!../../sample_data/CompletedItemRefs.json').workItems;
+        this.wipItemRefs = require('json!../../sample_data/InProgressItemRefs.json').workItems;
     }
 
     getInProgressWorkItemRefs(): Promise<WorkItemReference[]> {
