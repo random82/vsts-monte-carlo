@@ -19,12 +19,27 @@ import 'jasmine';
 
 import * as sinon from 'sinon';
 
+
+class Deferred<T> {
+
+  promise: Promise<T>;
+  resolve: (value?: T | PromiseLike<T>) => void;
+  reject:  (reason?: any) => void;
+
+  constructor() {
+    this.promise = new Promise<T>((resolve, reject) => {
+      this.resolve = resolve;
+      this.reject  = reject;
+    });
+  }
+}
+
 describe("WorkItemsService", function() {
 
-    let getCompletedWorkItemRefsDeffered: Q.Deferred < WorkItemReference[] > ;
-    let getInProgressWorkItemRefsDeffered: Q.Deferred < WorkItemReference[] > ;
-    let getWorkItemsDeffered: Q.Deferred < WorkItem[] > ;
-    let getWorkItemRefsByWIQLDeffered: Q.Deferred < WorkItemReference[] > ;
+    let getCompletedWorkItemRefsDeffered: Deferred < WorkItemReference[] > ;
+    let getInProgressWorkItemRefsDeffered: Deferred  < WorkItemReference[] > ;
+    let getWorkItemsDeffered: Deferred < WorkItem[] > ;
+    let getWorkItemRefsByWIQLDeffered: Deferred  < WorkItemReference[] > ;
 
     let workItemTrackingClient: WorkItemTrackingClient = {
         getCompletedWorkItemRefs: (): Promise < WorkItemReference[] > => {
@@ -145,9 +160,9 @@ describe("WorkItemsService", function() {
         });
 
         beforeEach(function() {
-            getInProgressWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
-            getWorkItemsDeffered = Q.defer < WorkItem[] > ();
-            getWorkItemRefsByWIQLDeffered = Q.defer < WorkItemReference[] > ();
+            getInProgressWorkItemRefsDeffered = new Deferred<WorkItemReference[]>();
+            getWorkItemsDeffered = new Deferred < WorkItem[] > ();
+            getWorkItemRefsByWIQLDeffered = new Deferred< WorkItemReference[] > ();
 
             getWIs = sandbox.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
             getWisRefsClientStub = sandbox.stub(workItemTrackingClient, 'getInProgressWorkItemRefs').returns(getInProgressWorkItemRefsDeffered.promise);
@@ -256,8 +271,8 @@ describe("WorkItemsService", function() {
         });
 
         beforeEach(function() {
-            getCompletedWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
-            getWorkItemsDeffered = Q.defer < WorkItem[] > ();
+            getCompletedWorkItemRefsDeffered = new Deferred< WorkItemReference[] > ();
+            getWorkItemsDeffered = new Deferred < WorkItem[] > ();
 
             getWIs = sandbox.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
             getCompletedWIRefs = sandbox.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(getCompletedWorkItemRefsDeffered.promise);
@@ -285,10 +300,6 @@ describe("WorkItemsService", function() {
             getWorkItemsDeffered.resolve(responseWIs);
         });
 
-
-    });
-
-    describe("", function() {
 
     });
 
@@ -419,8 +430,8 @@ describe("WorkItemsService", function() {
         });
 
         beforeEach(function() {
-            getCompletedWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
-            getWorkItemsDeffered = Q.defer < WorkItem[] > ();
+            getCompletedWorkItemRefsDeffered = new Deferred < WorkItemReference[] > ();
+            getWorkItemsDeffered = new Deferred < WorkItem[] > ();
 
             getWIs = sandbox.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
             getCompletedWIRefs = sandbox.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(getCompletedWorkItemRefsDeffered.promise);
