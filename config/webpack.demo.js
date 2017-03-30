@@ -9,25 +9,22 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'demo';
 module.exports = webpackMerge(commonConfig, {
     devtool: 'source-map',
 
-  output: {
-    path: helpers.dist,
-    filename: '[name].js',
-    chunkFilename: '[id].chunk.js'
-  },
+    output: {
+        path: helpers.dist,
+        filename: '[name].js',
+        chunkFilename: '[id].chunk.js'
+    },
 
-  externals: [],
+    htmlLoader: {
+        minimize: false // workaround for ng2
+    },
 
-  htmlLoader: {
-    minimize: false // workaround for ng2
-  },
-
-  plugins: [
-    new ExtractTextPlugin('[name].css'),
-     new webpack.DefinePlugin({
-      'process.env': {
-        'ENV': JSON.stringify(ENV)
-      }
-    })
-  ]
+    plugins: [
+        new ExtractTextPlugin('[name].css'),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'ENV': JSON.stringify(ENV)
+            }
+        })
+    ]
 });
-

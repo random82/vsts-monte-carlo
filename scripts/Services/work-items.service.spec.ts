@@ -19,8 +19,6 @@ import 'jasmine';
 
 import * as sinon from 'sinon';
 
-import * as Q from 'q';
-
 describe("WorkItemsService", function() {
 
     let getCompletedWorkItemRefsDeffered: Q.Deferred < WorkItemReference[] > ;
@@ -29,13 +27,13 @@ describe("WorkItemsService", function() {
     let getWorkItemRefsByWIQLDeffered: Q.Deferred < WorkItemReference[] > ;
 
     let workItemTrackingClient: WorkItemTrackingClient = {
-        getCompletedWorkItemRefs: (): Q.Promise < WorkItemReference[] > => {
+        getCompletedWorkItemRefs: (): Promise < WorkItemReference[] > => {
             return null;
         },
-        getInProgressWorkItemRefs: (): Q.Promise < WorkItemReference[] > => {
+        getInProgressWorkItemRefs: (): Promise < WorkItemReference[] > => {
             return null;
         },
-        getWorkItems: (): Q.Promise < WorkItem[] > => {
+        getWorkItems: (): Promise < WorkItem[] > => {
             return null;
         }
     };

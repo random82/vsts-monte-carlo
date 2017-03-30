@@ -7,7 +7,6 @@ import {
     WorkItemReference
 } from '../../scripts/model/workitem';
 
-import * as Q from 'q';
 
 export class MockWorkItemTrackingClient extends WorkItemTrackingClient {
     
@@ -27,21 +26,21 @@ export class MockWorkItemTrackingClient extends WorkItemTrackingClient {
         this.wipItemRefs = require('json!../../sample_data/InProgressItemRefs.json').value;
     }
 
-    getInProgressWorkItemRefs(): Q.Promise<WorkItemReference[]> {
-        let deferred = Q.defer<Array<WorkItemReference>>();
-        deferred.resolve(this.wipItemRefs);
-        return deferred.promise;
+    getInProgressWorkItemRefs(): Promise<WorkItemReference[]> {
+        return new Promise<WorkItemReference[]>((resolve, reject) => {
+            resolve(this.wipItemRefs);
+        });
     }
 
-    getCompletedWorkItemRefs(): Q.Promise<WorkItemReference[]> {
-        let deferred = Q.defer<Array<WorkItemReference>>();
-        deferred.resolve(this.wipItemRefs);
-        return deferred.promise;
+    getCompletedWorkItemRefs(): Promise<WorkItemReference[]> {
+        return new Promise<WorkItemReference[]>((resolve, reject) => {
+            resolve(this.completedItemRefs);
+        });
     }
 
-    getWorkItems(ids: number[]): Q.Promise<WorkItem[]> {
-        let deferred = Q.defer<Array<WorkItem>>();
-        deferred.resolve(this.completedItems);
-        return deferred.promise;
+    getWorkItems(ids: number[]): Promise<WorkItem[]> {
+        return new Promise<WorkItemReference[]>((resolve, reject) => {
+            resolve(this.wipItems);
+        });
     }
 }

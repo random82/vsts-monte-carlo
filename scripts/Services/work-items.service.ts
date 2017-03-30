@@ -14,8 +14,6 @@ import {
 const BACKLOG_PRIORITY_FIELD = "Microsoft.VSTS.Common.BacklogPriority";
 const COMPLETED_DATE_FIELD = "Microsoft.VSTS.Common.ClosedDate";
 
-import * as Q from 'q';
-
 Injectable();
 export class WorkItemsService {
     private witClient: WorkItemTrackingClient;
@@ -25,52 +23,50 @@ export class WorkItemsService {
     }
 
     public getInProgressWorkItems(): IPromise <WorkItem[]> {
-        let deferred = Q.defer <Array<WorkItem>> ();
+        return new Promise<WorkItem[]>((resolve, reject) => {
+            this.witClient.getInProgressWorkItemRefs()
+            .then((result) => {
+                let ids = result.map(w => w.id);
+                this.witClient.getWorkItems(ids).then((r) => {
+                    let result = r.sort((a, b) => {
+                        return a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD];
+                    });
 
-        this.witClient.getInProgressWorkItemRefs()
-        .then((result) => {
-            let ids = result.map(w => w.id);
-            this.witClient.getWorkItems(ids).then((r) => {
-                let result = r.sort((a, b) => {
-                    return a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD];
+                    result = result.map(it => {
+                        return  <WorkItem>{
+                            _links : it._links,
+                            fields : it.fields,
+                            id : it.id,
+                            relations : it.relations,
+                            rev: it.rev,
+                            url: it.url,
+                            taktTime: 0
+                        }; 
+                    });
+
+                    resolve(result);
                 });
-
-                result = result.map(it => {
-                    return  <WorkItem>{
-                        _links : it._links,
-                        fields : it.fields,
-                        id : it.id,
-                        relations : it.relations,
-                        rev: it.rev,
-                        url: it.url,
-                        taktTime: 0
-                    }; 
-                });
-
-                deferred.resolve(result);
             });
         });
-        return deferred.promise;
     }
 
     public getCompletedWorkItems(): IPromise<WorkItem[]> {
-        let deferred = Q.defer<Array<WorkItem>> ();
+        return new Promise<WorkItem[]>((resolve, reject) => {
+            this.witClient.getCompletedWorkItemRefs()
+            .then((result) => {
+                let ids = result.map(w => w.id);
+                this.witClient.getWorkItems(ids).then((r) => {
 
-        this.witClient.getCompletedWorkItemRefs()
-        .then((result) => {
-            let ids = result.map(w => w.id);
-            this.witClient.getWorkItems(ids).then((r) => {
-
-                let result = r.sort((a, b) => {
-                    var aDate = new Date(a.fields[COMPLETED_DATE_FIELD]);
-                    var bDate = new Date(b.fields[COMPLETED_DATE_FIELD]);
-                    return aDate.valueOf() - bDate.valueOf();
+                    let result = r.sort((a, b) => {
+                        var aDate = new Date(a.fields[COMPLETED_DATE_FIELD]);
+                        var bDate = new Date(b.fields[COMPLETED_DATE_FIELD]);
+                        return aDate.valueOf() - bDate.valueOf();
+                    });
+                    result = this.updateTaktTimes(result);
+                    resolve(result);
                 });
-                result = this.updateTaktTimes(result);
-                deferred.resolve(result);
             });
         });
-        return deferred.promise;
     }    
 
     private updateTaktTimes(workItems : WorkItem[]): WorkItem[] {
