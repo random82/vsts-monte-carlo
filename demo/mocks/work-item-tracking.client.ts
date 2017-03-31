@@ -1,4 +1,4 @@
-import { 
+import {
     WorkItemTrackingClient
 } from '../../scripts/services/work-item-tracking.base';
 
@@ -7,16 +7,12 @@ import {
     WorkItemReference
 } from '../../scripts/model/workitem';
 
-
 export class MockWorkItemTrackingClient extends WorkItemTrackingClient {
-    
-    private completedItems: Array<WorkItem>;
 
-    private wipItems: Array<WorkItem>;
-
-    private wipItemRefs: Array<WorkItemReference>;
-
-    private completedItemRefs: Array<WorkItemReference>;
+    private readonly completedItems: WorkItem[];
+    private readonly wipItems: WorkItem[];
+    private readonly wipItemRefs: WorkItemReference[];
+    private readonly completedItemRefs: WorkItemReference[];
 
     constructor() {
         super();
@@ -27,20 +23,14 @@ export class MockWorkItemTrackingClient extends WorkItemTrackingClient {
     }
 
     getInProgressWorkItemRefs(): Promise<WorkItemReference[]> {
-        return new Promise<WorkItemReference[]>((resolve, reject) => {
-            resolve(this.wipItemRefs);
-        });
+        return Promise.resolve(this.wipItemRefs);
     }
 
     getCompletedWorkItemRefs(): Promise<WorkItemReference[]> {
-        return new Promise<WorkItemReference[]>((resolve, reject) => {
-            resolve(this.completedItemRefs);
-        });
+        return Promise.resolve(this.completedItemRefs);
     }
 
     getWorkItems(ids: number[]): Promise<WorkItem[]> {
-        return new Promise<WorkItemReference[]>((resolve, reject) => {
-            resolve(this.wipItems);
-        });
+        return Promise.resolve(this.wipItems);
     }
 }
