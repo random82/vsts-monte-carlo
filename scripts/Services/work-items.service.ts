@@ -22,78 +22,54 @@ export class WorkItemsService {
         this.witClient = _witClient;
     }
 
-    public getInProgressWorkItems(): Promise <WorkItem[]> {
-        return new Promise<WorkItem[]>((resolve, reject) => {
-            this.witClient.getInProgressWorkItemRefs()
-            .then((result) => {
-                let ids = result.map(w => w.id);
-                this.witClient.getWorkItems(ids).then((r) => {
-                    let result = r.sort((a, b) => {
-                        return a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD];
-                    });
+    public async getInProgressWorkItems(): Promise<WorkItem[]> {
 
-                    result = result.map(it => {
-                        return  <WorkItem>{
-                            _links : it._links,
-                            fields : it.fields,
-                            id : it.id,
-                            relations : it.relations,
-                            rev: it.rev,
-                            url: it.url,
-                            taktTime: 0
-                        };
-                    });
+        const inProgressItemRefs = await this.witClient.getInProgressWorkItemRefs();
+        const ids = inProgressItemRefs.map(x => x.id);
+        const workItems = await this.witClient.getWorkItems(ids);
 
-                    resolve(result);
-                });
+        const result = workItems
+            .sort((a, b) => a.fields[BACKLOG_PRIORITY_FIELD] - b.fields[BACKLOG_PRIORITY_FIELD])
+            .map(x => {
+                return {
+                    ...x,
+                    taktTime: 0
+                };
             });
-        });
+
+        return result;
     }
 
-    public getCompletedWorkItems(): Promise<WorkItem[]> {
-        return new Promise<WorkItem[]>((resolve, reject) => {
-            this.witClient.getCompletedWorkItemRefs()
-            .then((result) => {
-                let ids = result.map(w => w.id);
-                this.witClient.getWorkItems(ids).then((r) => {
+    public async getCompletedWorkItems(): Promise<WorkItem[]> {
 
-                    let result = r.sort((a, b) => {
-                        var aDate = new Date(a.fields[COMPLETED_DATE_FIELD]);
-                        var bDate = new Date(b.fields[COMPLETED_DATE_FIELD]);
-                        return aDate.valueOf() - bDate.valueOf();
-                    });
-                    result = this.updateTaktTimes(result);
-                    resolve(result);
-                });
-            });
+        const completedWorkItemRefs = await this.witClient.getCompletedWorkItemRefs();
+        const ids = completedWorkItemRefs.map(x => x.id);
+        const workItems = await this.witClient.getWorkItems(ids);
+
+        const sortedWorkItems = workItems.sort((a, b) => {
+            const aDate = new Date(a.fields[COMPLETED_DATE_FIELD]);
+            const bDate = new Date(b.fields[COMPLETED_DATE_FIELD]);
+
+            return aDate.valueOf() - bDate.valueOf();
         });
+
+        const result = this.updateTaktTimes(sortedWorkItems);
+
+        return result;
     }
 
     private updateTaktTimes(workItems : WorkItem[]): WorkItem[] {
-        let self = this;
 
-        let result =  [<WorkItem>{
-                _links : workItems[0]._links,
-                fields : workItems[0].fields,
-                id : workItems[0].id,
-                relations : workItems[0].relations,
-                rev: workItems[0].rev,
-                taktTime: 0
-                }];
+        return workItems.map((x, index) => {
+            const taktTime = index === 0
+                ? 0
+                : this.dateDiff(workItems[index - 1], x, COMPLETED_DATE_FIELD);
 
-        return result.concat(workItems.slice(1).map(function(n, i) {
-            let TT =  self.dateDiff(workItems[i], n, COMPLETED_DATE_FIELD);
-
-            return <WorkItem>{
-                _links : n._links,
-                fields : n.fields,
-                id : n.id,
-                relations : n.relations,
-                rev: n.rev,
-                url: n.url,
-                taktTime: TT
+            return {
+                ...x,
+                taktTime
             };
-        }));
+        });
     }
 
     private dateDiff(a:WorkItem, b:WorkItem, fieldName : string) : number {
@@ -111,6 +87,4 @@ export class WorkItemsService {
         // Round down.
         return Math.floor(days);
     }
-
-
 }
