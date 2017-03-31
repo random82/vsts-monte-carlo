@@ -22,7 +22,7 @@ export class WorkItemsService {
         this.witClient = _witClient;
     }
 
-    public getInProgressWorkItems(): IPromise <WorkItem[]> {
+    public getInProgressWorkItems(): Promise <WorkItem[]> {
         return new Promise<WorkItem[]>((resolve, reject) => {
             this.witClient.getInProgressWorkItemRefs()
             .then((result) => {
@@ -41,7 +41,7 @@ export class WorkItemsService {
                             rev: it.rev,
                             url: it.url,
                             taktTime: 0
-                        }; 
+                        };
                     });
 
                     resolve(result);
@@ -50,7 +50,7 @@ export class WorkItemsService {
         });
     }
 
-    public getCompletedWorkItems(): IPromise<WorkItem[]> {
+    public getCompletedWorkItems(): Promise<WorkItem[]> {
         return new Promise<WorkItem[]>((resolve, reject) => {
             this.witClient.getCompletedWorkItemRefs()
             .then((result) => {
@@ -67,7 +67,7 @@ export class WorkItemsService {
                 });
             });
         });
-    }    
+    }
 
     private updateTaktTimes(workItems : WorkItem[]): WorkItem[] {
         let self = this;
@@ -79,9 +79,9 @@ export class WorkItemsService {
                 relations : workItems[0].relations,
                 rev: workItems[0].rev,
                 taktTime: 0
-                }];        
+                }];
 
-        return result.concat(workItems.slice(1).map(function(n, i) { 
+        return result.concat(workItems.slice(1).map(function(n, i) {
             let TT =  self.dateDiff(workItems[i], n, COMPLETED_DATE_FIELD);
 
             return <WorkItem>{
@@ -92,14 +92,14 @@ export class WorkItemsService {
                 rev: n.rev,
                 url: n.url,
                 taktTime: TT
-            }; 
+            };
         }));
     }
 
     private dateDiff(a:WorkItem, b:WorkItem, fieldName : string) : number {
         let first = new Date(a.fields[fieldName]);
         let second = new Date(b.fields[fieldName]);
-                 
+
         var one = new Date(first.getFullYear(), first.getMonth(), first.getDate());
         var two = new Date(second.getFullYear(), second.getMonth(), second.getDate());
 
@@ -112,5 +112,5 @@ export class WorkItemsService {
         return Math.floor(days);
     }
 
-   
+
 }
