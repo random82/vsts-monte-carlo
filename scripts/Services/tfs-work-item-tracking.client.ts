@@ -47,7 +47,7 @@ export class TFSWorkItemTrackingClient extends WorkItemTrackingClient {
         return this.getWorkItemRefsByWIQL(wiql);
     }
 
-    public async getWorkItems(ids: Array<number>): Promise<WorkItem[]> {
+    public async getWorkItems(ids: number[]): Promise<WorkItem[]> {
 
         const fields = [
             "System.Id",
