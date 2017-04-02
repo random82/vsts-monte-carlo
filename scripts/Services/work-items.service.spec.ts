@@ -19,30 +19,11 @@ import 'jasmine';
 
 import * as sinon from 'sinon';
 
-import * as Q from 'q';
-
 describe("WorkItemsService", function() {
 
-    let getCompletedWorkItemRefsDeffered: Q.Deferred < WorkItemReference[] > ;
-    let getInProgressWorkItemRefsDeffered: Q.Deferred < WorkItemReference[] > ;
-    let getWorkItemsDeffered: Q.Deferred < WorkItem[] > ;
-    let getWorkItemRefsByWIQLDeffered: Q.Deferred < WorkItemReference[] > ;
-
-    let workItemTrackingClient: WorkItemTrackingClient = {
-        getCompletedWorkItemRefs: (): Q.Promise < WorkItemReference[] > => {
-            return null;
-        },
-        getInProgressWorkItemRefs: (): Q.Promise < WorkItemReference[] > => {
-            return null;
-        },
-        getWorkItems: (): Q.Promise < WorkItem[] > => {
-            return null;
-        }
-    };
+    let workItemTrackingClient = new WorkItemTrackingClient();
 
     var sandbox = sinon.sandbox.create();
-
-    let getWIs: sinon.SinonSpy;
     let witService: WorkItemsService;
 
     describe("In progress items", function() {
@@ -129,7 +110,8 @@ describe("WorkItemsService", function() {
             }]
         };
 
-        let getWisRefsClientStub: sinon.SinonSpy;
+        let getWorkItemsStub: sinon.SinonStub;
+        let getInProgressWorkItemRefsStub: sinon.SinonStub;
 
         let responseRefs = sampleInProgressResponseJson.workItems.map((it) => < WorkItemReference > {
             id: it.id,
@@ -147,38 +129,36 @@ describe("WorkItemsService", function() {
         });
 
         beforeEach(function() {
-            getInProgressWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
-            getWorkItemsDeffered = Q.defer < WorkItem[] > ();
-            getWorkItemRefsByWIQLDeffered = Q.defer < WorkItemReference[] > ();
-
-            getWIs = sandbox.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
-            getWisRefsClientStub = sandbox.stub(workItemTrackingClient, 'getInProgressWorkItemRefs').returns(getInProgressWorkItemRefsDeffered.promise);
             witService = new WorkItemsService(workItemTrackingClient);
+
+            getWorkItemsStub = sandbox.stub(workItemTrackingClient, 'getWorkItems').returns(Promise.resolve(responseWIs));
+            getInProgressWorkItemRefsStub = sandbox.stub(workItemTrackingClient, 'getInProgressWorkItemRefs').returns(Promise.resolve(responseRefs));
         });
 
         afterEach(function() {
             sandbox.restore();
         });
 
-        it("Should call wit client", function() {
-            witService.getInProgressWorkItems();
-            getInProgressWorkItemRefsDeffered.resolve(responseRefs);
-            expect(getWisRefsClientStub.calledOnce);
-            expect(getWIs.calledOnce);
+        it("Should call wit client", function(done) {
+            witService.getInProgressWorkItems().then(result => {
+                expect(getInProgressWorkItemRefsStub.calledOnce).to.be.true;
+                expect(getWorkItemsStub.calledOnce).to.be.true;
+                done();
+            }).catch(error => {
+                fail(error);
+            });
         });
 
         it("Should return 3 items", function(done) {
-            witService.getInProgressWorkItems().then(function(result) {
+            witService.getInProgressWorkItems().then(result => {
                 expect(result).to.have.lengthOf(3);
                 expect(result[0].id).to.eq(20);
                 expect(result[1].id).to.eq(21);
                 expect(result[2].id).to.eq(19);
-            }).then(done, error => {
-                fail(error);
                 done();
+            }).catch(error => {
+                fail(error);
             });
-            getInProgressWorkItemRefsDeffered.resolve(responseRefs);
-            getWorkItemsDeffered.resolve(responseWIs);
         });
     });
 
@@ -240,7 +220,8 @@ describe("WorkItemsService", function() {
             }]
         };
 
-        let getCompletedWIRefs: sinon.SinonSpy;
+        let getCompletedWorkItemRefsStub: sinon.SinonStub;
+        let getWorkItemsStub: sinon.SinonStub;
 
         let responseRefs = sampleCompletedJson.workItems.map((it) => < WorkItemReference > {
             id: it.id,
@@ -258,40 +239,34 @@ describe("WorkItemsService", function() {
         });
 
         beforeEach(function() {
-            getCompletedWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
-            getWorkItemsDeffered = Q.defer < WorkItem[] > ();
-
-            getWIs = sandbox.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
-            getCompletedWIRefs = sandbox.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(getCompletedWorkItemRefsDeffered.promise);
             witService = new WorkItemsService(workItemTrackingClient);
+            getWorkItemsStub = sandbox.stub(workItemTrackingClient, 'getWorkItems').returns(Promise.resolve(responseWIs));
+            getCompletedWorkItemRefsStub = sandbox.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(Promise.resolve(responseRefs));
         });
 
         afterEach(function() {
             sandbox.restore();
         });
 
-        it("Should call wit client", function() {
-            witService.getCompletedWorkItems();
-            getCompletedWorkItemRefsDeffered.resolve(responseRefs);
-            getWorkItemsDeffered.resolve(responseWIs);
-            expect(getCompletedWIRefs.calledOnce);
-            expect(getWIs.calledOnce);
+        it("Should call wit client", function(done) {
+            witService.getCompletedWorkItems().then(result => {
+                expect(getCompletedWorkItemRefsStub.calledOnce).to.be.true;
+                expect(getWorkItemsStub.calledOnce).to.be.true;
+                done();
+            }).catch(error => {
+                fail(error);
+            });
         });
 
         it("Should return one item", function(done) {
-            witService.getCompletedWorkItems().then(function(result) {
+            witService.getCompletedWorkItems().then(result => {
                 expect(result).to.have.lengthOf(1);
                 expect(result[0].id).to.eq(17);
-            }).then(done, fail);
-            getCompletedWorkItemRefsDeffered.resolve(responseRefs);
-            getWorkItemsDeffered.resolve(responseWIs);
+                done();
+            }).catch(error => {
+                fail(error);
+            });
         });
-
-
-    });
-
-    describe("", function() {
-
     });
 
     describe("Takt time calculation for work items list", function() {
@@ -403,7 +378,8 @@ describe("WorkItemsService", function() {
             ]
         };
 
-        let getCompletedWIRefs: sinon.SinonSpy;
+        let getCompletedWorkItemRefsStub: sinon.SinonStub;
+        let getWorkItemsStub: sinon.SinonStub;
 
         let responseRefs = sampleCompletedJson.workItems.map((it) => < WorkItemReference > {
             id: it.id,
@@ -421,12 +397,9 @@ describe("WorkItemsService", function() {
         });
 
         beforeEach(function() {
-            getCompletedWorkItemRefsDeffered = Q.defer < WorkItemReference[] > ();
-            getWorkItemsDeffered = Q.defer < WorkItem[] > ();
-
-            getWIs = sandbox.stub(workItemTrackingClient, 'getWorkItems').returns(getWorkItemsDeffered.promise);
-            getCompletedWIRefs = sandbox.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(getCompletedWorkItemRefsDeffered.promise);
             witService = new WorkItemsService(workItemTrackingClient);
+            getWorkItemsStub = sandbox.stub(workItemTrackingClient, 'getWorkItems').returns(Promise.resolve(responseWIs));
+            getCompletedWorkItemRefsStub = sandbox.stub(workItemTrackingClient, 'getCompletedWorkItemRefs').returns(Promise.resolve(responseRefs));
         });
 
         afterEach(function() {
@@ -434,44 +407,38 @@ describe("WorkItemsService", function() {
         });
 
         it("Should return four items", function(done) {
-            witService.getCompletedWorkItems().then(function(result) {
+            witService.getCompletedWorkItems().then(result => {
                 expect(result).to.have.lengthOf(4);
-            }).then(done, error => {
-                fail(error);
                 done();
+            }).catch(error => {
+                fail(error);
             });
-            getCompletedWorkItemRefsDeffered.resolve(responseRefs);
-            getWorkItemsDeffered.resolve(responseWIs);
         });
 
         it("Should return completed items by completion date", function(done) {
-            witService.getCompletedWorkItems().then(function(result) {
+            witService.getCompletedWorkItems().then(result => {
                 expect(result).to.have.lengthOf(4);
                 expect(result[0].id).to.eq(49);
                 expect(result[1].id).to.eq(48);
                 expect(result[2].id).to.eq(50);
                 expect(result[3].id).to.eq(47);
-            }).then(done, error => {
-                fail(error);
                 done();
+            }).catch(error => {
+                fail(error);
             });
-            getCompletedWorkItemRefsDeffered.resolve(responseRefs);
-            getWorkItemsDeffered.resolve(responseWIs);
         });
 
         it("Should return takt times as differences between subsequent completion days", function(done) {
-            witService.getCompletedWorkItems().then(function(result) {
+            witService.getCompletedWorkItems().then(result => {
                 expect(result).to.have.lengthOf(4);
                 expect(result[0].taktTime).to.eq(0); //"2016-11-10"
                 expect(result[1].taktTime).to.eq(3, "Second item should have TT 3"); //"2016-11-13"
                 expect(result[2].taktTime).to.eq(0, "Third item should have TT 0"); //"2016-11-13"
                 expect(result[3].taktTime).to.eq(2, "Fourth item should have TT 2"); //"2016-11-15"
-            }).then(done, error => {
-                fail(error);
                 done();
+            }).catch(error => {
+                fail(error);
             });
-            getCompletedWorkItemRefsDeffered.resolve(responseRefs);
-            getWorkItemsDeffered.resolve(responseWIs);
         });
     });
 });

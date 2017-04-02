@@ -1,4 +1,4 @@
-import { 
+import {
     WorkItemTrackingClient
 } from '../../scripts/services/work-item-tracking.base';
 
@@ -7,29 +7,30 @@ import {
     WorkItemReference
 } from '../../scripts/model/workitem';
 
-import * as Q from 'q';
-
 export class MockWorkItemTrackingClient extends WorkItemTrackingClient {
-    
-    private completedItems: any;
 
-    private wipItems: any;
+    private readonly completedItems: WorkItem[];
+    private readonly wipItems: WorkItem[];
+    private readonly wipItemRefs: WorkItemReference[];
+    private readonly completedItemRefs: WorkItemReference[];
 
     constructor() {
         super();
         this.completedItems = require('json!../../sample_data/CompletedItems.json').value;
         this.wipItems = require('json!../../sample_data/InProgressItems.json').value;
+        this.completedItemRefs = require('json!../../sample_data/CompletedItemRefs.json').workItems;
+        this.wipItemRefs = require('json!../../sample_data/InProgressItemRefs.json').workItems;
     }
 
-    getInProgressWorkItemRefs(): Q.Promise<WorkItemReference[]> {
-        throw new Error('Method not implemented.');
+    getInProgressWorkItemRefs(): Promise<WorkItemReference[]> {
+        return Promise.resolve(this.wipItemRefs);
     }
 
-    getCompletedWorkItemRefs(): Q.Promise<WorkItemReference[]> {
-        throw new Error('Method not implemented.');
+    getCompletedWorkItemRefs(): Promise<WorkItemReference[]> {
+        return Promise.resolve(this.completedItemRefs);
     }
 
-    getWorkItems(ids: number[]): Q.Promise<WorkItem[]> {
-        throw new Error('Method not implemented.');
+    getWorkItems(ids: number[]): Promise<WorkItem[]> {
+        return Promise.resolve(this.wipItems);
     }
 }

@@ -17,6 +17,10 @@ module.exports = webpackMerge(commonConfig, {
     libraryTarget: 'amd'
   },
 
+  externals: [
+         /^VSS\/.*/, /^TFS\/.*/, /^q$/
+    ],
+
   htmlLoader: {
     minimize: false // workaround for ng2
   },

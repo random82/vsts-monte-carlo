@@ -20,11 +20,7 @@ module.exports = {
         'vendor': './scripts/vendor.ts',
         'app': isDemo ?  './demo/main.ts' : './scripts/main.ts',
         'styles': './scripts/styles.ts'
-    },
-
-    externals: [
-         /^VSS\/.*/, /^TFS\/.*/, /^q$/
-    ],
+    },    
 
     resolve: {
         extensions: ['', '.ts', '.js', '.json', '.css', '.scss', '.html']
@@ -32,7 +28,7 @@ module.exports = {
 
     module: {
         loaders: [{
-                test: /\.ts$/,
+                test: /^(?!.*\.spec\.ts$).*\.ts$/,                
                 loaders: ['ts', 'angular2-template-loader']
             }, {
                 test: /\.html$/,

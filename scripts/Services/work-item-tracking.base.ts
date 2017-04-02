@@ -7,19 +7,17 @@ import {
     WorkItem
 } from '../Model/WorkItem';
 
-import * as Q from 'q';
-
 @Injectable()
 export class WorkItemTrackingClient {
-    public getInProgressWorkItemRefs(): Q.Promise<WorkItemReference[]> {
+    public getInProgressWorkItemRefs(): Promise<WorkItemReference[]> {
         throw new Error('Method not implemented.');
     }
 
-    public getCompletedWorkItemRefs(): Q.Promise<WorkItemReference[]> {
+    public getCompletedWorkItemRefs(): Promise<WorkItemReference[]> {
         throw new Error('Method not implemented.');
     }
 
-    public getWorkItems(ids: number[]): Q.Promise<WorkItem[]> {
+    public getWorkItems(ids: number[]): Promise<WorkItem[]> {
         throw new Error('Method not implemented.');
     }
 }

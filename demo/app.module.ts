@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { LandingComponent }  from './app.landing.component';
+import { LandingComponent }  from '../scripts/components/app.landing.component';
 
 import { SimulationService } from '../scripts/services/simulation.service';
 import { WorkItemsService } from '../scripts/services/work-items.service';
