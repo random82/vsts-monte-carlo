@@ -13,6 +13,10 @@ module.exports = webpackMerge(commonConfig, {
     libraryTarget: 'amd'
   },
 
+  externals: [
+         /^VSS\/.*/, /^TFS\/.*/, /^q$/
+  ],
+
   plugins: [
     new ExtractTextPlugin('[name].css')
   ]

@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone, ElementRef } from '@angular/core';
 import { WorkItemsService } from '../services/work-items.service';
 
-import { MonteCarloWorkItem } from '../Model/WorkItem';
+import { WorkItem } from '../Model/WorkItem';
 
 import { select } from 'd3-selection';
 import { scaleLinear } from 'd3-scale';
@@ -14,11 +14,11 @@ export class LandingComponent implements OnInit {
 
     el: HTMLElement;
 
-    public CompletedWorkItems : MonteCarloWorkItem[];
+    public CompletedWorkItems : WorkItem[];
 
     public CompletedWorkItemsCount : number;
 
-    public InProgressWorkItems: MonteCarloWorkItem[];
+    public InProgressWorkItems: WorkItem[];
     
     public InProgressWorkItemsCount : number;
 
@@ -50,7 +50,7 @@ export class LandingComponent implements OnInit {
     }
 
     drawForecastMtx() {
-        if(this.InProgressWorkItems === null){
+        if(!this.InProgressWorkItems){
             return;
         }
 
@@ -59,7 +59,7 @@ export class LandingComponent implements OnInit {
           .range(["red", "orange", "yellow" , "#05ff00", "#00c000"]);
           
         let forecast = this.InProgressWorkItems.map((it) => {
-            return [it.id, it.fields["System.Title"], 0.7, 0.9, 1.0, 1.0, 1.0]
+            return [it.id, it.fields["System.Title"], 0.7, 0.9, 1.0, 1.0, 1.0];
         });        
        
                

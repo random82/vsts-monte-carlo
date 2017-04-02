@@ -10,6 +10,7 @@ var path = require('path');
 var ENV = process.env.npm_lifecycle_event;
 var isTest = ENV === 'test' || ENV === 'test-watch';
 var isProd = ENV === 'build';
+var isDemo = ENV === 'demo';
 
 module.exports = {
     target: "web",
@@ -17,14 +18,9 @@ module.exports = {
         'polyfills': './scripts/polyfills.ts',
         'framework': './scripts/framework.ts',
         'vendor': './scripts/vendor.ts',
-        'app': './scripts/main.ts',
+        'app': isDemo ?  './demo/main.ts' : './scripts/main.ts',
         'styles': './scripts/styles.ts'
-    },
-
-    externals: [
-         /^VSS\/.*/, /^TFS\/.*/, /^q$/
-        //{"TFS/WorkItemTracking/RestClient": "require('TFS/WorkItemTracking/RestClient')"}
-    ],
+    },    
 
     resolve: {
         extensions: ['', '.ts', '.js', '.json', '.css', '.scss', '.html']
@@ -32,7 +28,7 @@ module.exports = {
 
     module: {
         loaders: [{
-                test: /\.ts$/,
+                test: /^(?!.*\.spec\.ts$).*\.ts$/,                
                 loaders: ['ts', 'angular2-template-loader']
             }, {
                 test: /\.html$/,
@@ -67,8 +63,8 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
-            template: 'index.html',
-            inject: false
+            template: isDemo ? './demo/index.html':'index.html',
+            inject: isDemo ? true : false
         }),
 
         new webpack.ProvidePlugin({

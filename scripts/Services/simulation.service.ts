@@ -4,16 +4,21 @@ export interface SimulationParams {
     sprintLength:number;
 }
 
-export class Simulation{
+import {
+    Injectable
+} from '@angular/core';
+
+Injectable();
+export class SimulationService {
 
     private params: SimulationParams;
-    
+
     setup(params: SimulationParams) {
         this.params = params;
     };
 
-    runTT(sampleSet : Array<number>, noSprints : number, noItems : number) : Array<number> {
-        let results: Array<number> = [];
+    runTT(sampleSet : number[], noSprints : number, noItems : number) : number[] {
+        let results: number[] = [];
         for(let i = 0; i < this.params.iterations; i++) {
             let total = 0;
             for(let s = 0; s < noItems; s++) {

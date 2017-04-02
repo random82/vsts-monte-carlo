@@ -31,6 +31,13 @@ module.exports = {
         }, {
             test: /\.css$/,
             loader: 'null'
+        } ,{
+            test: /\.json$/,
+            loader: 'null'
         }]
+    },
+    
+    node: {
+        fs: 'empty'
     }
 }
