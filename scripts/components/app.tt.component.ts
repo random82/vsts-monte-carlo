@@ -46,7 +46,7 @@ export class TaktTimeComponent implements OnInit {
 
         let formatCount = format(",.0f");
 
-        let hist = select(this.el),
+        let hist = select(this.el).select('#tt-hist'),
             margin = {top: 10, right: 30, bottom: 30, left: 30},
             width = +hist.attr("width") - margin.left - margin.right,
             height = +hist.attr("height") - margin.top - margin.bottom,
