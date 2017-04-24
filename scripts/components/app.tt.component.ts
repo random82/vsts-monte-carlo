@@ -52,38 +52,42 @@ export class TaktTimeComponent implements OnInit {
             height = +hist.attr("height") - margin.top - margin.bottom,
             g = hist.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        let x = scaleLinear()
+        let x = scaleLinear<number>()
             .rangeRound([0, width]);
 
-        let generator = histogram()
-            .domain(x.domain())
+        let generator = histogram<number>()
+            .domain(x.domain)
             .thresholds(x.ticks(20));
             
         let bins = generator(data);
 
-        let y = scaleLinear()
-            .domain([0, max(bins, function(d) { return d.length; })])
+        let y = scaleLinear<number>()
+            .domain([0, max(bins, d => { return d.length; })])
             .range([height, 0]);
 
         let bar = g.selectAll(".bar")
             .data(bins)
             .enter().append("g")
                 .attr("class", "bar")
-                .attr("transform", function(d) { 
+                .attr("transform", d => { 
                     return "translate(" + x(d.x0) + "," + y(d.length) + ")"; 
             });
 
+        let barWidth = x(bins[0].x1) - x(bins[0].x0) - 1;
+
         bar.append("rect")
             .attr("x", 1)
-            .attr("width", w => { return x(bins[0].x1) - x(bins[0].x0) - 1})
+            .attr("width", barWidth)
             .attr("height", d =>  { return height - y(d.length); });
+
+        let textLoc = (x(bins[0].x1) - x(bins[0].x0)) / 2;
 
         bar.append("text")
             .attr("dy", ".75em")
             .attr("y", 6)
-            .attr("x", (x(bins[0].x1) - x(bins[0].x0)) / 2)
+            .attr("x", textLoc)
             .attr("text-anchor", "middle")
-            .text(function(d) { return formatCount(d.length); });
+            .text(d => { return formatCount(d.length); });
 
         g.append("g")
             .attr("class", "axis axis--x")
