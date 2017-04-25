@@ -46,17 +46,19 @@ export class TaktTimeComponent implements OnInit {
 
         let formatCount = format(",.0f");
 
-        let hist = select(this.el).select('#tt-hist'),
-            margin = {top: 10, right: 30, bottom: 30, left: 30},
-            width = +hist.attr("width") - margin.left - margin.right,
-            height = +hist.attr("height") - margin.top - margin.bottom,
-            g = hist.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        let hist = select(this.el).select('#tt-hist');
+        let margin = {top: 10, right: 30, bottom: 30, left: 30};
+        let width = +hist.attr("width") - margin.left - margin.right;
+        let height = +hist.attr("height") - margin.top - margin.bottom;
+        let g = hist
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         let x = scaleLinear<number>()
             .rangeRound([0, width]);
-
+     
         let generator = histogram<number>()
-            .domain(x.domain)
+            .domain(d => x.domain())
             .thresholds(x.ticks(20));
             
         let bins = generator(data);
