@@ -52,10 +52,10 @@ export class TaktTimeComponent implements OnInit {
         let height = +hist.attr("height") - margin.top - margin.bottom;
         let g = hist
                 .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                .attr("transform", "translate(" + (-margin.left) + "," + margin.top + ")");
 
         let x = scaleLinear<number>()
-            .domain([0, max(data)+1])
+            .domain([-0.5, max(data)+1.5])
             .rangeRound([0, width]);
      
         let generator = histogram<number>()
@@ -68,22 +68,22 @@ export class TaktTimeComponent implements OnInit {
             .domain([0, max(bins, d => d.length)])
             .range([height, 0]);
 
+        let barWidth = 2*(x(bins[0].x1) - x(bins[0].x0) - 1);
+
         let bar = g.selectAll(".bar")
             .data(bins)
             .enter().append("g")
                 .attr("class", "bar")
                 .attr("transform", d => { 
-                    return "translate(" + x(d.x0) + "," + y(d.length) + ")"; 
+                    return "translate(" + (x(d.x0) + barWidth ) + "," + y(d.length) + ")"; 
             });
-
-        let barWidth = x(bins[0].x1) - x(bins[0].x0) - 1;
 
         bar.append("rect")
             .attr("x", 1)
             .attr("width", barWidth)
             .attr("height", d =>  { return height - y(d.length); });
 
-        let textLoc = (x(bins[0].x1) - x(bins[0].x0)) / 2;
+        let textLoc = (x(bins[0].x1) - x(bins[0].x0));
 
         bar.append("text")
             .attr("dy", ".75em")
@@ -96,12 +96,12 @@ export class TaktTimeComponent implements OnInit {
 
         g.append("g")
             .attr("class", "axis axis--x")
-            .attr("transform", "translate(0," + height + ")")
+            .attr("transform", "translate(" + barWidth/2 + "," + height + ")")
             .call(xAxis);
 
         g.append("text")             
             .attr("transform",
-                    "translate(" + (width/2) + " ," + 
+                  "translate(" + (width + margin.left + margin.right)/2 + " ," + 
                                 (height + margin.top + 30) + ")")
             .style("text-anchor", "middle")
             .text("Takt time [days]");
