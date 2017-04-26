@@ -42,12 +42,12 @@ export class TaktTimeComponent implements OnInit {
             return;
         }
 
-        let data = range(1000).map(randomBates(10));
+        let data = this.CompletedWorkItems.map(d => d.taktTime);
 
         let formatCount = format(",.0f");
 
         let hist = select(this.el).select('#tt-hist');
-        let margin = {top: 10, right: 30, bottom: 30, left: 30};
+        let margin = {top: 10, right: 30, bottom: 50, left: 30};
         let width = +hist.attr("width") - margin.left - margin.right;
         let height = +hist.attr("height") - margin.top - margin.bottom;
         let g = hist
@@ -55,16 +55,17 @@ export class TaktTimeComponent implements OnInit {
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         let x = scaleLinear<number>()
+            .domain([0, max(data)+1])
             .rangeRound([0, width]);
      
         let generator = histogram<number>()
             .domain(d => x.domain())
-            .thresholds(x.ticks(20));
+            .thresholds(x.ticks(max(data)));
             
         let bins = generator(data);
 
         let y = scaleLinear<number>()
-            .domain([0, max(bins, d => { return d.length; })])
+            .domain([0, max(bins, d => d.length)])
             .range([height, 0]);
 
         let bar = g.selectAll(".bar")
@@ -89,12 +90,20 @@ export class TaktTimeComponent implements OnInit {
             .attr("y", 6)
             .attr("x", textLoc)
             .attr("text-anchor", "middle")
-            .text(d => { return formatCount(d.length); });
+            .text(d => formatCount(d.length));
+
+        let xAxis = axisBottom(x);
 
         g.append("g")
             .attr("class", "axis axis--x")
             .attr("transform", "translate(0," + height + ")")
-            .call(axisBottom(x));
+            .call(xAxis);
 
+        g.append("text")             
+            .attr("transform",
+                    "translate(" + (width/2) + " ," + 
+                                (height + margin.top + 30) + ")")
+            .style("text-anchor", "middle")
+            .text("Takt time [days]");
     }
 }

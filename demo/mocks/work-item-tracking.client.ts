@@ -13,6 +13,7 @@ export class MockWorkItemTrackingClient extends WorkItemTrackingClient {
     private readonly wipItems: WorkItem[];
     private readonly wipItemRefs: WorkItemReference[];
     private readonly completedItemRefs: WorkItemReference[];
+    private readonly backlogItems: WorkItem[];
 
     constructor() {
         super();
@@ -20,6 +21,7 @@ export class MockWorkItemTrackingClient extends WorkItemTrackingClient {
         this.wipItems = require('json!../../sample_data/InProgressItems.json').value;
         this.completedItemRefs = require('json!../../sample_data/CompletedItemRefs.json').workItems;
         this.wipItemRefs = require('json!../../sample_data/InProgressItemRefs.json').workItems;
+        this.backlogItems = this.completedItems.concat(this.wipItems);
     }
 
     getInProgressWorkItemRefs(): Promise<WorkItemReference[]> {
@@ -31,6 +33,7 @@ export class MockWorkItemTrackingClient extends WorkItemTrackingClient {
     }
 
     getWorkItems(ids: number[]): Promise<WorkItem[]> {
-        return Promise.resolve(this.wipItems);
+        let result = this.backlogItems.filter(it => ids.some(id => id === it.id));
+        return Promise.resolve(result);
     }
 }
