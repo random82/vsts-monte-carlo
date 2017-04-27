@@ -27,7 +27,7 @@ describe("Simulation tests", () => {
             7,
             20);
         expect(result.length === 1000);
-    });
+    }); 
 
     it("Average should be 100", () => {
         let result = sim.runTT(
@@ -45,5 +45,34 @@ describe("Simulation tests", () => {
             20);
         let avg = result.reduce((x,y) => x + y) / result.length; 
         expect(avg).to.eq(80);
+    });
+
+    describe("simulation result", () => {
+        let result : number[][];
+        let noSimulations = 5;
+        let noWorkItems = 3;
+
+        beforeAll(() => {
+            let taktTimeSamples = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2];            
+            result = sim.run(taktTimeSamples, noWorkItems, noSimulations);
+        });
+
+        it("Should have number of rows equal to work items count", ()=>{
+           expect(result).to.have.lengthOf(noWorkItems);
+        });
+
+        it("Should have number of columns equal to simulation runs", ()=>{
+            expect(result.every(row => row.length === noSimulations)).to.be.true;
+        });
+
+        it("Should summarise takt time in each column", ()=>{
+            let expected = [
+                [2, 2, 2, 2, 2],
+                [4, 4, 4, 4, 4],
+                [6, 6, 6, 6, 6]
+            ];
+
+            expect(result).to.be.eql(expected);
+        });
     });
 });

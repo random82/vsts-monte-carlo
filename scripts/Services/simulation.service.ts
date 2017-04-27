@@ -31,6 +31,19 @@ export class SimulationService {
         return results;
     }
 
+    run(taktTimeSample : number[], noWorkItems: number, noSimulations: number) : number[][] {
+        let result = [];
+        let runningRow = Array(noSimulations).fill(0);
+        for(let i = 0; i < noWorkItems; i++) {
+            for(let s = 0; s < noSimulations; s++) {
+                // randomly select a takt time sample from given set
+                runningRow[s] += taktTimeSample[Math.floor(Math.random() * taktTimeSample.length)]           
+            }
+            result.push(runningRow.map(it => it));
+        }
+        return result;
+    }
+
     runItemsPerSprint() {
 
     }
