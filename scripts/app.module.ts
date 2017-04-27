@@ -13,6 +13,14 @@ import {
 } from './components/app.landing.component';
 
 import {
+    TaktTimeComponent
+} from './components/app.tt.component';
+
+import {
+    SimulationComponent
+} from './components/app.simulation.component';
+
+import {
     WorkItemsService
 } from './services/work-items.service';
 
@@ -26,7 +34,9 @@ import {
 @NgModule({
     imports: [HttpModule, BrowserModule],
     declarations: [
-        LandingComponent
+        LandingComponent,
+        TaktTimeComponent,
+        SimulationComponent
     ],
     bootstrap: [
         LandingComponent
