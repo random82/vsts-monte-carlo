@@ -78,10 +78,10 @@ describe("Simulation tests", () => {
 
     describe("sprint simulation", () => {
         let simulatedTaktTimes : [
-                [2, 2, 2, 2, 2],
-                [4, 4, 4, 4, 4],
-                [6, 6, 6, 6, 6],
-                [8, 8, 8, 8, 8]
+                [6, 3, 4, 3, 3],
+                [8, 5, 7, 5, 10],
+                [12, 10, 14, 9, 10],
+                [14, 16, 16, 11, 13]
             ];
         let result : number[][];
         let sprintLengths = [5, 4, 5, 5]
@@ -98,8 +98,16 @@ describe("Simulation tests", () => {
             expect(result.every(row => row.length === sprintLengths.length)).to.be.true;
         });
 
-        it("Should have 0-1 probabilities in each cell", () => {
-            expect(true).to.be.false("Not implemented")
+        it("Should have done-probabilities in each cell", () => {
+            let expected = [
+                // 4 out of 5 simulations are less than 5 days, all of them are eq/less than 9 days
+                [0.8, 1.0, 1.0, 1.0], 
+                // 2 out of two samples are less than 5 days, 4 out of 5 are eq/less than 9 days                
+                [0.4, 0.8, 1.0, 1.0],
+                [0.0, 0.2, 1.0, 1.0],
+                [0.0, 0.0, 0.6, 1.0]
+            ];
+            expect(result).to.be.eql(expect);
         });
     });
 });
