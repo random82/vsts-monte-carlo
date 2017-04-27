@@ -75,4 +75,31 @@ describe("Simulation tests", () => {
             expect(result).to.be.eql(expected);
         });
     });
+
+    describe("sprint simulation", () => {
+        let simulatedTaktTimes : [
+                [2, 2, 2, 2, 2],
+                [4, 4, 4, 4, 4],
+                [6, 6, 6, 6, 6],
+                [8, 8, 8, 8, 8]
+            ];
+        let result : number[][];
+        let sprintLengths = [5, 4, 5, 5]
+
+        beforeAll(() => {
+            result = sim.runSprintSimulations(simulatedTaktTimes, sprintLengths)
+        });
+
+        it("Should have number of rows equal to work items simulations count", () => {
+           expect(result).to.have.lengthOf(simulatedTaktTimes.length);
+        });
+
+        it("Should have number of columns equal to sprint count", () => {
+            expect(result.every(row => row.length === sprintLengths.length)).to.be.true;
+        });
+
+        it("Should have 0-1 probabilities in each cell", () => {
+            expect(true).to.be.false("Not implemented")
+        });
+    });
 });

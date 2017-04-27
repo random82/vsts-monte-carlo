@@ -44,7 +44,7 @@ export class SimulationService {
         return result;
     }
 
-    runItemsPerSprint() {
-
+    runSprintSimulations(simulatedTaktTimes : number[][], sprintLengts : number[]) : number[][] {
+        return [];
     }
 }
