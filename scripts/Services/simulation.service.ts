@@ -31,7 +31,38 @@ export class SimulationService {
         return results;
     }
 
-    runItemsPerSprint() {
+    run(taktTimeSample : number[], noWorkItems: number, noSimulations: number) : number[][] {
+        let result = [];
+        let runningRow = Array(noSimulations).fill(0);
+        for(let i = 0; i < noWorkItems; i++) {
+            for(let s = 0; s < noSimulations; s++) {
+                // randomly select a takt time sample from given set
+                runningRow[s] += taktTimeSample[Math.floor(Math.random() * taktTimeSample.length)];           
+            }
+            result.push(runningRow.map(it => it));
+        }
+        return result;
+    }
 
+    runSprintSimulations(simulatedTaktTimes : number[][], sprintLengths : number[]) : number[][] {
+        if(!simulatedTaktTimes || !sprintLengths){
+            return null;
+        }
+
+        let sprintsCumulative = [];
+        sprintLengths.reduce((a,b,i) => sprintsCumulative[i] = a+b, 0);
+        
+        let probabilities = [];
+
+        for(let itemCtr = 0; itemCtr < simulatedTaktTimes.length; itemCtr++){
+            let row = [];
+            for(let sprintCtr = 0; sprintCtr < sprintLengths.length; sprintCtr++){
+                let finished = simulatedTaktTimes[itemCtr].filter(it => it <= sprintsCumulative[sprintCtr]);
+                let prob = finished.length / simulatedTaktTimes[itemCtr].length;
+                row.push(prob);
+            }
+            probabilities.push(row);
+        }
+        return probabilities;
     }
 }
