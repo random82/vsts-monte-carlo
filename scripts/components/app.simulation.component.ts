@@ -1,5 +1,6 @@
 import { Component, OnInit, NgZone, ElementRef } from '@angular/core';
 import { WorkItemsService } from '../services/work-items.service';
+import { SimulationService } from '../services/simulation.service';
 
 import { WorkItem } from '../Model/WorkItem';
 
@@ -24,45 +25,49 @@ export class SimulationComponent implements OnInit{
 
     public NumberOfIterations: number;
 
-    constructor(private workItemsService : WorkItemsService, 
+    constructor(private workItemsService : WorkItemsService,
+                private simulationService : SimulationService,
                 private zone : NgZone,
                 private elementRef: ElementRef){
         this.CompletedWorkItemsCount = 0;
         this.InProgressWorkItemsCount = 0;
         this.el = elementRef.nativeElement;
+        this.simulationService.setup({
+            iterations: 1000,
+            sprintLength: 5
+        });
     }
 
     ngOnInit() {
-        this.workItemsService.getCompletedWorkItems().then((r)=>{
+        let calls = [
+            this.workItemsService.getCompletedWorkItems(), 
+            this.workItemsService.getInProgressWorkItems()
+        ];
+        Promise.all(calls).then((r)=>{
             this.zone.run(() => {
-                this.CompletedWorkItems = r;
-                this.CompletedWorkItemsCount = r.length;
-            });            
-        });
-
-        this.workItemsService.getInProgressWorkItems().then((r)=>{
-            this.zone.run(() => {
-                this.InProgressWorkItems = r;
-                this.InProgressWorkItemsCount = r.length;
+                this.CompletedWorkItems = r[0];
+                this.CompletedWorkItemsCount = r[0].length;
+                this.InProgressWorkItems = r[1];
+                this.InProgressWorkItemsCount = r[1].length;
             }); 
-            this.drawForecastMtx();
-        });        
+
+            let sprintLengths = [5, 5, 4, 5, 5, 5, 4];
+            let taktTimes = this.CompletedWorkItems.map(d => d.taktTime);
+            let simulatedTT = this.simulationService.run(taktTimes, this.InProgressWorkItemsCount, 1000);
+            let probabilities = this.simulationService.runSprintSimulations(simulatedTT, sprintLengths);
+            let forecast = this.InProgressWorkItems.map((it, idx) =>
+            {
+                return [it.id, it.fields["System.Title"]].concat(probabilities[idx]);
+            });
+            this.drawForecastMtx(forecast);           
+        });
     } 
 
-    drawForecastMtx() {
-        if(!this.InProgressWorkItems){
-            return;
-        }
-
+    drawForecastMtx(forecast: any[]) {
         let heatmapColour = scaleLinear()
           .domain([0, 0.2, 0.5, 0.8, 1])
           .range(["red", "orange", "yellow" , "#05ff00", "#00c000"]);
-          
-        let forecast = this.InProgressWorkItems.map((it) => {
-            return [it.id, it.fields["System.Title"], 0.7, 0.9, 1.0, 1.0, 1.0];
-        });        
-       
-               
+              
         let tr = select(this.el)
             .select('#forecast_matrix')
             .append('table')
