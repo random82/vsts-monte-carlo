@@ -31,6 +31,10 @@ import {
     TFSWorkItemTrackingClient
 } from './services/tfs-work-item-tracking.client';
 
+import {
+    SimulationService
+} from './services/simulation.service';
+
 @NgModule({
     imports: [HttpModule, BrowserModule],
     declarations: [
@@ -42,6 +46,7 @@ import {
         LandingComponent
     ],
     providers: [
+        SimulationService,
         WorkItemsService,
         {
             provide: WorkItemTrackingClient,
