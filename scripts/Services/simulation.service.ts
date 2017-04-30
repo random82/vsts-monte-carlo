@@ -45,6 +45,24 @@ export class SimulationService {
     }
 
     runSprintSimulations(simulatedTaktTimes : number[][], sprintLengths : number[]) : number[][] {
-        return [];
+        if(!simulatedTaktTimes || !sprintLengths){
+            return null;
+        }
+
+        let sprintsCumulative = [];
+        sprintLengths.reduce((a,b,i) => sprintsCumulative[i] = a+b, 0);
+        
+        let probabilities = [];
+
+        for(let itemCtr = 0; itemCtr < simulatedTaktTimes.length; itemCtr++){
+            let row = [];
+            for(let sprintCtr = 0; sprintCtr < sprintLengths.length; sprintCtr++){
+                let finished = simulatedTaktTimes[itemCtr].filter(it => it <= sprintsCumulative[sprintCtr]);
+                let prob = finished.length / simulatedTaktTimes[itemCtr].length;
+                row.push(prob);
+            }
+            probabilities.push(row);
+        }
+        return probabilities;
     }
 }

@@ -6,8 +6,6 @@ import {
 
 import 'jasmine';
 
-import * as _ from 'lodash';
-
 describe("Simulation tests", () => {
 
     let sim = new SimulationService();
@@ -77,17 +75,17 @@ describe("Simulation tests", () => {
     });
 
     describe("sprint simulation", () => {
-        let simulatedTaktTimes : [
+        let simulatedTaktTimes = [
                 [6, 3, 4, 3, 3],
                 [8, 5, 7, 5, 10],
                 [12, 10, 14, 9, 10],
                 [14, 16, 16, 11, 13]
             ];
         let result : number[][];
-        let sprintLengths = [5, 4, 5, 5]
+        let sprintLengths = [5, 4, 5, 5];
 
         beforeAll(() => {
-            result = sim.runSprintSimulations(simulatedTaktTimes, sprintLengths)
+            result = sim.runSprintSimulations(simulatedTaktTimes, sprintLengths);
         });
 
         it("Should have number of rows equal to work items simulations count", () => {
@@ -107,7 +105,7 @@ describe("Simulation tests", () => {
                 [0.0, 0.2, 1.0, 1.0],
                 [0.0, 0.0, 0.6, 1.0]
             ];
-            expect(result).to.be.eql(expect);
+            expect(result).to.be.eql(expected);
         });
     });
 });
