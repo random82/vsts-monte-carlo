@@ -55,7 +55,8 @@ export class TFSWorkItemTrackingClient extends WorkItemTrackingClient {
             "System.WorkItemType",
             "System.Title",
             "System.State",
-            "Microsoft.VSTS.Common.BacklogPriority"
+            "Microsoft.VSTS.Common.BacklogPriority",
+            "Microsoft.VSTS.Common.ClosedDate"
         ];
 
         const data = await RestClient.getClient().getWorkItems(ids, fields);
