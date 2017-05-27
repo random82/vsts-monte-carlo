@@ -1,4 +1,5 @@
 import {
+    Inject,
     Injectable
 } from '@angular/core';
 
@@ -13,15 +14,17 @@ import {
 Injectable();
 export class IterationService {
 
-    constructor(private iterationClient : IterationClient){
+    private readonly iterationClient : IterationClient;
 
+    constructor(@Inject(IterationClient)iterationClient : IterationClient){
+        this.iterationClient = iterationClient;
     }
 
     public GetIterations() : Iteration[] {
         return null;
     }
 
-    public GetWorkingDaysSince(beginDate:Date) : Date[] {
+    public GetWorkingDays(from:Date, to?:Date) : Date[] {
         return null;
     }
 }

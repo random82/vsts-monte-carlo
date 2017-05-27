@@ -38,9 +38,22 @@ describe('IterationService', ()=>{
     });
 
     describe('Working days', () => {
+
+
+
         beforeAll(() => {
             iterationService = new IterationService(iterationClient);
+
+            
         });
+
+        it('Should return 10 working days', () => {
+            let from = new Date(2017, 5, 8);
+            let to = new Date(2017, 5, 19);
+
+            let result = iterationService.GetWorkingDays(from, to);
+            expect(result).to.eq(10);
+        })
 
     });
 });
