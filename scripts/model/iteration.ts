@@ -10,32 +10,26 @@ export interface Iteration extends TeamSettingsIteration {
 }
 
 export enum DayOfWeek {
-    /**
-     * Indicates Sunday.
-     */
     Sunday = 0,
-    /**
-     * Indicates Monday.
-     */
     Monday = 1,
-    /**
-     * Indicates Tuesday.
-     */
     Tuesday = 2,
-    /**
-     * Indicates Wednesday.
-     */
     Wednesday = 3,
-    /**
-     * Indicates Thursday.
-     */
     Thursday = 4,
-    /**
-     * Indicates Friday.
-     */
     Friday = 5,
-    /**
-     * Indicates Saturday.
-     */
     Saturday = 6,
+}
+
+export enum Months {
+    January = 0,
+    February = 1,
+    March = 2,
+    April = 3,
+    May = 4,
+    June = 5,
+    July = 6,
+    August = 7,
+    September = 8,
+    October = 9,
+    November = 10,
+    December = 11
 }
