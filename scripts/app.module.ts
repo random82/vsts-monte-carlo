@@ -29,7 +29,7 @@ import {
 } from './services/work-item-tracking.base';
 import {
     TFSWorkItemTrackingClient
-} from './services/tfs-work-item-tracking.client';
+} from './services/tfs.work-item-tracking.client';
 
 import {
     SimulationService

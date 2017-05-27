@@ -1,13 +1,13 @@
 import {
-    IterationClient
-} from '../../scripts/services/iteration.client.base';
+    ProjectSettingsClient
+} from '../../scripts/services/project-settings.client.base';
 
 import {
     DayOfWeek,
     Iteration
 } from '../../scripts/model/iteration';
 
-export class MockIterationClient extends IterationClient {
+export class MockProjectSettingsClient extends ProjectSettingsClient {
 
     private readonly iterations: Iteration[]; 
 

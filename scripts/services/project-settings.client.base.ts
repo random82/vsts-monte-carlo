@@ -11,7 +11,7 @@ import {
 } from 'TFS/Work/Contracts';
 
 Injectable();
-export class IterationClient {
+export class ProjectSettingsClient {
     public getTeamIterations(): Promise<Iteration[]> {
         throw new Error('Method not implemented.');
     }

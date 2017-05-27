@@ -13,10 +13,10 @@ import {
 } from '../scripts/services/work-item-tracking.base';
 
 import {
-    IterationClient
-} from '../scripts/services/iteration.client.base';
+    ProjectSettingsClient
+} from '../scripts/services/project-settings.client.base';
 
-import { MockIterationClient } from './mocks/iteration.client';
+import { MockProjectSettingsClient } from './mocks/project-settings.client';
 import { MockWorkItemTrackingClient } from './mocks/work-item-tracking.client';
 
 @NgModule({
@@ -38,8 +38,8 @@ import { MockWorkItemTrackingClient } from './mocks/work-item-tracking.client';
             useClass: MockWorkItemTrackingClient
         },
         {
-            provide: IterationClient,
-            useClass: MockIterationClient
+            provide: ProjectSettingsClient,
+            useClass: MockProjectSettingsClient
         }
     ]
 })

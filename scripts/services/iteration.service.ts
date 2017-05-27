@@ -4,8 +4,8 @@ import {
 } from '@angular/core';
 
 import {
-    IterationClient
-} from './iteration.client.base';
+    ProjectSettingsClient
+} from './project-settings.client.base';
 
 import {
     Iteration
@@ -14,12 +14,12 @@ import {
 Injectable();
 export class IterationService {
 
-    private readonly iterationClient: IterationClient;
+    private readonly projectSettingsClient: ProjectSettingsClient;
 
     private iterations: Iteration[];
 
-    constructor(@Inject(IterationClient) iterationClient: IterationClient) {
-        this.iterationClient = iterationClient;
+    constructor(@Inject(ProjectSettingsClient) iterationClient: ProjectSettingsClient) {
+        this.projectSettingsClient = iterationClient;
     }
 
     public async getIterations(tillDate ? : Date): Promise < Iteration[] > {
@@ -27,7 +27,7 @@ export class IterationService {
             Promise.resolve(this.iterations);
         }
 
-        const iterations = await this.iterationClient.getTeamIterations();
+        const iterations = await this.projectSettingsClient.getTeamIterations();
 
         let result = iterations.map(it => {
             if(it.startDate && it.endDate) {

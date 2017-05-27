@@ -1,0 +1,54 @@
+{
+  "backlogIteration": {
+    "id": "eab9fc82-c06d-43f5-8ec1-0dd49736bc94",
+    "name": "VSTS Monte Carlo",
+    "path": "",
+    "url": "https://dummy.com.com/DefaultCollection/351cd541-a75b-46ac-9eed-1c64fd09acc4/_apis/wit/classificationNodes/Iterations"
+  },
+  "bugsBehavior": "asRequirements",
+  "workingDays": [
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday"
+  ],
+  "backlogVisibilities": {
+    "Microsoft.FeatureCategory": true,
+    "Microsoft.EpicCategory": false,
+    "Microsoft.RequirementCategory": true
+  },
+  "defaultIteration": {
+    "id": "97de67d5-fd6f-4af6-8fbd-1a66c001c2af",
+    "name": "Sprint 2",
+    "path": "\\Sprint 2",
+    "url": "https://dummy.com.com/DefaultCollection/351cd541-a75b-46ac-9eed-1c64fd09acc4/_apis/wit/classificationNodes/Iterations/Sprint%202"
+  },
+  "defaultIterationMacro": "@currentIteration",
+  "url": "https://dummy.com.com/DefaultCollection/351cd541-a75b-46ac-9eed-1c64fd09acc4/469172a1-0b0d-4a33-93f8-5464f76859d2/_apis/work/teamsettings",
+  "_links": {
+    "self": {
+      "href": "https://dummy.com.com/DefaultCollection/351cd541-a75b-46ac-9eed-1c64fd09acc4/469172a1-0b0d-4a33-93f8-5464f76859d2/_apis/work/teamsettings"
+    },
+    "project": {
+      "href": "https://dummy.com.com/DefaultCollection/_apis/projects/351cd541-a75b-46ac-9eed-1c64fd09acc4"
+    },
+    "team": {
+      "href": "https://dummy.com.com/DefaultCollection/_apis/projects/351cd541-a75b-46ac-9eed-1c64fd09acc4/teams/469172a1-0b0d-4a33-93f8-5464f76859d2"
+    },
+    "teamIterations": {
+      "href": "https://dummy.com.com/DefaultCollection/351cd541-a75b-46ac-9eed-1c64fd09acc4/469172a1-0b0d-4a33-93f8-5464f76859d2/_apis/work/teamsettings/iterations"
+    },
+    "teamFieldValues": {
+      "href": "https://dummy.com.com/DefaultCollection/351cd541-a75b-46ac-9eed-1c64fd09acc4/469172a1-0b0d-4a33-93f8-5464f76859d2/_apis/work/teamsettings/teamfieldvalues"
+    },
+    "classificationNode": [
+      {
+        "href": "https://dummy.com.com/DefaultCollection/351cd541-a75b-46ac-9eed-1c64fd09acc4/_apis/wit/classificationNodes/Iterations"
+      },
+      {
+        "href": "https://dummy.com.com/DefaultCollection/351cd541-a75b-46ac-9eed-1c64fd09acc4/_apis/wit/classificationNodes/Iterations/Sprint%202"
+      }
+    ]
+  }
+}

@@ -3,8 +3,8 @@ import {
 } from './iteration.service';
 
 import {
-    IterationClient
-} from './iteration.client.base';
+    ProjectSettingsClient
+} from './project-settings.client.base';
 
 import {
     Iteration, 
@@ -21,7 +21,7 @@ import * as sinon from 'sinon';
 
 describe('IterationService', () => {
 
-    let iterationClient = new IterationClient();
+    let projSettingsClient = new ProjectSettingsClient();
 
     let sandbox = sinon.sandbox.create();
     let iterationService: IterationService;
@@ -107,8 +107,8 @@ describe('IterationService', () => {
         });
 
         beforeEach(() => {
-            iterationService = new IterationService(iterationClient);
-            getIterationsStub = sandbox.stub(iterationClient, 'getTeamIterations').returns(Promise.resolve(response));
+            iterationService = new IterationService(projSettingsClient);
+            getIterationsStub = sandbox.stub(projSettingsClient, 'getTeamIterations').returns(Promise.resolve(response));
         });
 
         afterEach(() => {
@@ -143,7 +143,7 @@ describe('IterationService', () => {
     describe('Working days', () => {
 
         beforeAll(() => {
-            iterationService = new IterationService(iterationClient);
+            iterationService = new IterationService(projSettingsClient);
 
         });
 

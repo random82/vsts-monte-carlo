@@ -3,8 +3,8 @@ import {
 } from '@angular/core';
 
 import {
-    IterationClient
-} from './iteration.client.base';
+    ProjectSettingsClient
+} from './project-settings.client.base';
 
 import {DayOfWeek} from '../model/iteration';
 import * as SystemContracts from 'VSS/Common/Contracts/System';
@@ -14,7 +14,7 @@ import * as WorkContracts from 'TFS/Work/Contracts';
 import * as WorkClient from 'TFS/Work/RestClient';
 
 Injectable();
-export class TfsIterationClient extends IterationClient {
+export class TfsIterationClient extends ProjectSettingsClient {
 
     private readonly projectId: string;
     private readonly teamContext : CoreContracts.TeamContext;
