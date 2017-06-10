@@ -1,1 +1,22 @@
 <h1>Team calendar</h1>
+<div id="team-calendar">
+    <h2>Working days per sprint</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>Iteration name</td>
+                <td>Start date</td>
+                <td>End date</td>
+                <td># working days</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let iteration of Iterations">
+                <td><a href="{{iteration.url}}">{{iteration.name}}</a></td>
+                <td>{{iteration.startDate | date}}</td>
+                <td>{{iteration.endDate | date}}</td>
+                <td>{{iteration.workingDays}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

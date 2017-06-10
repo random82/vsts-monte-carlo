@@ -27,7 +27,15 @@ export class IterationService {
             Promise.resolve(this.iterations);
         }
 
-        const iterations = await this.projectSettingsClient.getTeamIterations();
+        let iterations = await this.projectSettingsClient.getTeamIterations();
+
+        iterations = iterations.map((it) => <Iteration>{
+            _links: it._links,
+            endDate: new Date(it.attributes.finishDate),
+            startDate: new Date(it.attributes.startDate),
+            name: it.name,
+            url: it.url
+        });
 
         let result = iterations.map(it => {
             if(it.startDate && it.endDate) {

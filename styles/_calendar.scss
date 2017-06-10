@@ -1,0 +1,17 @@
+#team-calendar {
+    table {
+        thead {
+            tr{
+                font-weight: 600;
+            }
+        }
+        tbody {
+            td {
+                width: 120px;
+            }
+            tr:hover { 
+                font-weight:bolder;
+            }
+        }
+    }
+}
