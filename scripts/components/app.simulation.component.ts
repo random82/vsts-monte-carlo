@@ -25,12 +25,15 @@ export class SimulationComponent implements OnInit{
 
     public NumberOfIterations: number;
 
+    public ShowItemCount: boolean;
+
     constructor(private workItemsService : WorkItemsService,
                 private simulationService : SimulationService,
                 private zone : NgZone,
                 private elementRef: ElementRef){
         this.CompletedWorkItemsCount = 0;
         this.InProgressWorkItemsCount = 0;
+        this.ShowItemCount = false;
         this.el = elementRef.nativeElement;
         this.simulationService.setup({
             iterations: 1000,
@@ -49,6 +52,7 @@ export class SimulationComponent implements OnInit{
                 this.CompletedWorkItemsCount = r[0].length;
                 this.InProgressWorkItems = r[1];
                 this.InProgressWorkItemsCount = r[1].length;
+                this.ShowItemCount = true;
             }); 
 
             let sprintLengths = [5, 5, 4, 5, 5, 5, 4];
