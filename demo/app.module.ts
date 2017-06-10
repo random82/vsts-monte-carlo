@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LandingComponent }  from '../scripts/components/app.landing.component';
 import { TaktTimeComponent }  from '../scripts/components/app.tt.component';
 import { SimulationComponent }  from '../scripts/components/app.simulation.component';
+import { CalendarComponent } from '../scripts/components/app.calendar.component';
 
 import { IterationService } from '../scripts/services/iteration.service';
 
@@ -24,7 +25,8 @@ import { MockWorkItemTrackingClient } from './mocks/work-item-tracking.client';
   declarations: [
         LandingComponent,
         TaktTimeComponent,
-        SimulationComponent
+        SimulationComponent,
+        CalendarComponent
     ],
     bootstrap: [
         LandingComponent

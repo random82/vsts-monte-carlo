@@ -21,6 +21,10 @@ import {
 } from './components/app.simulation.component';
 
 import {
+    CalendarComponent
+} from './components/app.calendar.component';
+
+import {
     WorkItemsService
 } from './services/work-items.service';
 
@@ -40,7 +44,8 @@ import {
     declarations: [
         LandingComponent,
         TaktTimeComponent,
-        SimulationComponent
+        SimulationComponent,
+        CalendarComponent
     ],
     bootstrap: [
         LandingComponent
