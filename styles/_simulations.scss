@@ -1,0 +1,19 @@
+#forecast-matrix { 
+    table {
+        td {
+            height: 40px;
+            width: 60px;
+            text-align: center;        
+        }
+
+        td:nth-child(2)
+        {
+            width: 300px; 
+            text-align:left;
+        }
+            
+        tr:hover { 
+            font-weight:bolder;
+        }
+    }
+}

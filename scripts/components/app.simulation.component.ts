@@ -73,7 +73,7 @@ export class SimulationComponent implements OnInit{
           .range(["red", "orange", "yellow" , "#05ff00", "#00c000"]);
               
         let tr = select(this.el)
-            .select('#forecast_matrix')
+            .select('#forecast-matrix')
             .append('table')
             .append('tbody')
             .selectAll('tr')
